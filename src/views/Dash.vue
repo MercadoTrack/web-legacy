@@ -1,43 +1,34 @@
 <template>
-  <div>
-    <v-toolbar app fixed clipped-left>
-      <v-toolbar-title>MercadoTrack</v-toolbar-title>
-    </v-toolbar>
-    <v-content>
-      <div class="cards-container-wrapper">
-        <v-container>
-          <v-layout>
-            <v-flex mb-3 pa-2 xs12 sm6 md4 xl3>
-              <v-text-field solo hide-details label="Buscar" append-icon="search" clearable @click:append="search"></v-text-field>
-            </v-flex>
-          </v-layout>
-          <v-layout wrap>
-            <template v-if="articles">
-              <v-flex xs12 sm6 md4 xl3 pa-2 v-for="article in articles" :key="article.id">
-                <ArticleCard :article="article" />
-              </v-flex>
-            </template>
-            <template v-else-if="searching">
-              <v-flex xs12 d-flex class="o-hidden">
-                <v-progress-circular color="primary" indeterminate height="2"></v-progress-circular>
-              </v-flex>
-            </template>
-            <v-flex xs12 mt-2>
-              <v-layout justify-center>
-                <v-pagination :length="totalPages" total-visible="6" v-model="page" :disabled="searching" @input="paginate"></v-pagination>
-              </v-layout>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </div>
-    </v-content>
-  </div>
+  <v-container>
+    <v-layout>
+      <v-flex mb-3 pa-2 xs12 sm6 md4 xl3>
+        <v-text-field solo hide-details label="Buscar" append-icon="search" clearable @click:append="search"></v-text-field>
+      </v-flex>
+    </v-layout>
+    <v-layout wrap>
+      <template v-if="articles">
+        <v-flex xs12 sm6 md4 xl3 pa-2 v-for="article in articles" :key="article.id">
+          <ArticleCard :article="article" />
+        </v-flex>
+      </template>
+      <template v-else-if="searching">
+        <v-flex xs12 d-flex mb-3 class="overflow-hidden">
+          <v-progress-circular color="primary" indeterminate height="2"></v-progress-circular>
+        </v-flex>
+      </template>
+      <v-flex xs12 mt-2>
+        <v-layout justify-center>
+          <v-pagination :length="totalPages" :total-visible="paginationTotalVisible" v-model="page" :disabled="searching" @input="paginate"></v-pagination>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 import axios from 'axios'
 import ArticleCard from '../components/ArticleCard.vue'
 
-const limit = 25
+const limit = 30
 
 export default {
   name: 'dash',
@@ -48,6 +39,11 @@ export default {
     page: 1,
     totalPages: 0
   }),
+  computed: {
+    paginationTotalVisible () {
+      return this.$vuetify.breakpoint.xs ? 4 : 6
+    }
+  },
   methods: {
     search () {
       this.page = 1
@@ -66,17 +62,17 @@ export default {
         this.totalPages = ~~(data.total / limit)
       })
     }
+  },
+  mounted () {
+    this.search()
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.cards-container-wrapper {
-  height: calc(100vh - 100px);
-  overflow: auto;
-}
-
-.o-hidden {
-  overflow: hidden;
+<style>
+@media only screen and (min-width: 1904px) {
+  .container {
+    max-width: 1500px;
+  }
 }
 </style>

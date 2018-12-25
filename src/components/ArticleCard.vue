@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-container fluid class="pa-0">
-      <v-img :src="url" aspect-ratio="1.25" :lazy-src="lazyUrl">
+      <v-img :src="url" aspect-ratio="1.3" :lazy-src="lazyUrl">
         <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
           <v-progress-circular indeterminate color="grey lighten-1"></v-progress-circular>
         </v-layout>

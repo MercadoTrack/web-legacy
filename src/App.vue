@@ -1,23 +1,28 @@
 <template>
   <v-app>
-    <router-view/>
-    <v-footer app class="px-4">
+    <v-toolbar app fixed clipped-left>
+      <v-toolbar-title>MercadoTrack</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <router-view/>
+    </v-content>
+    <v-footer app fixed class="px-4">
       <v-spacer></v-spacer>
       <span>MercadoTrack &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
 
-<style lang="scss">
-
+<style lang="css">
 html,
 body,
 #app {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
+}
+
+.v-content__wrap {
+  height: calc(100vh - 100px);
+  overflow: auto;
 }
 
 </style>
