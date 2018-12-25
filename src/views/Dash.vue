@@ -5,6 +5,7 @@
         <v-text-field solo hide-details label="Buscar" append-icon="search" clearable @click:append="search"></v-text-field>
       </v-flex>
     </v-layout>
+    <v-divider class="mb-3"></v-divider>
     <v-layout wrap>
       <template v-if="articles">
         <v-flex xs12 sm6 md4 xl3 pa-2 v-for="article in articles" :key="article.id">
