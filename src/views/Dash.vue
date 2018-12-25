@@ -1,8 +1,11 @@
 <template>
   <v-container>
-    <v-layout>
-      <v-flex mb-3 pa-2 xs12 sm6 md4 xl3>
-        <v-text-field solo hide-details label="Buscar" append-icon="search" clearable @click:append="search"></v-text-field>
+    <v-layout mt-3 mb-3 px-2 wrap>
+      <v-flex xs12 sm6 md4 xl3>
+        <v-text-field solo hide-details v-model="searchText" label="Buscar" @click:append="search" clearable append-icon="search"></v-text-field>
+      </v-flex>
+      <v-flex xs12 v-if="totalArticles">
+        <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">Mostrando {{ totalArticles }} articulos</h3>
       </v-flex>
     </v-layout>
     <v-divider class="mb-3"></v-divider>
@@ -35,9 +38,11 @@ export default {
   name: 'dash',
   components: { ArticleCard },
   data: () => ({
+    searchText: '',
     articles: null,
     searching: false,
     page: 1,
+    totalArticles: 0,
     totalPages: 0
   }),
   computed: {
@@ -49,17 +54,24 @@ export default {
     search () {
       this.page = 1
       this.totalPages = 0
-      this.paginate()
+      this.totalArticles = 0
+      // add this.searchText as a param when the API is working consistently for search pagination
+      this.paginate(this.page)
     },
-    paginate (pageNumber = 1) {
+    paginate (pageNumber = 1, search) {
       if (this.searching) return
       this.searching = true
       this.articles = null
       axios.get(`https://api.mercadotrack.com/articles`, {
-        params: { limit, skip: (pageNumber - 1) * limit }
+        params: {
+          search,
+          limit,
+          skip: (pageNumber - 1) * limit
+        }
       }).then(({ data }) => {
         this.searching = false
         this.articles = data.page
+        this.totalArticles = data.total
         this.totalPages = ~~(data.total / limit)
       })
     }

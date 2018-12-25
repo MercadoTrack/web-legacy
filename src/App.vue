@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar app fixed clipped-left>
-      <v-toolbar-title>MercadoTrack</v-toolbar-title>
+      <v-toolbar-title><router-link to="/">MercadoTrack</router-link></v-toolbar-title>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -23,6 +23,11 @@ body,
 .v-content__wrap {
   height: calc(100vh - 100px);
   overflow: auto;
+}
+
+.router-link-active {
+  text-decoration: none;
+  color: inherit;
 }
 
 </style>
