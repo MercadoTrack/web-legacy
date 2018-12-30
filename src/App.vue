@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar v-if="!isHome" app fixed clipped-left>
-      <v-toolbar-title><router-link to="/">MercadoTrack</router-link></v-toolbar-title>
-    </v-toolbar>
+    <ToolBar v-if="!isHome" />
     <router-view/>
     <Footer v-if="!isHome" />
   </v-app>
@@ -10,10 +8,11 @@
 
 <script>
 import Footer from './components/Footer.vue'
+import ToolBar from './components/ToolBar.vue'
 
 export default {
   name: 'app',
-  components: { Footer },
+  components: { Footer, ToolBar },
   computed: {
     isHome () { return this.$store.getters.isHome }
   }
