@@ -1,32 +1,34 @@
 <template>
-  <v-container>
-    <v-layout mt-3 mb-3 px-2 wrap>
-      <v-flex xs12 sm6 md4 xl3>
-        <v-text-field solo hide-details v-model="searchText" label="Buscar" @click:append="search" clearable append-icon="search"></v-text-field>
-      </v-flex>
-      <v-flex xs12 v-if="totalArticles">
-        <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">Mostrando {{ totalArticles }} articulos</h3>
-      </v-flex>
-    </v-layout>
-    <v-divider class="mb-3"></v-divider>
-    <v-layout wrap>
-      <template v-if="articles">
-        <v-flex xs12 sm6 md4 xl3 pa-2 v-for="article in articles" :key="article.id">
-          <ArticleCard :article="article" />
+  <v-content>
+    <v-container>
+      <v-layout mt-3 mb-3 px-2 wrap>
+        <v-flex xs12 sm6 md4 xl3>
+          <v-text-field solo hide-details v-model="searchText" label="Buscar" @click:append="search" clearable append-icon="search"></v-text-field>
         </v-flex>
-      </template>
-      <template v-else-if="searching">
-        <v-flex xs12 d-flex mb-3 class="overflow-hidden">
-          <v-progress-circular color="primary" indeterminate height="2"></v-progress-circular>
+        <v-flex xs12 v-if="totalArticles">
+          <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">Mostrando {{ totalArticles }} articulos</h3>
         </v-flex>
-      </template>
-      <v-flex xs12 mt-2>
-        <v-layout justify-center>
-          <v-pagination :length="totalPages" :total-visible="paginationTotalVisible" v-model="page" :disabled="searching" @input="paginate"></v-pagination>
-        </v-layout>
-      </v-flex>
-    </v-layout>
-  </v-container>
+      </v-layout>
+      <v-divider class="mb-3"></v-divider>
+      <v-layout wrap>
+        <template v-if="articles">
+          <v-flex xs12 sm6 md4 xl3 pa-2 v-for="article in articles" :key="article.id">
+            <ArticleCard :article="article" />
+          </v-flex>
+        </template>
+        <template v-else-if="searching">
+          <v-flex xs12 d-flex mb-3 class="overflow-hidden">
+            <v-progress-circular color="primary" indeterminate height="2"></v-progress-circular>
+          </v-flex>
+        </template>
+        <v-flex xs12 mt-2>
+          <v-layout justify-center>
+            <v-pagination :length="totalPages" :total-visible="paginationTotalVisible" v-model="page" :disabled="searching" @input="paginate"></v-pagination>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 <script>
 import axios from 'axios'

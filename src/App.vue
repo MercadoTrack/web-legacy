@@ -1,17 +1,24 @@
 <template>
   <v-app>
-    <v-toolbar app fixed clipped-left>
+    <v-toolbar v-if="!isHome" app fixed clipped-left>
       <v-toolbar-title><router-link to="/">MercadoTrack</router-link></v-toolbar-title>
     </v-toolbar>
-    <v-content>
-      <router-view/>
-    </v-content>
-    <v-footer app fixed class="px-4">
-      <v-spacer></v-spacer>
-      <span>MercadoTrack &copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    <router-view/>
+    <Footer v-if="!isHome" />
   </v-app>
 </template>
+
+<script>
+import Footer from './components/Footer.vue'
+
+export default {
+  name: 'app',
+  components: { Footer },
+  computed: {
+    isHome () { return this.$store.getters.isHome }
+  }
+}
+</script>
 
 <style lang="css">
 html,
@@ -20,7 +27,7 @@ body,
   overflow: hidden;
 }
 
-.v-content__wrap {
+.application--wrap > .v-content .v-content__wrap {
   height: calc(100vh - 100px);
   overflow: auto;
 }
