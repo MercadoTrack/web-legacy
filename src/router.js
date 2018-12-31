@@ -2,7 +2,7 @@ import Vue from 'vue'
 import store from './store'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Dash from './views/Dash.vue'
+import Browse from './views/Browse.vue'
 
 Vue.use(Router)
 
@@ -16,9 +16,9 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/dash',
-      name: 'dash',
-      component: Dash
+      path: '/navegar',
+      name: 'browse',
+      component: Browse
     }
   ]
 })

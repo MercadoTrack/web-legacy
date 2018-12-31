@@ -27,13 +27,21 @@ body,
 }
 
 .application--wrap > .v-content .v-content__wrap {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 100px); /* 100px header & footer */
   overflow: auto;
 }
 
 .router-link-active {
   text-decoration: none;
   color: inherit;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.text-right {
+  text-align: right;
 }
 
 </style>
