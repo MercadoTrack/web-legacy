@@ -8,10 +8,12 @@
         <v-flex xs12>
           <v-text-field
             solo
-            hide-details
             v-model="searchText"
             label="Buscar o pegar link"
             clearable
+            :rules="searchRules"
+            @keyup.enter="search"
+            @click:append="search"
             append-icon="search"></v-text-field>
           <div class="mt-1 text-xs-right">
             <router-link to="/navegar" class="subheading pointer accent--text">Ver todos</router-link>
@@ -23,11 +25,39 @@
 </template>
 
 <script>
+import http from '../http.js'
+
+const isLink = str => /https:\/\//ig.test(str)
+
 export default {
   name: 'home',
   data: () => ({
-    searchText: ''
-  })
+    searchText: '',
+    searchRules: [
+      str => {
+        if (isLink(str)) {
+          const [ id ] = str.match(/(MLA-\d+)/ig) || []
+          if (!id) {
+            return 'Not a valid link'
+          }
+        }
+        return true
+      }
+    ]
+  }),
+  methods: {
+    search () {
+      if (isLink(this.searchText)) {
+        const [ id ] = this.searchText.match(/(MLA-\d+)/ig) || []
+        if (id) {
+          http.get(`/articles/${id.replace('-', '')}`)
+            .then(res => {
+              console.log(res)
+            })
+        }
+      }
+    }
+  }
 }
 </script>
 
