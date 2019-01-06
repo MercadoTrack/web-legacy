@@ -31,7 +31,7 @@
   </v-content>
 </template>
 <script>
-import axios from 'axios'
+import http from '../http.js'
 import ArticleCard from '../components/ArticleCard.vue'
 
 const limit = 30
@@ -64,7 +64,7 @@ export default {
       if (this.searching) return
       this.searching = true
       this.articles = null
-      axios.get(`https://api.mercadotrack.com/articles`, {
+      http.get(`articles`, {
         params: {
           search,
           limit,
