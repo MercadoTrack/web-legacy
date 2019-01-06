@@ -19,16 +19,23 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
 html,
 body,
 #app {
   overflow: hidden;
 }
 
-.application--wrap > .v-content .v-content__wrap {
-  height: calc(100vh - 100px); /* 100px header & footer */
-  overflow: auto;
+.application--wrap > .v-content {
+  .v-content__wrap {
+    height: calc(100vh - 100px); /* 100px header & footer */
+    overflow: auto;
+  }
+  &.full-height {
+    .v-content__wrap {
+      height: 100vh;
+    }
+  }
 }
 
 .router-link-active {
@@ -38,10 +45,6 @@ body,
 
 .pointer {
   cursor: pointer;
-}
-
-.text-right {
-  text-align: right;
 }
 
 </style>

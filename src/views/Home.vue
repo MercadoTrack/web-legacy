@@ -1,20 +1,25 @@
 <template>
-  <div class="home">
-    <v-layout class="bg">
-      <v-flex align-self-center offset-sm2 sm8 offset-xs1 xs10 class="inner">
-        <v-text-field
-          solo
-          hide-details
-          v-model="searchText"
-          label="Buscar o pegar link"
-          clearable
-          append-icon="search"></v-text-field>
-        <div class="mt-1 text-right">
-          <router-link to="/navegar" class="subheading pointer accent--text">Ver todos</router-link>
-        </div>
-      </v-flex>
-    </v-layout>
-  </div>
+  <v-content class="home full-height">
+    <v-container justify-start>
+      <v-layout column justify-start wrap>
+        <v-flex xs12>
+          <img src="../assets/mtrack_promo.svg" alt="">
+        </v-flex>
+        <v-flex xs12>
+          <v-text-field
+            solo
+            hide-details
+            v-model="searchText"
+            label="Buscar o pegar link"
+            clearable
+            append-icon="search"></v-text-field>
+          <div class="mt-1 text-xs-right">
+            <router-link to="/navegar" class="subheading pointer accent--text">Ver todos</router-link>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -27,20 +32,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$magic-number: 685px;
 .home {
-  height: 100%;
-  width: 100%;
   background-color: #fde500; // TODO: create variables file
 }
-.bg {
+.container {
   height: 100%;
-  width: 100%;
-  max-width: 768px;
-  margin: auto;
-  background: url("../assets/mtrack_promo.svg") no-repeat;
-  background-position: 0 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.inner {
-  padding-top: 200px;
+.layout {
+  padding: 50px 20% 0 20%;
+}
+@media screen and (max-height: $magic-number) {
+  .layout {
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    .flex {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 }
 </style>
