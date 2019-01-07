@@ -12,7 +12,7 @@
       <v-divider class="mb-3"></v-divider>
       <v-layout wrap>
         <template v-if="articles">
-          <v-flex xs12 sm6 md4 xl3 pa-4 v-for="article in articles" :key="article.id">
+          <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in articles" :key="article.id">
             <ArticleCard :article="article" />
           </v-flex>
         </template>
