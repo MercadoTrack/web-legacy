@@ -47,4 +47,8 @@ body,
   cursor: pointer;
 }
 
+.strike-through {
+  text-decoration: line-through;
+}
+
 </style>
