@@ -75,6 +75,9 @@ export default {
     discountColor () {
       return this.discount > 0 ? 'red' : 'green'
     },
+    isLiar () {
+      return this.article.originalPrice && this.article.originalPrice !== this.previousPrice
+    },
     url () {
       return this.article.images[0] || ''
     },
