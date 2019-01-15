@@ -49,7 +49,7 @@ export default {
   }),
   computed: {
     paginationTotalVisible () {
-      return this.$vuetify.breakpoint.xs ? 4 : 6
+      return this.$vuetify.breakpoint.xs ? 4 : 7
     }
   },
   methods: {
@@ -71,14 +71,19 @@ export default {
           skip: (pageNumber - 1) * limit
         }
       }).then(({ data }) => {
+        if (search) this.$router.push({ query: { busqueda: search } })
+        else this.$router.push({ query: {} })
         this.searching = false
         this.articles = data.page
         this.totalArticles = data.total
-        this.totalPages = ~~(data.total / limit)
+        const realTotalPages = ~~(data.total / limit)
+        const truncatedTotalPages = this.page + 10
+        this.totalPages = Math.min(truncatedTotalPages, realTotalPages)
       })
     }
   },
   mounted () {
+    this.searchText = this.$route.query.busqueda
     this.search()
   }
 }

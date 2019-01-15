@@ -55,6 +55,8 @@ export default {
               console.log(res)
             })
         }
+      } else {
+        this.$router.push(`/navegar?busqueda=${this.searchText}`)
       }
     }
   }

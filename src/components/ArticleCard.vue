@@ -24,7 +24,7 @@
           </v-flex>
         </v-card-title>
         <v-card-actions>
-          <div class="px-3 primary--text d-flex text-uppercase font-weight-medium">
+          <div class="px-2 d-flex text-uppercase font-weight-medium">
             Historial <div class="ml-1 v-badge__badge primary d-flex">{{ article.history.length }}</div>
           </div>
           <v-spacer></v-spacer>
