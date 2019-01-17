@@ -7,6 +7,7 @@
         </v-flex>
         <v-flex xs12>
           <v-text-field
+            class="search"
             solo
             v-model="searchText"
             label="Buscar o pegar link"
@@ -15,7 +16,7 @@
             @keyup.enter="search"
             @click:append="search"
             append-icon="search"></v-text-field>
-          <div class="mt-1 text-xs-right">
+          <div class="mt-1 text-xs-right search">
             <router-link to="/navegar" class="subheading pointer accent--text">Ver todos</router-link>
           </div>
         </v-flex>
@@ -76,6 +77,10 @@ $magic-number: 685px;
 }
 .layout {
   padding: 50px 20% 0 20%;
+}
+.search {
+  max-width: 500px;
+  margin: 0 auto;
 }
 @media screen and (max-height: $magic-number) {
   .layout {
