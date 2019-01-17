@@ -2,7 +2,7 @@
   <div>
     <v-card>
       <v-container fluid class="pa-0">
-        <v-img :src="url" contain aspect-ratio="1.3" :lazy-src="lazyUrl">
+        <v-img :src="imageUrl" contain aspect-ratio="1.3" :lazy-src="lazyImageUrl">
           <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
             <v-progress-circular indeterminate color="grey lighten-1"></v-progress-circular>
           </v-layout>
@@ -11,7 +11,7 @@
           <v-flex xs12>
             <h4 class="headline mb-0">
               <span class="mr-1">${{ price }}</span>
-              <span class="subheading grey--text strike-through" v-if="previousPrice != price">${{ previousPrice }}</span>
+              <span class="subheading grey--text strike-through" v-if="previousPrice && previousPrice != price">${{ previousPrice }}</span>
               <span v-if="discount" class="body-1 ml-auto mr-2" :style="{ color: discountColor }">
                 <v-icon v-if="discount > 0" :color="discountColor" small>arrow_upward</v-icon>
                 <v-icon v-if="discount < 0" :color="discountColor" small>arrow_downward</v-icon
@@ -78,11 +78,12 @@ export default {
     isLiar () {
       return this.article.originalPrice && this.article.originalPrice !== this.previousPrice
     },
-    url () {
-      return this.article.images[0] || ''
+    imageUrl () {
+      const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
+      return this.article.images[0] || fallback
     },
-    lazyUrl () {
-      return this.url.replace('-O.jpg', '-I.jpg')
+    lazyImageUrl () {
+      return this.imageUrl.replace('-O.jpg', '-I.jpg')
     }
   },
   methods: {
