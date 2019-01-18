@@ -3,7 +3,7 @@
     <v-container>
       <v-layout mt-3 mb-3 px-2 wrap>
         <v-flex xs12 sm6 md4 xl3>
-          <v-text-field solo hide-details v-model="searchText" label="Buscar" @click:append="search" clearable append-icon="search"></v-text-field>
+          <v-text-field solo hide-details v-model="searchText" label="Buscar" @click:append="search" @keyup.enter="search" clearable append-icon="search"></v-text-field>
         </v-flex>
         <v-flex xs12 v-if="totalArticles">
           <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">Mostrando {{ totalArticles }} articulos</h3>
@@ -57,8 +57,7 @@ export default {
       this.page = 1
       this.totalPages = 0
       this.totalArticles = 0
-      // add this.searchText as a param when the API is working consistently for search pagination
-      this.paginate(this.page)
+      this.paginate(this.page, this.searchText)
     },
     paginate (pageNumber = 1, search) {
       if (this.searching) return
@@ -77,7 +76,7 @@ export default {
         this.articles = data.page
         this.totalArticles = data.total
         const realTotalPages = ~~(data.total / limit)
-        const truncatedTotalPages = this.page + 10
+        const truncatedTotalPages = this.page + 9
         this.totalPages = Math.min(truncatedTotalPages, realTotalPages)
       })
     }
