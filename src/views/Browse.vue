@@ -2,19 +2,19 @@
   <v-content>
     <v-container>
       <v-layout mt-3 mb-3 px-2 wrap>
-        <v-flex xs6 md4 xl3>
+        <v-flex xs12 md4 xl3>
           <v-text-field solo
             hide-details
             v-model="searchText"
             label="Buscar"
             @click:append="search"
             @keyup.enter="search"
-            :clear-icon-cb="clear"
+            @click:clear="clear"
             clearable
             append-icon="search"
           ></v-text-field>
         </v-flex>
-        <v-flex xs6 md8 xl9 class="total-articles" v-if="totalArticles">
+        <v-flex xs12 md8 xl9 class="total-articles mt-2" v-if="totalArticles">
           <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">{{ totalArticles }} articulos encontrados</h3>
         </v-flex>
       </v-layout>
