@@ -28,7 +28,7 @@
             Historial <div class="ml-1 v-badge__badge primary d-flex">{{ article.history.length }}</div>
           </div>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="dialog = true"><v-icon>share</v-icon></v-btn>
+          <v-btn flat color="primary" @click="dialog = true" disabled><v-icon>share</v-icon></v-btn>
         </v-card-actions>
       </v-container>
     </v-card>
