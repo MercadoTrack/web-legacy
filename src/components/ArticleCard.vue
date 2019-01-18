@@ -28,13 +28,29 @@
             Historial <div class="ml-1 v-badge__badge primary d-flex">{{ article.history.length }}</div>
           </div>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="dialog = true" disabled><v-icon>share</v-icon></v-btn>
+          <v-btn flat color="primary" @click="dialog = true"><v-icon>share</v-icon></v-btn>
         </v-card-actions>
       </v-container>
     </v-card>
     <v-dialog v-model="dialog" width="300">
       <v-card>
         <v-container>
+          <v-card-title primary-title class="pt-3">
+            <v-flex xs12>
+              <h4 class="headline mb-0">
+                <span class="mr-1">${{ price }}</span>
+                <span class="subheading grey--text strike-through" v-if="previousPrice && previousPrice != price">${{ previousPrice }}</span>
+                <span v-if="discount" class="body-1 ml-auto mr-2" :style="{ color: discountColor }">
+                  <v-icon v-if="discount > 0" :color="discountColor" small>arrow_upward</v-icon>
+                  <v-icon v-if="discount < 0" :color="discountColor" small>arrow_downward</v-icon
+                  >{{ Math.abs(discount) }}%
+                </span>
+              </h4>
+            </v-flex>
+            <v-flex xs12>
+              <p class="subheading ma-0 article-title">{{ article.title }}</p>
+            </v-flex>
+          </v-card-title>
           <v-layout height="100" justify-center>
             <v-card-actions>
               <v-flex xs4>
