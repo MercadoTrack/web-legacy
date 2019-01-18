@@ -2,11 +2,11 @@
   <v-content>
     <v-container>
       <v-layout mt-3 mb-3 px-2 wrap>
-        <v-flex xs12 sm6 md4 xl3>
+        <v-flex xs6 md4 xl3>
           <v-text-field solo hide-details v-model="searchText" label="Buscar" @click:append="search" @keyup.enter="search" clearable append-icon="search"></v-text-field>
         </v-flex>
-        <v-flex xs12 v-if="totalArticles">
-          <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">Mostrando {{ totalArticles }} articulos</h3>
+        <v-flex xs6 md8 xl9 class="total-articles" v-if="totalArticles">
+          <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">{{ totalArticles }} articulos encontrados</h3>
         </v-flex>
       </v-layout>
       <v-divider class="mb-3"></v-divider>
@@ -93,5 +93,10 @@ export default {
   .container {
     max-width: 1500px;
   }
+}
+.total-articles {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 </style>
