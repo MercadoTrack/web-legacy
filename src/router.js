@@ -1,10 +1,12 @@
 import Vue from 'vue'
+import store from './store'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Browse from './views/Browse.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -12,6 +14,18 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/navegar',
+      name: 'browse',
+      component: Browse
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  store.commit('navigate', to.name)
+  next()
+})
+
+export default router
