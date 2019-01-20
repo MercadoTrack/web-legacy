@@ -1,7 +1,9 @@
 <template>
   <v-toolbar app fixed clipped-left color="secondary">
     <v-toolbar-title>
-      <router-link to="/" tag="div" class="brand pointer"></router-link>
+      <router-link to="/" tag="div" class="brand-wrapper pointer">
+        <div class="brand"></div>
+      </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
@@ -14,8 +16,13 @@
 
 <style scoped>
 .brand {
+  background-image: url('../assets/mtrack_icon.svg');
+  width: 100%;
+  height: 100%;
+}
+.brand-wrapper {
   height: 64px;
   width: 64px;
-  background-image: url('../assets/mtrack_icon.svg');
+  padding: 7px;
 }
 </style>
