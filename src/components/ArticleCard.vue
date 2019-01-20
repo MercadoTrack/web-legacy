@@ -9,6 +9,9 @@
         </v-img>
         <v-card-title class="pointer" primary-title @click="goToArticle">
           <v-flex xs12>
+            <p class="subheading ma-0 article-title">{{ article.title }}</p>
+          </v-flex>
+          <v-flex xs12>
             <h4 class="headline mb-0">
               <span class="mr-1">${{ price }}</span>
               <span class="subheading grey--text strike-through" v-if="previousPrice && previousPrice != price">${{ previousPrice }}</span>
@@ -18,9 +21,6 @@
                 >{{ Math.abs(discount) }}%
               </span>
             </h4>
-          </v-flex>
-          <v-flex xs12>
-            <p class="subheading ma-0 article-title">{{ article.title }}</p>
           </v-flex>
         </v-card-title>
         <v-card-actions>
