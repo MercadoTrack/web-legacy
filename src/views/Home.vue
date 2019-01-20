@@ -82,7 +82,7 @@ export default {
   max-width: 700px;
   margin: auto auto 0 auto;
   width: 100%;
-  @media (orientation: landscape) {
+  @media (orientation: landscape) and (max-height: 500px) {
     max-width: 300px;
   }
 }
@@ -93,7 +93,7 @@ export default {
     margin: auto;
     max-width: 500px;
     padding: 0 15px;
-    @media (orientation: landscape) {
+    @media (orientation: landscape) and (max-height: 500px) {
       max-width: 265px;
     }
   }

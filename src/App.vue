@@ -23,19 +23,8 @@ export default {
 html,
 body,
 #app {
-  overflow: hidden;
-}
-
-.application--wrap > .v-content {
-  .v-content__wrap {
-    height: calc(100vh - 100px); /* 100px header & footer */
-    overflow: auto;
-  }
-  &.full-height {
-    .v-content__wrap {
-      height: 100vh;
-    }
-  }
+  overflow: auto;
+  height: 100vh;
 }
 
 .router-link-active {
