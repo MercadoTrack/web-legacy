@@ -1,28 +1,26 @@
 <template>
-  <v-content class="home full-height">
-    <v-container justify-start>
-      <v-layout column justify-start wrap>
-        <v-flex xs12>
-          <img src="../assets/mtrack_promo.svg" alt="">
-        </v-flex>
-        <v-flex xs12>
-          <v-text-field
-            class="search"
-            solo
-            v-model="searchText"
-            label="Buscar o pegar link"
-            clearable
-            :rules="searchRules"
-            @keyup.enter="search"
-            @click:append="search"
-            append-icon="search"></v-text-field>
-          <div class="mt-1 text-xs-right search">
-            <router-link to="/navegar" class="subheading pointer accent--text">Ver todos</router-link>
-          </div>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-content>
+  <div class="home">
+    <figure class="promo-container">
+      <img src="../assets/mtrack_promo.svg" alt="">
+    </figure>
+    <div class="search-wrapper text-xs-right">
+      <div class="search-container">
+        <v-text-field
+          class="mb-1"
+          solo
+          v-model="searchText"
+          label="Buscar o pegar link"
+          clearable
+          hide-details
+          :rules="searchRules"
+          @keyup.enter="search"
+          @click:append="search"
+          append-icon="search"
+        ></v-text-field>
+        <router-link to="/navegar" class="subheading pointer accent--text">Ver todos</router-link>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -65,34 +63,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$magic-number: 685px;
 .home {
   background-color: #fde500; // TODO: create variables file
-}
-.container {
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-content: center;
   justify-content: center;
 }
-.layout {
-  padding: 50px 20% 0 20%;
+.subheading {
+  text-decoration: none;
 }
-.search {
-  max-width: 500px;
-  margin: 0 auto;
+.promo-container,
+.search-wrapper {
+  padding: 0 10px;
 }
-@media screen and (max-height: $magic-number) {
-  .layout {
-    padding: 0;
-    justify-content: center;
-    align-items: center;
-    .flex {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+.promo-container {
+  max-width: 700px;
+  margin: auto auto 0 auto;
+  width: 100%;
+  @media (orientation: landscape) {
+    max-width: 300px;
+  }
+}
+.search-wrapper {
+  text-align: center;
+  margin: 0 0 auto 0;
+  .search-container {
+    margin: auto;
+    max-width: 500px;
+    padding: 0 15px;
+    @media (orientation: landscape) {
+      max-width: 265px;
     }
   }
 }
+
 </style>
