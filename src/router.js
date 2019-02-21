@@ -3,6 +3,7 @@ import store from './store'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Browse from './views/Browse.vue'
+import Stats from './views/Stats'
 
 Vue.use(Router)
 
@@ -19,6 +20,11 @@ const router = new Router({
       path: '/navegar',
       name: 'browse',
       component: Browse
+    },
+    {
+      path: '/stats',
+      name: 'stats',
+      component: Stats
     }
   ]
 })

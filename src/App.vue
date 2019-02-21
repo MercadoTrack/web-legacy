@@ -40,4 +40,8 @@ body,
   text-decoration: line-through;
 }
 
+.v-treeview-node__label {
+  font-size: 16px;
+}
+
 </style>
