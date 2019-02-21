@@ -13,9 +13,13 @@
             <v-flex xs12>
               <v-divider class="my-4"></v-divider>
               <v-card>
-                <v-card-title><h4>Progress</h4></v-card-title>
+                <v-card-title><h4>Sync Progress</h4></v-card-title>
                 <v-divider></v-divider>
                 <v-list>
+                  <v-list-tile>
+                    <v-list-tile-content>Completion:</v-list-tile-content>
+                    <v-list-tile-content class="align-end text-xs-right">{{ percentage }} %</v-list-tile-content>
+                  </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content>Time Running:</v-list-tile-content>
                     <v-list-tile-content class="align-end text-xs-right">{{ timeRunning }} minutes</v-list-tile-content>
@@ -61,7 +65,7 @@ export default {
     this.interval = setInterval(() => {
       http.get('/sync').then(({ data }) => {
         const [ , processed, total ] = data.progress.progress.match(/(\d+)\/(\d+)/)
-        this.percentage = +processed * 100 / +total
+        this.percentage = new Intl.NumberFormat('de-DE').format((+processed * 100 / +total).toFixed(3))
         this.total = new Intl.NumberFormat('de-DE').format(+total)
         this.processed = new Intl.NumberFormat('de-DE').format(+processed)
         this.etc = data.progress.etc
@@ -73,7 +77,7 @@ export default {
           children: this.errors.reduce((acc, error) => [...acc, { name: error }], [])
         }]
       })
-    }, 5000)
+    }, 4000)
   },
   destroyed () {
     clearInterval(this.interval)
