@@ -24,7 +24,7 @@
                     <v-list-tile-content>Estimated Time of Completion:</v-list-tile-content>
                     <v-list-tile-content class="align-end text-xs-right">~{{ etc }} minutes</v-list-tile-content>
                   </v-list-tile>
-                  <div class="px-2">
+                  <div class="px-3" :style="{ 'margin-left': errors.length ? '-6px' : '-30px' }">
                     <v-treeview :items="errorsTree">
                       <template slot="prepend" slot-scope="{ item }" leaf>
                         <v-icon v-if="!item.children">error</v-icon>
