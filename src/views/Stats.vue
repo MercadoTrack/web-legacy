@@ -2,7 +2,7 @@
   <v-content>
     <v-container>
       <v-layout wrap justify-center>
-        <v-progress-circular v-if="false" color="info" indeterminate></v-progress-circular>
+        <v-progress-circular v-if="!etc" color="info" indeterminate></v-progress-circular>
         <v-flex v-else xs12>
           <v-progress-linear color="info" height="10" :value="percentage"></v-progress-linear>
           <v-layout wrap justify-center>
@@ -73,7 +73,7 @@ export default {
           children: this.errors.reduce((acc, error) => [...acc, { name: error }], [])
         }]
       })
-    }, 1000)
+    }, 5000)
   },
   destroyed () {
     clearInterval(this.interval)
