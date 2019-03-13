@@ -7,9 +7,9 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn flat disabled><span class="hidden-xs-only">Ofertas</span> <v-icon class="ml-1">whatshot</v-icon></v-btn>
-      <v-btn flat disabled><span class="hidden-xs-only">Favoritos</span> <v-icon class="ml-1">star</v-icon></v-btn>
-      <v-btn flat disabled><span class="hidden-xs-only">Mi cuenta</span> <v-icon class="ml-1">person</v-icon></v-btn>
+      <v-btn flat disabled><v-icon class="mr-1 hidden-sm-and-up">whatshot</v-icon><span class="hidden-xs-only font-weight-light">Ofertas</span></v-btn>
+      <v-btn flat disabled><v-icon class="mr-1 hidden-sm-and-up">star</v-icon><span class="hidden-xs-only font-weight-light">Favoritos</span></v-btn>
+      <v-btn flat disabled><v-icon class="mr-1 hidden-sm-and-up">person</v-icon><span class="hidden-xs-only font-weight-light">Mi cuenta</span></v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -24,5 +24,13 @@
   height: 64px;
   width: 64px;
   padding: 7px;
+}
+
+.v-btn {
+  text-transform: none;
+}
+
+span {
+  font-size: 16px;
 }
 </style>
