@@ -10,8 +10,11 @@
               <v-layout fill-height>
                 <v-flex xs12 align-end flexbox>
                   <span class="headline" :class="`display-${hover ? 'true' : 'none'}`">
-                    <v-btn icon color="white" light @click="dialog = true"><v-icon color="primary">share</v-icon></v-btn>
-                    <v-btn icon color="white" @click="dialog = true"><v-icon color="primary">favorite_border</v-icon></v-btn>
+                    <v-btn class="ma-0" icon @click="dialog = true"><v-icon color="primary">share</v-icon></v-btn>
+                    <v-btn class="ma-0" icon @click="favorite = !favorite">
+                      <v-icon v-if="favorite" color="primary">favorite</v-icon>
+                      <v-icon v-else color="primary">favorite_border</v-icon>
+                    </v-btn>
                   </span>
                 </v-flex>
               </v-layout>
@@ -20,25 +23,44 @@
               <v-progress-circular indeterminate color="grey lighten-1"></v-progress-circular>
             </v-layout>
           </v-img>
-          <v-card-title class="pointer" primary-title @click="goToArticle">
-            <v-flex xs12 :class="`display-${hover ? 'true' : 'none'}`">
-              <p class="subheading article-title grey--text">{{ article.title }}</p>
-            </v-flex>
-            <v-flex xs12>
-              <h4 class="headline mb-0">
-                <span class="mr-1">${{ price }}</span>
-                <span class="subheading grey--text strike-through" v-if="previousPrice && previousPrice != price">${{ previousPrice }}</span>
-                <span v-if="discount" class="body-1 ml-auto mr-2" :style="{ color: discountColor }">
-                  <v-icon v-if="discount > 0" :color="discountColor" small>arrow_upward</v-icon>
-                  <v-icon v-if="discount < 0" :color="discountColor" small>arrow_downward</v-icon
-                  >{{ Math.abs(discount) }}%
-                </span>
-              </h4>
-            </v-flex>
-          </v-card-title>
+          <v-divider light></v-divider>
+          <v-card-text
+            style="position: relative;"
+          >
+            <v-card-title class="pointer" primary-title @click="goToArticle">
+              <v-btn
+                absolute
+                color="white"
+                class="green--text border"
+                depressed
+                fab
+                small
+                right
+                top
+                >
+                <v-icon>local_shipping</v-icon>
+              </v-btn>
+
+              <v-flex xs12 :class="`display-${hover || $vuetify.breakpoint.smAndDown ? 'true' : 'none'}`">
+                <p class="subheading font-weight-light article-title grey--text">{{ article.title }}</p>
+              </v-flex>
+              <v-flex xs12>
+                <h4 class="headline mb-0">
+                  <span class="mr-1">${{ price }}</span>
+                  <span class="subheading grey--text strike-through" v-if="previousPrice && previousPrice != price">${{ previousPrice }}</span>
+                  <span v-if="discount" class="body-1 ml-auto mr-2" :style="{ color: discountColor }">
+                    <v-icon v-if="discount > 0" :color="discountColor" small>arrow_upward</v-icon>
+                    <v-icon v-if="discount < 0" :color="discountColor" small>arrow_downward</v-icon
+                    >{{ Math.abs(discount) }}%
+                  </span>
+                </h4>
+              </v-flex>
+            </v-card-title>
+          </v-card-text>
+
           <v-card-actions>
-            <div class="px-2 d-flex text-uppercase font-weight-medium">
-              Historial <div class="ml-1 v-badge__badge primary d-flex">{{ article.history.length }}</div>
+            <div class="px-2 d-flex text_normal subheading font-weight-light">
+              Ver historial<div class="ml-1 v-badge__badge primary d-flex">{{ article.history.length }}</div>
             </div>
             <v-spacer></v-spacer>
           </v-card-actions>
@@ -88,7 +110,8 @@ export default {
   name: 'article-card',
   props: [ 'article' ],
   data: () => ({
-    dialog: false
+    dialog: false,
+    favorite: false,
   }),
   computed: {
     price () {
@@ -157,4 +180,25 @@ export default {
 .headline {
   justify-content: flex-end;
 }
+
+.border {
+  border-color: lightgray!important;
+  border: 1px solid;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-style: solid;
+  border-left-width: 1px;
+  background: white!important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.text_normal {
+  text-transform: none;
+}
+
 </style>

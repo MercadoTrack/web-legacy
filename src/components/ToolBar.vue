@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar extended app fixed clipped-left color="secondary" :class="{'pa-0': $vuetify.breakpoint.smAndDown, 't-pa': $vuetify.breakpoint.mdAndUp}">
+  <v-toolbar extended app fixed clipped-left color="secondary" :class="{'pa-0': $vuetify.breakpoint.smAndDown, 't-pa': $vuetify.breakpoint.mdAndUp, 'order-5': true}">
     
     <v-toolbar-title>
       <router-link to="/" tag="div" class="brand-wrapper pointer">
@@ -10,9 +10,9 @@
     <v-flex offset-xs1 xs9 offset-sm1 sm9 md6 lg6 xl6>
       <v-text-field
         append-icon="search"
-        class="mt-2 mx-0"
+        class="mt-2 mx-0 grey--text"
         :class="{'mt-3': $vuetify.breakpoint.smAndDown}"
-        label="Buscar"
+        label="Buscar o pegar link"
         solo
       ></v-text-field>
     </v-flex>
@@ -50,5 +50,9 @@ span {
 
 .t-pa {
   padding: 0rem 15rem 0rem 15rem!important;
+}
+
+.order-5 {
+  z-index: 5;
 }
 </style>
