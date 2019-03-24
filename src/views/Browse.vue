@@ -22,7 +22,7 @@
       <v-layout wrap>
         <template v-if="articles">
           <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in articles" :key="article.id">
-            <ArticleCard :article="article" />
+            <ArticleCard :article="article"/>
           </v-flex>
         </template>
         <template v-else-if="searching">

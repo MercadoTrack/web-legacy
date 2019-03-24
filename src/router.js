@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Browse from './views/Browse.vue'
 import Stats from './views/Stats'
+import Article from './views/Article'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ const router = new Router({
       path: '/stats',
       name: 'stats',
       component: Stats
+    },
+    {
+      path: '/article',
+      name: 'article',
+      component: Article
     }
   ]
 })
