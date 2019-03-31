@@ -14,7 +14,7 @@
             append-icon="search"
           ></v-text-field>
         </v-flex>
-        <v-flex xs12 md8 xl9 class="total-articles mt-2" v-if="totalArticles">
+        <v-flex xs12 md8 xl9 class="total-articles mt-2" v-if="false">
           <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">{{ totalArticles }} articulos encontrados</h3>
         </v-flex>
       </v-layout>
