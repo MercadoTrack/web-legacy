@@ -53,7 +53,7 @@
           </v-flex>
 
           <v-flex xs8 class="br">
-            
+            <Chart />
           </v-flex>
 
           <v-flex xs4 pa-4>
@@ -67,10 +67,11 @@
 </template>
 
 <script>
-//import Chart from '../components/Chart'
+import Chart from '../components/Chart'
 
   export default {
     data: () => ({
+      components: { Chart },
       breadcrumbItems: [
         {
           text: 'Todos los artículos',
