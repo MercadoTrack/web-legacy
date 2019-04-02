@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-hover>
-      <v-card 
+      <v-card
         slot-scope="{ hover }"
         :class="`elevation-${hover ? 12 : 2}`">
         <v-container fluid class="pa-0">
@@ -111,7 +111,7 @@ export default {
   props: [ 'article' ],
   data: () => ({
     dialog: false,
-    favorite: false,
+    favorite: false
   }),
   computed: {
     price () {

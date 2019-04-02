@@ -1,6 +1,6 @@
 <template>
   <v-toolbar extended app fixed clipped-left color="secondary" :class="{'pa-0': $vuetify.breakpoint.smAndDown, 't-pa': $vuetify.breakpoint.mdAndUp, 'order-5': true}">
-    
+
     <v-toolbar-title>
       <router-link to="/" tag="div" class="brand-wrapper pointer">
         <div class="brand"></div>
