@@ -70,8 +70,8 @@
 import Chart from '../components/Chart'
 
   export default {
+    components: { Chart },
     data: () => ({
-      components: { Chart },
       breadcrumbItems: [
         {
           text: 'Todos los artículos',
