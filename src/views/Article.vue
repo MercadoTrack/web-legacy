@@ -9,7 +9,7 @@
           </v-flex>
 
           <v-flex xs8 class="br">
-            <v-img src="https://http2.mlstatic.com/zapatillas-nike-mujer-D_NQ_NP_641620-MLA29462177708_022019-F.webp"></v-img>
+            <v-img class="mx-5" src="https://http2.mlstatic.com/zapatillas-nike-mujer-D_NQ_NP_641620-MLA29462177708_022019-F.webp"></v-img>
 
             <v-container fluid pt-0>
               <v-layout>
@@ -40,12 +40,45 @@
 
           <v-flex xs4 pa-4>
             <v-list two-line subheader>
-              <span class="display-1">Zapatillas Nike Mujer Air Max Dia - 6302</span>
+              <span class="display-1">Zapatillas Nike Mujer Air Max Dia - 6302</span><a class="pl-2" @click="goToMLArticle">Ver en MercadoLibre</a>
 
               <v-card flat>
                 <v-card-text class="pl-0">
                   <p class="display-1 font-weight-light">$4.650,00</p>
+
                   <v-rating v-model="rating"></v-rating>
+
+                  <v-list class="pt-4">
+                    <v-list-tile>
+                      <v-list-tile-action>
+                        <v-icon>payment</v-icon>
+                      </v-list-tile-action>
+                      <v-list-tile-content>
+                        <v-list-tile-title>Pagá hasta en 12 cuotas</v-list-tile-title>
+                        <v-list-tile-sub-title>Más información</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+
+                    <v-list-tile>
+                      <v-list-tile-action>
+                        <v-icon>local_shipping</v-icon>
+                      </v-list-tile-action>
+                      <v-list-tile-content>
+                        <v-list-tile-title>Envío gratis</v-list-tile-title>
+                        <v-list-tile-sub-title>Llega el miércoles 10 de abril</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+
+                    <v-list-tile>
+                      <v-list-tile-action>
+                        <v-icon>360</v-icon>
+                      </v-list-tile-action>
+                      <v-list-tile-content>
+                        <v-list-tile-title>Devolución gratis</v-list-tile-title>
+                        <v-list-tile-sub-title>Tenés 15 días desde que lo recibís</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
                 </v-card-text>
               </v-card>
             </v-list>
@@ -62,44 +95,63 @@
           <v-flex xs4 pa-4>
             <v-list two-line subheader>
               <v-subheader class="headline">Historial de precios</v-subheader>
-
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>5</v-list-tile-title>
-                  <v-list-tile-sub-title>variaciones en la última semana</v-list-tile-sub-title>  <!-- la cantidad de veces que el precio sufrio modificaciones -->
-                </v-list-tile-content>
-              </v-list-tile>
-
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title>$4.650,00</v-list-tile-title>
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-list-tile-sub-title v-on="on">Precio actual publicado</v-list-tile-sub-title>
-                      </template>
-                    <span>Es el precio publicado en MercadoLibre por el vendedor</span>
+                  <v-tooltip right max-width="25rem">
+                    <template slot="activator">
+                      <v-list-tile-title class="title">5</v-list-tile-title>
+                      <v-list-tile-sub-title>variaciones en la última semana</v-list-tile-sub-title>
+                    </template>
+                    <span>Es la cantidad de veces que el precio publicado sufrió modificaciones.</span>
                   </v-tooltip>
                 </v-list-tile-content>
               </v-list-tile>
 
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>$6.650,00</v-list-tile-title>
-                  <v-list-tile-sub-title>Precio real</v-list-tile-sub-title> <!-- El precio sobre el cual se aplicó el descuento publicado -->
+                  <v-tooltip right max-width="25rem">
+                    <template slot="activator">
+                      <v-list-tile-title class="title">$4.650,00</v-list-tile-title>
+                      <v-list-tile-sub-title>Precio actual publicado</v-list-tile-sub-title>
+                    </template>
+                    <span>Es el precio publicado en MercadoLibre por el vendedor.</span>
+                </v-tooltip>
                 </v-list-tile-content>
               </v-list-tile>
 
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>%25</v-list-tile-title>
-                  <v-list-tile-sub-title>Descuento publicado</v-list-tile-sub-title> <!-- El precio sobre el cual se aplicó el descuento publicado -->
+                  <v-tooltip right max-width="25rem">
+                    <template slot="activator">
+                      <v-list-tile-title class="title">$6.650,00</v-list-tile-title>
+                      <v-list-tile-sub-title>Precio real</v-list-tile-sub-title>
+                      </template>
+                    <span>Es el precio sobre el cual se aplicó el descuento publicado.</span>
+                  </v-tooltip>
                 </v-list-tile-content>
               </v-list-tile>
 
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>-%10</v-list-tile-title>
-                  <v-list-tile-sub-title>Descuento real</v-list-tile-sub-title> <!-- El precio sobre el cual se aplicó el descuento publicado -->
+                  <v-tooltip right max-width="25rem">
+                    <template slot="activator">
+                      <v-list-tile-title class="title">%25</v-list-tile-title>
+                      <v-list-tile-sub-title>Descuento publicado</v-list-tile-sub-title>
+                      </template>
+                    <span>Es el descuento publicado en Mercado Libre por el vendedor</span>
+                  </v-tooltip>
+                </v-list-tile-content>
+              </v-list-tile>
+
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-tooltip right max-width="25rem">
+                    <template slot="activator">
+                      <v-list-tile-title class="title">%25</v-list-tile-title>
+                      <v-list-tile-sub-title>Descuento real</v-list-tile-sub-title>
+                      </template>
+                    <span>Es el descuento real del producto en base a su precio anterior</span>
+                  </v-tooltip>
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>
@@ -192,7 +244,12 @@ export default {
       250,
       240
     ]
-  })
+  }),
+  methods: {
+    goToMLArticle () {
+      window.open(this.article.permalink)
+    }
+  }
 }
 </script>
 
