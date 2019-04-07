@@ -39,27 +39,109 @@
           </v-flex>
 
           <v-flex xs4 pa-4>
-            <v-flex xs12 pb-2>
+            <v-list two-line subheader>
               <span class="display-1">Zapatillas Nike Mujer Air Max Dia - 6302</span>
-            </v-flex>
 
-            <v-flex xs12>
-              <span class="display-2 font-weight-light">$4.650</span>
-            </v-flex>
+              <v-card flat>
+                <v-card-text class="pl-0">
+                  <p class="display-1 font-weight-light">$4.650,00</p>
+                  <v-rating v-model="rating"></v-rating>
+                </v-card-text>
+              </v-card>
+            </v-list>
           </v-flex>
 
           <v-flex xs12 py-0>
             <v-divider></v-divider>
           </v-flex>
 
-          <v-flex xs8 class="br">
+          <v-flex xs8 pa-4 class="br">
             <Chart />
           </v-flex>
 
           <v-flex xs4 pa-4>
-            <span class="display-1">Historial de precios</span>
+            <v-list two-line subheader>
+              <v-subheader class="headline">Historial de precios</v-subheader>
+
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>5</v-list-tile-title>
+                  <v-list-tile-sub-title>variaciones en la última semana</v-list-tile-sub-title>  <!-- la cantidad de veces que el precio sufrio modificaciones -->
+                </v-list-tile-content>
+              </v-list-tile>
+
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>$4.650,00</v-list-tile-title>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-list-tile-sub-title v-on="on">Precio actual publicado</v-list-tile-sub-title>
+                      </template>
+                    <span>Es el precio publicado en MercadoLibre por el vendedor</span>
+                  </v-tooltip>
+                </v-list-tile-content>
+              </v-list-tile>
+
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>$6.650,00</v-list-tile-title>
+                  <v-list-tile-sub-title>Precio real</v-list-tile-sub-title> <!-- El precio sobre el cual se aplicó el descuento publicado -->
+                </v-list-tile-content>
+              </v-list-tile>
+
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>%25</v-list-tile-title>
+                  <v-list-tile-sub-title>Descuento publicado</v-list-tile-sub-title> <!-- El precio sobre el cual se aplicó el descuento publicado -->
+                </v-list-tile-content>
+              </v-list-tile>
+
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>-%10</v-list-tile-title>
+                  <v-list-tile-sub-title>Descuento real</v-list-tile-sub-title> <!-- El precio sobre el cual se aplicó el descuento publicado -->
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
           </v-flex>
 
+          <v-flex xs12 py-0>
+            <v-divider></v-divider>
+          </v-flex>
+
+          <v-flex xs12 pa-4>
+            <v-list two-line subheader>
+              <v-subheader class="headline">Sobre este vendedor</v-subheader>
+
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon>mood</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Nunca ha aplicado descuentos sobre precios ficticios.</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon>timer</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Despacha sus productos a tiempo.</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon>chat</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Brinda buena atención.</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+
+            </v-list>
+          </v-flex>
         </v-layout>
       </v-card>
     </v-container>
@@ -72,6 +154,7 @@ import Chart from '../components/Chart'
 export default {
   components: { Chart },
   data: () => ({
+    rating: 3,
     breadcrumbItems: [
       {
         text: 'Todos los artículos',
