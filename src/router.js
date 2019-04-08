@@ -28,7 +28,7 @@ const router = new Router({
       component: Stats
     },
     {
-      path: '/article',
+      path: '/article/:id',
       name: 'article',
       component: Article
     }

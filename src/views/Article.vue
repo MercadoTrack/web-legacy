@@ -1,28 +1,26 @@
 <template>
   <v-content>
     <v-container grid-list-md text-xs-left>
-      <v-card>
+      <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+
+      <v-card v-else>
         <v-layout row wrap>
           <v-flex xs12 pb-0>
             <v-breadcrumbs :items="breadcrumbItems" divider=">"></v-breadcrumbs>
             <v-divider></v-divider>
           </v-flex>
 
-          <v-flex xs2 class="br pa-4">
+          <v-flex xs2 class="br pa-3">
             <v-img
-              src="https://http2.mlstatic.com/nike-mujer-zapatillas-D_NQ_NP_778219-MLA29462176879_022019-F.webp"
-            ></v-img>
+              src="https://http2.mlstatic.com/nike-mujer-zapatillas-D_NQ_NP_778219-MLA29462176879_022019-F.webp">
+            </v-img>
 
             <v-img src="https://http2.mlstatic.com/zapatillas-nike-mujer-D_NQ_NP_628521-MLA29462176876_022019-F.webp">
             </v-img>
 
             <v-img src="https://http2.mlstatic.com/nike-mujer-zapatillas-D_NQ_NP_600644-MLA29462176875_022019-F.webp">
             </v-img>
-            
-            <v-img src="https://http2.mlstatic.com/zapatillas-nike-mujer-air-max-dia-6302-moov-D_NQ_NP_987480-MLA29462176880_022019-F.webp">
-            </v-img>
           </v-flex>
-
 
           <v-flex xs6 class="br">
             <v-img class="mx-5" src="https://http2.mlstatic.com/zapatillas-nike-mujer-D_NQ_NP_641620-MLA29462177708_022019-F.webp"></v-img>
@@ -191,11 +189,15 @@
 </template>
 
 <script>
+import http from '../http.js'
 import Chart from '../components/Chart'
+import Spinner from '../components/Spinner'
 
 export default {
-  components: { Chart },
+  components: { Chart, Spinner },
   data: () => ({
+    loading: true,
+    article: null,
     rating: 3,
     breadcrumbItems: [
       {
@@ -235,6 +237,15 @@ export default {
       240
     ]
   }),
+  mounted() {
+    const id = this.$route.params.id
+    http.get(`articles/${id}`)
+      .then(res => {
+        console.log('holi')
+        this.article = res.data
+        this.loading = false
+      })
+  },
   methods: {
     goToMLArticle () {
       window.open(this.article.permalink)

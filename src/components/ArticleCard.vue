@@ -27,7 +27,7 @@
           <v-card-text
             style="position: relative;"
           >
-            <v-card-title class="pointer" primary-title @click="goToArticle">
+              <v-card-title class="pointer" primary-title @click="goToArticle">
               <v-btn
                 absolute
                 color="white"
@@ -140,7 +140,7 @@ export default {
   },
   methods: {
     goToArticle () {
-      window.open(this.article.permalink)
+      this.$router.push(`/article/${this.article.id}`)
     }
   }
 }
