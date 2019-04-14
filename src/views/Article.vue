@@ -10,29 +10,29 @@
             <v-divider></v-divider>
           </v-flex>
 
-          <v-flex xs2 class="br pa-3">
-            <v-img
-              src="https://http2.mlstatic.com/nike-mujer-zapatillas-D_NQ_NP_778219-MLA29462176879_022019-F.webp">
-            </v-img>
-
-            <v-img src="https://http2.mlstatic.com/zapatillas-nike-mujer-D_NQ_NP_628521-MLA29462176876_022019-F.webp">
-            </v-img>
-
-            <v-img src="https://http2.mlstatic.com/nike-mujer-zapatillas-D_NQ_NP_600644-MLA29462176875_022019-F.webp">
-            </v-img>
+          <v-flex class="pa-0">
+            <section
+              v-for="url in article.images.slice(1,4)"
+              :key="url"
+              xs2 class="br pa-3"
+            >
+              <v-img
+                :src="url">
+              </v-img>
+            </section>
           </v-flex>
 
           <v-flex xs6 class="br">
-            <v-img class="mx-5" src="https://http2.mlstatic.com/zapatillas-nike-mujer-D_NQ_NP_641620-MLA29462177708_022019-F.webp"></v-img>
+            <v-img class="mx-5" :src="article.images[0]"></v-img>
           </v-flex>
 
           <v-flex xs4 pa-4>
             <v-list two-line subheader>
-              <span class="display-1">Zapatillas Nike Mujer Air Max Dia - 6302</span><a class="pl-2" @click="goToMLArticle">Ver en MercadoLibre</a>
+              <span class="display-1">{{ article.title }}</span>
 
               <v-card flat>
                 <v-card-text class="pl-0">
-                  <p class="display-1 font-weight-light">$4.650,00</p>
+                  <p class="display-1 font-weight-light">${{ article.price }}</p>
 
                   <v-rating v-model="rating"></v-rating>
 
@@ -66,6 +66,15 @@
                         <v-list-tile-sub-title>Tenés 15 días desde que lo recibís</v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
+
+                    <v-list-tile class="pointer">
+                      <v-list-tile-action>
+                        <v-icon>call_made</v-icon>
+                      </v-list-tile-action>
+                      <v-list-tile-content>
+                        <v-list-tile-title @click="goToMLArticle">Ver en MercadoLibre</v-list-tile-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
                   </v-list>
                 </v-card-text>
               </v-card>
@@ -87,8 +96,8 @@
                 <v-list-tile-content>
                   <v-tooltip right max-width="25rem">
                     <template slot="activator">
-                      <v-list-tile-title class="title">5</v-list-tile-title>
-                      <v-list-tile-sub-title>variaciones en la última semana</v-list-tile-sub-title>
+                      <v-list-tile-title class="title">{{ article.history.length }}</v-list-tile-title>
+                      <v-list-tile-sub-title>variaciones</v-list-tile-sub-title>
                     </template>
                     <span>Es la cantidad de veces que el precio publicado sufrió modificaciones.</span>
                   </v-tooltip>
@@ -99,7 +108,7 @@
                 <v-list-tile-content>
                   <v-tooltip right max-width="25rem">
                     <template slot="activator">
-                      <v-list-tile-title class="title">$4.650,00</v-list-tile-title>
+                      <v-list-tile-title class="title">${{ article.price }}</v-list-tile-title>
                       <v-list-tile-sub-title>Precio actual publicado</v-list-tile-sub-title>
                     </template>
                     <span>Es el precio publicado en MercadoLibre por el vendedor.</span>
@@ -111,7 +120,7 @@
                 <v-list-tile-content>
                   <v-tooltip right max-width="25rem">
                     <template slot="activator">
-                      <v-list-tile-title class="title">$6.650,00</v-list-tile-title>
+                      <v-list-tile-title class="title">{{ article.price }}</v-list-tile-title>
                       <v-list-tile-sub-title>Precio real</v-list-tile-sub-title>
                       </template>
                     <span>Es el precio sobre el cual se aplicó el descuento publicado.</span>
@@ -123,7 +132,7 @@
                 <v-list-tile-content>
                   <v-tooltip right max-width="25rem">
                     <template slot="activator">
-                      <v-list-tile-title class="title">%25</v-list-tile-title>
+                      <v-list-tile-title class="title">%0</v-list-tile-title>
                       <v-list-tile-sub-title>Descuento publicado</v-list-tile-sub-title>
                       </template>
                     <span>Es el descuento publicado en Mercado Libre por el vendedor</span>
@@ -135,7 +144,7 @@
                 <v-list-tile-content>
                   <v-tooltip right max-width="25rem">
                     <template slot="activator">
-                      <v-list-tile-title class="title">%25</v-list-tile-title>
+                      <v-list-tile-title class="title">%0</v-list-tile-title>
                       <v-list-tile-sub-title>Descuento real</v-list-tile-sub-title>
                       </template>
                     <span>Es el descuento real del producto en base a su precio anterior</span>
@@ -241,7 +250,7 @@ export default {
     const id = this.$route.params.id
     http.get(`articles/${id}`)
       .then(res => {
-        console.log('holi')
+        console.log(res.data)
         this.article = res.data
         this.loading = false
       })
