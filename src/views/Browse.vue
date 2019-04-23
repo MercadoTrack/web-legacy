@@ -1,24 +1,6 @@
 <template>
   <v-content>
     <v-container>
-      <v-layout mt-3 mb-3 px-2 wrap>
-        <v-flex xs12 md4 xl3>
-          <v-text-field solo
-            hide-details
-            v-model="searchText"
-            label="Buscar"
-            @click:append="search"
-            @keyup.enter="search"
-            @click:clear="clear"
-            clearable
-            append-icon="search"
-          ></v-text-field>
-        </v-flex>
-        <v-flex xs12 md8 xl9 class="total-articles mt-2" v-if="false">
-          <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">{{ totalArticles }} articulos encontrados</h3>
-        </v-flex>
-      </v-layout>
-      <v-divider class="mb-3"></v-divider>
       <v-layout wrap>
         <template v-if="articles">
           <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in articles" :key="article.id">
@@ -37,17 +19,19 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <ArticleShareDialog />
   </v-content>
 </template>
 <script>
 import http from '../http.js'
-import ArticleCard from '../components/ArticleCard.vue'
+import { ArticleCard } from '../components/ArticleCard'
+import ArticleShareDialog from '../components/ArticleShareDialog'
 
 const limit = 30
 
 export default {
   name: 'browse',
-  components: { ArticleCard },
+  components: { ArticleCard, ArticleShareDialog },
   data: () => ({
     searchText: '',
     articles: null,
