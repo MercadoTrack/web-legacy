@@ -30,7 +30,7 @@ import ArticleShareDialog from '../components/ArticleShareDialog'
 const limit = 30
 
 export default {
-  name: 'browse',
+  name: 'landing',
   components: { ArticleCard, ArticleShareDialog },
   data: () => ({
     searchText: '',

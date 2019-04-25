@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import store from './store'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Browse from './views/Browse.vue'
+import Landing from './views/Landing'
 import Stats from './views/Stats'
 import Article from './views/Article'
 
@@ -14,13 +13,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/navegar',
-      name: 'browse',
-      component: Browse
+      name: 'landing',
+      component: Landing
     },
     {
       path: '/stats',
@@ -31,6 +25,10 @@ const router = new Router({
       path: '/article/:id',
       name: 'article',
       component: Article
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })
