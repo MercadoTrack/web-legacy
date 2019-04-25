@@ -4,11 +4,9 @@
       <v-container fluid class="pa-0">
         <ArticleCardImage :article="article" :hover="hover" />
         <v-divider light></v-divider>
-        <v-card-text>
-          <v-card-title class="pointer" primary-title @click="goToArticle">
-            <v-btn class="green--text shipping" depressed fab small absolute right top>
-              <v-icon>local_shipping</v-icon>
-            </v-btn>
+        <v-card-text class="relative">
+          <v-chip dark label :color="statusColor" class="status">{{ status }}</v-chip>
+          <v-card-title class="pointer" primary-title @click="goToArticle()">
             <v-flex xs12>
               <p class="subheading font-weight-light article-title grey--text mb-0">{{ article.title }}</p>
             </v-flex>
@@ -33,6 +31,19 @@ export default {
     ArticleCardImage,
   },
   props: [ 'article' ],
+  computed: {
+    status () {
+      return this.article.status.split('_').join(' ')
+    },
+    statusColor () {
+      switch (this.article.status) {
+        case 'active': return 'green'
+        case 'paused': return 'amber darken-3'
+        case 'closed': return 'red darken-3'
+        default: return 'black'
+      }
+    }
+  },
   methods: {
     goToArticle () {
       this.$router.push(`/article/${this.article.id}`)
@@ -55,5 +66,12 @@ export default {
 .subheading {
   $three-lines-aprox-height: 80px;
   height: $three-lines-aprox-height;
+}
+
+.v-chip.status {
+  text-transform: capitalize;
+  position: absolute;
+  top: -1.5rem;
+  right: 0.5rem;
 }
 </style>

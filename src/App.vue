@@ -44,4 +44,12 @@ body,
   font-size: 16px;
 }
 
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
 </style>
