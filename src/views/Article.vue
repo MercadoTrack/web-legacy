@@ -246,7 +246,7 @@ export default {
       240
     ]
   }),
-  mounted() {
+  mounted () {
     const id = this.$route.params.id
     http.get(`articles/${id}`)
       .then(res => {

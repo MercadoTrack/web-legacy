@@ -5,12 +5,12 @@
 </template>
 
 <script>
-    export default {
-        name: 'projects',
-        props: [
-            'size'
-        ]
-    };
+export default {
+  name: 'projects',
+  props: [
+    'size'
+  ]
+}
 </script>
 
 <style lang="scss" scoped>
@@ -19,7 +19,7 @@
             transform: rotate(360deg);
         }
     }
-    
+
     .spinner-container {
         display: inline-block;
         .spinner {
