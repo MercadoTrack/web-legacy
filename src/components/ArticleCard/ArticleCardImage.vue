@@ -3,10 +3,10 @@
     <v-container class="pa-3" fill-height fluid>
       <v-layout column align-end>
         <span v-if="hover" class="headline">
-          <v-btn class="ma-0" icon @click="share()">
+          <v-btn fab small class="ma-0" @click="share()">
             <v-icon color="primary">share</v-icon>
           </v-btn>
-          <v-btn class="ma-0" icon @click="favorite = !favorite">
+          <v-btn fab small class="ma-0 ml-2" @click="favorite = !favorite">
             <v-icon v-if="favorite" color="primary">favorite</v-icon>
             <v-icon v-else color="primary">favorite_border</v-icon>
           </v-btn>
