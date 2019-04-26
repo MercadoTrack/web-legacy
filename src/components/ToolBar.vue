@@ -1,13 +1,15 @@
 <template>
   <v-toolbar extended app fixed clipped-left color="secondary" :class="{'pa-0': $vuetify.breakpoint.smAndDown, 't-pa': $vuetify.breakpoint.mdAndUp, 'order-5': true}">
 
-    <v-toolbar-title>
-      <router-link to="/" tag="div" class="brand-wrapper pointer">
-        <div class="brand"></div>
-      </router-link>
-    </v-toolbar-title>
+    <v-flex xs1 sm1 md1 lg1 xl1>
+      <v-toolbar-title>
+        <router-link to="/" tag="div" class="brand-wrapper pointer">
+          <div class="brand"></div>
+        </router-link>
+      </v-toolbar-title>
+    </v-flex>
 
-    <v-flex offset-xs1 xs9 offset-sm1 sm9 md6 lg6 xl6>
+    <v-flex xs9 sm9 md6 lg6 xl6>
       <v-text-field
         append-icon="search"
         class="mt-2 mx-0 grey--text"
@@ -18,16 +20,33 @@
     </v-flex>
 
     <template slot="extension">
+      <v-overflow-btn
+        class="mb-0 mt-2"
+        :items="categories"
+        label="Categorías"
+      ></v-overflow-btn>
+      <v-btn flat><span class="font-weight-light">Agregados recientemente</span></v-btn>
+      <v-btn flat><span class="font-weight-light">Últimas ofertas</span></v-btn>
+      <v-btn flat><span class="font-weight-light">Vendedores destacados</span></v-btn>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">whatshot</v-icon><span class="hidden-sm-and-down font-weight-light">Ofertas</span></v-btn>
-        <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">star</v-icon><span class="hidden-sm-and-down font-weight-light">Favoritos</span></v-btn>
-        <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">person</v-icon><span class="hidden-sm-and-down font-weight-light">Mi cuenta</span></v-btn>
-      </v-toolbar-items>
+      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">whatshot</v-icon><span class="hidden-sm-and-down font-weight-light">Ofertas</span></v-btn>
+      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">history</v-icon><span class="hidden-sm-and-down font-weight-light">Historial</span></v-btn>
+      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">star</v-icon><span class="hidden-sm-and-down font-weight-light">Favoritos</span></v-btn>
+      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">person</v-icon><span class="hidden-sm-and-down font-weight-light">Mi cuenta</span></v-btn>
+      <v-btn flat icon>
+        <v-icon>notifications</v-icon>
+      </v-btn>
     </template>
   </v-toolbar>
 </template>
 
+<script>
+export default {
+  data: () => ({
+    categories: ['Categoria 1', 'Categoria 2', 'Categoria 3', 'Categoria 4'],
+  })
+}
+</script>
 <style scoped>
 .brand {
   background-image: url('../assets/mtrack_icon.svg');

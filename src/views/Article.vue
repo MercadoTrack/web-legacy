@@ -120,7 +120,7 @@
                 <v-list-tile-content>
                   <v-tooltip right max-width="25rem">
                     <template slot="activator">
-                      <v-list-tile-title class="title">{{ article.price }}</v-list-tile-title>
+                      <v-list-tile-title class="title">${{ article.price }}</v-list-tile-title>
                       <v-list-tile-sub-title>Precio real</v-list-tile-sub-title>
                       </template>
                     <span>Es el precio sobre el cual se aplicó el descuento publicado.</span>

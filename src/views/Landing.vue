@@ -1,6 +1,10 @@
 <template>
   <v-content>
     <v-container>
+      <div>
+        <h5 class="display-1 font-weight-light inline mr-4">Computación</h5>
+        <a class="headline inline font-weight-light">ver más</a>
+      </div>
       <v-layout wrap>
         <template v-if="articles">
           <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in articles" :key="article.id">
@@ -102,5 +106,9 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+}
+
+.inline {
+  display: inline;
 }
 </style>
