@@ -86,7 +86,7 @@
           </v-flex>
 
           <v-flex xs8 pa-4 class="br">
-            <Chart />
+            <Chart :history="article.history" />
           </v-flex>
 
           <v-flex xs4 pa-4>

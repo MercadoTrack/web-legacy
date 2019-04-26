@@ -9,44 +9,37 @@ export default {
   data: () => ({
     chart: null,
   }),
+  props: ['history'],
+  /* 0:
+    date: "09/03/2019"
+    original_price: null
+    price: 212
+  */
   mounted () {
+    console.log(this.$vuetify.theme)
     const ctx = document.getElementById('myChart').getContext('2d')
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['10/03', '20/03', '25/03', '28/03', '30/03'],
+        labels: this.history.map(({ date }) => date.slice(0, 5)),
         datasets: [{
           label: 'Precio',
-          data: [ 3.900, 3.950, 4.200, 4.500, 4.550 ],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 99, 132, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 2
+          data: this.history.map(({ price }) => price),
+          // backgroundColor: this.$vuetify.theme.secondary,
+          borderColor: this.$vuetify.theme.primary,
+          borderWidth: 1
         }]
       },
       options: {
         elements: {
           line: {
-            tension: 0,
+            tension: 0.15,
             fill: false,
           }
         },
         scales: {
           yAxes: [{
             ticks: {
-              min: 3.000,
-              stepSize: 1.000,
               beginAtZero: false,
             }
           }]
