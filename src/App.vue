@@ -15,6 +15,9 @@ export default {
   components: { Footer, ToolBar },
   computed: {
     isHome () { return this.$store.getters.isHome }
+  },
+  mounted () {
+    this.$store.dispatch('meta/getBase')
   }
 }
 </script>
