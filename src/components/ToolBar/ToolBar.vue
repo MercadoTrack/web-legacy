@@ -52,7 +52,6 @@
 
     <!-- toolbar -->
     <v-toolbar color="secondary" dark fixed app>
-      <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-spacer></v-spacer>
         <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
@@ -73,17 +72,15 @@
         </v-btn>
         <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Notificaciones
-          <v-icon color="grey darken-3">notifications</v-icon>
         </v-btn>
         <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Mi cuenta
-          <v-icon color="grey darken-3">person</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
       </template>
       <v-toolbar-title :class="`${$vuetify.breakpoint.xs ? 'mr-3' : 'mr-4 ml-4'}`">
         <router-link to="/">
-          <img height="50" src="../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
+          <img height="50" src="../../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
         </router-link>
       </v-toolbar-title>
       <v-text-field

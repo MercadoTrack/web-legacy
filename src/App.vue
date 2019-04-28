@@ -13,7 +13,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import Intro from './views/Intro'
 import Footer from './components/Footer'
-import ToolBar from './components/ToolBar'
+import { ToolBar } from './components/ToolBar'
 
 export default {
   name: 'app',
