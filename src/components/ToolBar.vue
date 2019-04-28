@@ -1,77 +1,129 @@
 <template>
-  <v-toolbar extended app fixed clipped-left color="secondary" :class="{'pa-0': $vuetify.breakpoint.smAndDown, 't-pa': $vuetify.breakpoint.mdAndUp, 'order-5': true}">
+  <div>
+    <!-- drawer for tablet/mobile -->
+    <v-navigation-drawer
+      v-model="drawer"
+      width="250"
+      clipped disable-resize-watcher disable-route-watcher right app
+    >
+      <v-list dense>
+        <v-list-tile @click="() => {}">
+          <v-list-tile-action>
+            <v-icon color="orange darken-2">whatshot</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Ofertas</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="() => {}">
+          <v-list-tile-action>
+            <v-icon color="cyan darken-4">verified_user</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Vendedores destacados</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="() => {}">
+          <v-list-tile-action>
+            <v-icon color="primary">sync</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Sincronizacion en vivo</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="() => {}">
+          <v-list-tile-action>
+            <v-icon color="red darken-2">favorite</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Favoritos</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="() => {}">
+          <v-list-tile-action>
+            <v-icon color="indigo darken-2">person</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Mi cuenta</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
 
-    <v-flex xs1 sm1 md1 lg1 xl1>
-      <v-toolbar-title>
-        <router-link to="/" tag="div" class="brand-wrapper pointer">
-          <div class="brand"></div>
+    <!-- toolbar -->
+    <v-toolbar color="secondary" dark fixed app>
+      <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+      <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
+        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+          <!-- TODO hacer dropdown -->
+          Categorias
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+          Agregados recientemente
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+          Ultimas ofertas
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+          Vendedores destacados
+        </v-btn>
+        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+      </template>
+      <v-toolbar-title :class="`ml-4 mr-${$vuetify.breakpoint.xs ? '3': '5'}`">
+        <router-link to="/">
+          <img height="50" src="../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
         </router-link>
       </v-toolbar-title>
-    </v-flex>
-
-    <v-flex xs9 sm9 md6 lg6 xl6>
       <v-text-field
         append-icon="search"
-        class="mt-2 mx-0 grey--text"
-        :class="{'mt-3': $vuetify.breakpoint.smAndDown}"
-        label="Buscar o pegar link"
-        solo
+        label="Buscar"
+        v-model="searchText"
+        @keyup.enter="search()"
+        @click:append="search()"
+        flat solo clearable hide-details light
       ></v-text-field>
-    </v-flex>
-
-    <template slot="extension">
-      <v-overflow-btn
-        class="mb-0 mt-2"
-        :items="categories"
-        label="Categorías"
-      ></v-overflow-btn>
-      <v-btn flat><span class="font-weight-light">Agregados recientemente</span></v-btn>
-      <v-btn flat><span class="font-weight-light">Últimas ofertas</span></v-btn>
-      <v-btn flat><span class="font-weight-light">Vendedores destacados</span></v-btn>
       <v-spacer></v-spacer>
-      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">whatshot</v-icon><span class="hidden-sm-and-down font-weight-light">Ofertas</span></v-btn>
-      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">history</v-icon><span class="hidden-sm-and-down font-weight-light">Historial</span></v-btn>
-      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">star</v-icon><span class="hidden-sm-and-down font-weight-light">Favoritos</span></v-btn>
-      <v-btn flat :icon="$vuetify.breakpoint.smAndDown"><v-icon class="mr-1 hidden-md-and-up">person</v-icon><span class="hidden-sm-and-down font-weight-light">Mi cuenta</span></v-btn>
-      <v-btn flat icon>
-        <v-icon>notifications</v-icon>
-      </v-btn>
-    </template>
-  </v-toolbar>
+      <template v-if="$vuetify.breakpoint.smAndDown">
+        <v-icon color="grey darken-3">notifications</v-icon>
+        <v-spacer></v-spacer>
+        <v-toolbar-side-icon v-if="$vuetify.breakpoint.smAndDown" class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      </template>
+      <template v-else>
+        <div class="mr-5 font-weight-light grey--text text--darken-3">
+          <span class="ml-3">
+            Notificaciones
+            <v-icon color="grey darken-3">notifications</v-icon>
+          </span>
+          <span class="ml-3">
+            Mi cuenta
+            <v-icon color="grey darken-3">person</v-icon>
+          </span>
+        </div>
+        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+      </template>
+    </v-toolbar>
+  </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    categories: ['Categoria 1', 'Categoria 2', 'Categoria 3', 'Categoria 4'],
-  })
+    drawer: false,
+    searchText: ''
+  }),
+  methods: {
+    async search () {
+      // should trigger an action and connect with Search component
+      if (!this.searchText) this.$router.push('/')
+      else this.$router.push(`/busqueda?titulo=${this.searchText}`)
+    }
+  }
 }
 </script>
-<style scoped>
-.brand {
-  background-image: url('../assets/mtrack_icon.svg');
-  width: 100%;
-  height: 100%;
-}
-.brand-wrapper {
-  height: 64px;
-  width: 64px;
-  padding: 7px;
-}
 
-.v-btn {
-  text-transform: none;
-}
-
-span {
-  font-size: 16px;
-}
-
-.t-pa {
-  padding: 0rem 15rem 0rem 15rem!important;
-}
-
-.order-5 {
-  z-index: 5;
+<style lang="scss" scoped>
+.v-text-field {
+  max-width: 50%;
 }
 </style>
