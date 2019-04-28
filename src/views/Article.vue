@@ -9,7 +9,6 @@
             <v-breadcrumbs :items="breadcrumbItems" divider=">"></v-breadcrumbs>
             <v-divider></v-divider>
           </v-flex>
-
           <v-container class="pa-0 ma-0 line-wrap">
             <v-layout wrap class="pa-0 ma-0">
               <v-flex xs12 md2 lg2 xl2 v-if="multipleImages && $vuetify.breakpoint.mdAndUp" class="pa-0">
@@ -205,6 +204,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import http from '../http.js'
 import Chart from '../components/Chart'
 import Spinner from '../components/Spinner'
@@ -218,23 +218,6 @@ export default {
     loading: true,
     article: null,
     rating: 3,
-    breadcrumbItems: [
-      {
-        text: 'Todos los artículos',
-        disabled: false,
-        href: 'breadcrumbs_dashboard'
-      },
-      {
-        text: 'Categoría',
-        disabled: false,
-        href: 'breadcrumbs_link_1'
-      },
-      {
-        text: 'Sub categoría',
-        disabled: true,
-        href: 'breadcrumbs_link_2'
-      }
-    ],
   }),
   mounted () {
     const id = this.$route.params.id
@@ -246,6 +229,36 @@ export default {
       })
   },
   computed: {
+    ...mapGetters({
+      categories: 'meta/categories',
+      mainCategories: 'meta/mainCategories',
+    }),
+    category () {
+      return this.categories && this.categories.find((category) => category._id === this.article.category_id)
+    },
+    parentCategory () {
+      return this.category && this.mainCategories.find((category) => category._id === this.category.parent)
+    },
+    breadcrumbItems () {
+      const items = [{
+        text: 'Todos los artículos',
+        disabled: false,
+        href: '/'
+      }]
+      if (this.parentCategory) {
+        items.push({
+          text: this.parentCategory.name,
+          disabled: false,
+        })
+      }
+      if (this.category) {
+        items.push({
+          text: this.category.name,
+          disabled: false,
+        })
+      }
+      return items
+    },
     price () {
       return this.article.history[this.article.history.length - 1].price
     },
@@ -253,7 +266,7 @@ export default {
       if (this.article.images.length > 1) {
         return true
       }
-    },
+    }
   },
   methods: {
     goToMLArticle () {

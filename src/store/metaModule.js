@@ -5,8 +5,8 @@ export default {
   state: {
     categories: {
       count: null,
-      main: null,
-      child: null
+      main: [],
+      child: []
     }
   },
   mutations: {
@@ -31,6 +31,8 @@ export default {
     }
   },
   getters: {
-    mainCategories: (state) => state.categories.main
+    categories: (state) => [...state.categories.main, ...state.categories.child],
+    mainCategories: (state) => state.categories.main,
+    childCategories: (state) => state.categories.child,
   }
 }
