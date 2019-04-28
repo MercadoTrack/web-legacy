@@ -2,7 +2,7 @@ import Vue from 'vue'
 import store from './store'
 import Router from 'vue-router'
 import Landing from './views/Landing'
-import Browse from './views/Browse'
+import Search from './views/Search'
 import Stats from './views/Stats'
 import Article from './views/Article'
 
@@ -18,9 +18,9 @@ const router = new Router({
       component: Landing
     },
     {
-      path: '/browse',
-      name: 'browse',
-      component: Browse
+      path: '/busqueda',
+      name: 'search',
+      component: Search
     },
     {
       path: '/stats',

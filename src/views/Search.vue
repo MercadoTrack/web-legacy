@@ -34,7 +34,7 @@ import ArticleShareDialog from '../components/ArticleShareDialog'
 const limit = 30
 
 export default {
-  name: 'browse',
+  name: 'search',
   components: { ArticleCard, ArticleShareDialog },
   data: () => ({
     searchText: '',
@@ -71,7 +71,7 @@ export default {
           skip: (pageNumber - 1) * limit
         }
       }).then(({ data }) => {
-        if (search) this.$router.push({ query: { busqueda: search } })
+        if (search) this.$router.push({ query: { titulo: search } })
         else this.$router.push({ query: {} })
         this.searching = false
         this.articles = data.page
@@ -83,7 +83,7 @@ export default {
     }
   },
   mounted () {
-    this.searchText = this.$route.query.busqueda
+    this.searchText = this.$route.query.titulo
     this.search()
   }
 }

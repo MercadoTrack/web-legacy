@@ -1,23 +1,35 @@
 <template>
-  <v-app>
-    <ToolBar v-if="!isHome" />
-    <router-view/>
-    <Footer v-if="!isHome" />
+  <v-app> 
+    <Intro v-if="showIntro" :dismiss="dismissIntro"/>
+    <template v-else>
+      <ToolBar />
+      <router-view/>
+      <Footer />
+    </template>
   </v-app>
 </template>
 
 <script>
-import Footer from './components/Footer.vue'
-import ToolBar from './components/ToolBar.vue'
+import { mapGetters, mapMutations } from 'vuex'
+import Intro from './views/Intro'
+import Footer from './components/Footer'
+import ToolBar from './components/ToolBar'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar },
-  computed: {
-    isHome () { return this.$store.getters.isHome }
-  },
+  components: { Intro, Footer, ToolBar },
   mounted () {
     this.$store.dispatch('meta/getBase')
+  },
+  computed: {
+    ...mapGetters({
+      showIntro: 'intro/show',
+    })
+  },
+  methods: {
+    ...mapMutations({
+      dismissIntro: 'intro/dismiss',
+    })
   }
 }
 </script>
@@ -28,6 +40,10 @@ body,
 #app {
   overflow: auto;
   height: 100vh;
+}
+
+a {
+  text-decoration: none;
 }
 
 .router-link-active {
