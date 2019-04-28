@@ -55,21 +55,29 @@
       <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-spacer></v-spacer>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           <!-- TODO hacer dropdown -->
           Categorias
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Ofertas
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Vendedores destacados
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
-          Sincronizacion en vivo
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+          Sync en vivo
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Favoritos
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+          Notificaciones
+          <v-icon color="grey darken-3">notifications</v-icon>
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+          Mi cuenta
+          <v-icon color="grey darken-3">person</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
       </template>
@@ -92,19 +100,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       </template>
-      <template v-else>
-        <div class="mr-5">
-          <v-btn flat color="grey darken-3" class="ml-3 subheading font-weight-light text-capitalize">
-            Notificaciones
-            <v-icon color="grey darken-3">notifications</v-icon>
-          </v-btn>
-          <v-btn flat color="grey darken-3" class="ml-3 subheading font-weight-light text-capitalize">
-            Mi cuenta
-            <v-icon color="grey darken-3">person</v-icon>
-          </v-btn>
-        </div>
-        <v-spacer></v-spacer>
-      </template>
+      <v-spacer v-else></v-spacer>
     </v-toolbar>
   </div>
 </template>
