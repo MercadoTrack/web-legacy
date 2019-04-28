@@ -267,7 +267,7 @@ export default {
     multipleImages () {
       if (this.article.images.length > 1) {
         return true
-      } 
+      }
     },
   },
   methods: {
