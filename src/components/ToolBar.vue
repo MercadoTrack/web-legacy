@@ -6,13 +6,13 @@
       width="250"
       clipped disable-resize-watcher disable-route-watcher right app
     >
-      <v-list dense>
+      <v-list>
         <v-list-tile @click="() => {}">
           <v-list-tile-action>
             <v-icon color="orange darken-2">whatshot</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Ofertas</v-list-tile-title>
+            <v-list-tile-title class="subheading font-weight-light text-capitalize">Ofertas</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click="() => {}">
@@ -20,7 +20,7 @@
             <v-icon color="cyan darken-4">verified_user</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Vendedores destacados</v-list-tile-title>
+            <v-list-tile-title class="subheading font-weight-light text-capitalize">Vendedores destacados</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click="() => {}">
@@ -28,7 +28,7 @@
             <v-icon color="primary">sync</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Sincronizacion en vivo</v-list-tile-title>
+            <v-list-tile-title class="subheading font-weight-light text-capitalize">Sincronizacion en vivo</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click="() => {}">
@@ -36,7 +36,7 @@
             <v-icon color="red darken-2">favorite</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Favoritos</v-list-tile-title>
+            <v-list-tile-title class="subheading font-weight-light text-capitalize">Favoritos</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click="() => {}">
@@ -44,7 +44,7 @@
             <v-icon color="indigo darken-2">person</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Mi cuenta</v-list-tile-title>
+            <v-list-tile-title class="subheading font-weight-light text-capitalize">Mi cuenta</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -55,21 +55,29 @@
       <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-spacer></v-spacer>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           <!-- TODO hacer dropdown -->
           Categorias
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Ofertas
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Vendedores destacados
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
-          Sincronizacion en vivo
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+          Sync en vivo
         </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
           Favoritos
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+          Notificaciones
+          <v-icon color="grey darken-3">notifications</v-icon>
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+          Mi cuenta
+          <v-icon color="grey darken-3">person</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
       </template>
@@ -92,19 +100,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       </template>
-      <template v-else>
-        <div class="mr-5">
-          <v-btn flat color="grey darken-3" class="ml-3 subheading font-weight-light text-capitalize">
-            Notificaciones
-            <v-icon color="grey darken-3">notifications</v-icon>
-          </v-btn>
-          <v-btn flat color="grey darken-3" class="ml-3 subheading font-weight-light text-capitalize">
-            Mi cuenta
-            <v-icon color="grey darken-3">person</v-icon>
-          </v-btn>
-        </div>
-        <v-spacer></v-spacer>
-      </template>
+      <v-spacer v-else></v-spacer>
     </v-toolbar>
   </div>
 </template>
