@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-container text-xs-left>
+    <v-container>
       <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
 
       <v-card v-else>
@@ -86,22 +86,25 @@
               </v-flex>
             </v-layout>
           </v-container>
-              <v-flex xs12 py-0>
-                <v-divider></v-divider>
-              </v-flex>
 
+          <v-flex xs12 py-0>
+            <v-divider></v-divider>
+          </v-flex>
+
+          <v-container class="pa-0 ma-0 line-wrap" :text-xs-center="$vuetify.breakpoint.mdAndDown">
+            <v-layout wrap class="pa-0 ma-0">
               <v-flex xs12 md8 lg8 xl8 pa-4 class="border">
                 <Chart :history="article.history" />
               </v-flex>
 
               <v-flex xs12 md4 lg4 xl4 pa-4>
                 <v-list two-line subheader>
-                  <v-subheader class="headline">Historial de precios</v-subheader>
+                  <span class="headline">Historial de precios</span>
                   <v-list-tile>
                     <v-list-tile-content>
                       <v-tooltip right max-width="25rem">
                         <template slot="activator">
-                          <v-list-tile-title class="title">{{ article.history.length }}</v-list-tile-title>
+                          <v-list-tile-title class="title">{{ article.history.length - 1 }}</v-list-tile-title>
                           <v-list-tile-sub-title>variaciones</v-list-tile-sub-title>
                         </template>
                         <span>Es la cantidad de veces que el precio publicado sufrió modificaciones.</span>
@@ -158,44 +161,43 @@
                   </v-list-tile>
                 </v-list>
               </v-flex>
+            </v-layout>
+          </v-container>
 
-              <v-flex xs12 py-0>
+          <v-flex xs12 py-0>
             <v-divider></v-divider>
           </v-flex>
 
-          <v-flex xs12 pa-4>
-            <v-list two-line subheader>
-              <v-subheader class="headline">Sobre este vendedor</v-subheader>
+          <v-container class="pa-0 ma-0 line-wrap" :text-xs-center="$vuetify.breakpoint.mdAndDown">
+            <v-layout wrap class="pa-0 ma-0">
+              <v-flex xs12 pa-4>
+                <v-list two-line subheader>
+                  <span class="headline">Sobre este vendedor</span>
 
-              <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon>mood</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>Nunca ha aplicado descuentos sobre precios ficticios.</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-action>
+                      <v-icon>mood</v-icon>
+                    </v-list-tile-action>
+                      <span>Nunca ha aplicado descuentos sobre precios ficticios.</span>
+                  </v-list-tile>
 
-              <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon>timer</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>Despacha sus productos a tiempo.</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-action>
+                      <v-icon>timer</v-icon>
+                    </v-list-tile-action>
+                      <span>Despacha sus productos a tiempo.</span>
+                  </v-list-tile>
 
-              <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon>chat</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>Brinda buena atención.</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-
-            </v-list>
-          </v-flex>
+                  <v-list-tile>
+                    <v-list-tile-action>
+                      <v-icon>chat</v-icon>
+                    </v-list-tile-action>
+                      <span>Brinda buena atención.</span>
+                  </v-list-tile>
+                </v-list>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-layout>
       </v-card>
     </v-container>
@@ -230,26 +232,6 @@ export default {
         href: 'breadcrumbs_link_2'
       }
     ],
-    labels: [
-      '12/02',
-      '3/03',
-      '6/03',
-      '9/03',
-      '12/04',
-      '3/05',
-      '6/05',
-      '9/05'
-    ],
-    value: [
-      200,
-      675,
-      410,
-      390,
-      310,
-      460,
-      250,
-      240
-    ]
   }),
   mounted () {
     const id = this.$route.params.id
@@ -267,7 +249,7 @@ export default {
     multipleImages () {
       if (this.article.images.length > 1) {
         return true
-      } 
+      }
     },
   },
   methods: {

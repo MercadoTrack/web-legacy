@@ -27,6 +27,7 @@ export default {
           data: this.history.map(({ price }) => price),
           // backgroundColor: this.$vuetify.theme.secondary,
           borderColor: this.$vuetify.theme.primary,
+          backgroundColor: this.$vuetify.theme.primary,
           borderWidth: 1
         }]
       },
