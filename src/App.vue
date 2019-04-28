@@ -1,5 +1,5 @@
 <template>
-  <v-app> 
+  <v-app>
     <Intro v-if="showIntro" :dismiss="dismissIntro"/>
     <template v-else>
       <ToolBar />
