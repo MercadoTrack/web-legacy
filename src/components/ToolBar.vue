@@ -73,7 +73,7 @@
         </v-btn>
         <v-spacer></v-spacer>
       </template>
-      <v-toolbar-title :class="`ml-4 mr-${$vuetify.breakpoint.xs ? '3': '5'}`">
+      <v-toolbar-title :class="`${$vuetify.breakpoint.xs ? 'mr-3' : 'mr-4 ml-4'}`">
         <router-link to="/">
           <img height="50" src="../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
         </router-link>
@@ -90,18 +90,18 @@
       <template v-if="$vuetify.breakpoint.smAndDown">
         <v-icon color="grey darken-3">notifications</v-icon>
         <v-spacer></v-spacer>
-        <v-toolbar-side-icon v-if="$vuetify.breakpoint.smAndDown" class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       </template>
       <template v-else>
-        <div class="mr-5 subheading font-weight-light grey--text text--darken-3">
-          <span class="ml-3">
+        <div class="mr-5">
+          <v-btn flat color="grey darken-3" class="ml-3 subheading font-weight-light text-capitalize">
             Notificaciones
             <v-icon color="grey darken-3">notifications</v-icon>
-          </span>
-          <span class="ml-3">
+          </v-btn>
+          <v-btn flat color="grey darken-3" class="ml-3 subheading font-weight-light text-capitalize">
             Mi cuenta
             <v-icon color="grey darken-3">person</v-icon>
-          </span>
+          </v-btn>
         </div>
         <v-spacer></v-spacer>
       </template>
@@ -127,6 +127,6 @@ export default {
 
 <style lang="scss" scoped>
 .v-text-field {
-  max-width: 50%;
+  max-width: 50%; /* TODO: hacer algo con v-spacer o flex */
 }
 </style>
