@@ -36,7 +36,7 @@
 
                   <v-card flat>
                     <v-card-text class="pl-0">
-                      <p class="display-1 font-weight-light">${{ price }}</p>
+                      <p class="display-1 font-weight-light">{{ price | priceFilter }}</p>
 
                       <v-rating v-model="rating"></v-rating>
 
@@ -211,6 +211,9 @@ import Spinner from '../components/Spinner'
 
 export default {
   components: { Chart, Spinner },
+  filters: {
+    priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
+  },
   data: () => ({
     loading: true,
     article: null,

@@ -1,7 +1,7 @@
 <template>
   <h4 class="headline mb-0">
     <span :class="{ 'mr-auto': !fluctuation }">
-      ${{ price }}
+      {{ price | priceFilter }}
     </span>
     <span class="subheading grey--text strike-through ml-1" v-if="fluctuation">
       ${{ previousPrice }}
@@ -18,6 +18,9 @@
 export default {
   name: 'article-card-headline',
   props: ['article'],
+  filters: {
+    priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
+  },
   computed: {
     price () {
       return this.article.history[this.article.history.length - 1].price
