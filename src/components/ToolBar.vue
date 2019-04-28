@@ -54,21 +54,24 @@
     <v-toolbar color="secondary" dark fixed app>
       <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
-        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+        <v-spacer></v-spacer>
         <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
           <!-- TODO hacer dropdown -->
           Categorias
         </v-btn>
         <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
-          Agregados recientemente
-        </v-btn>
-        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
-          Ultimas ofertas
+          Ofertas
         </v-btn>
         <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
           Vendedores destacados
         </v-btn>
-        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+          Sincronizacion en vivo
+        </v-btn>
+        <v-btn flat color="grey darken-3" class="subheading font-weight-light text-capitalize">
+          Favoritos
+        </v-btn>
+        <v-spacer></v-spacer>
       </template>
       <v-toolbar-title :class="`ml-4 mr-${$vuetify.breakpoint.xs ? '3': '5'}`">
         <router-link to="/">
@@ -90,7 +93,7 @@
         <v-toolbar-side-icon v-if="$vuetify.breakpoint.smAndDown" class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       </template>
       <template v-else>
-        <div class="mr-5 font-weight-light grey--text text--darken-3">
+        <div class="mr-5 subheading font-weight-light grey--text text--darken-3">
           <span class="ml-3">
             Notificaciones
             <v-icon color="grey darken-3">notifications</v-icon>
@@ -100,7 +103,7 @@
             <v-icon color="grey darken-3">person</v-icon>
           </span>
         </div>
-        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+        <v-spacer></v-spacer>
       </template>
     </v-toolbar>
   </div>
