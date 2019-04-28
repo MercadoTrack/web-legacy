@@ -35,6 +35,7 @@ export default {
     searchText: '',
   }),
   methods: {
+    // TODO send to util
     async search () {
       if (!this.searchText) return
       if (isLink(this.searchText)) {

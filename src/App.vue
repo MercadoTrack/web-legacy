@@ -46,6 +46,10 @@ a {
   text-decoration: none;
 }
 
+figure {
+  margin: 0;
+}
+
 .router-link-active {
   text-decoration: none;
   color: inherit;
