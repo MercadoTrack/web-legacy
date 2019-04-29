@@ -2,8 +2,7 @@
   <v-content>
     <v-container>
       <div>
-        <h5 class="display-1 font-weight-light inline mr-4">Computación</h5>
-        <a class="headline inline font-weight-light">ver más</a>
+        <h5 class="display-1 font-weight-light inline mr-4">We're working here!</h5>
       </div>
     </v-container>
   </v-content>
