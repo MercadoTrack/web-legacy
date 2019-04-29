@@ -82,6 +82,7 @@
           </router-link>
         </v-toolbar-title>
         <v-text-field
+          class="my-1"
           append-icon="search"
           label="Buscar"
           v-model="searchText"
