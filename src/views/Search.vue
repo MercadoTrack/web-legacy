@@ -87,13 +87,13 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  max-width: 350px;
-  @media only screen and (min-width: 600px) and (max-width: 960px) {
-    max-width: 600px;
-  }
-  @media only screen and (min-width: 960px) and (max-width: 1900px) {
-    max-width: 900px;
-  }
+  // max-width: 350px;
+  // @media only screen and (min-width: 600px) and (max-width: 960px) {
+  //   max-width: 600px;
+  // }
+  // @media only screen and (min-width: 960px) and (max-width: 1900px) {
+  //   max-width: 900px;
+  // }
   @media only screen and (min-width: 1900px) {
     max-width: 1500px;
   }

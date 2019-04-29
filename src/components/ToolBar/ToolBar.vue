@@ -3,7 +3,6 @@
     <!-- drawer for tablet/mobile -->
     <v-navigation-drawer
       v-model="drawer"
-      width="250"
       clipped disable-resize-watcher disable-route-watcher right app
     >
       <v-list>
@@ -53,51 +52,54 @@
     <!-- toolbar -->
     <v-toolbar color="secondary" dark fixed app>
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
-        <v-spacer></v-spacer>
-        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-          <!-- TODO hacer dropdown -->
-          Categorias
-        </v-btn>
-        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-          Ofertas
-        </v-btn>
-        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-          Vendedores destacados
-        </v-btn>
-        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-          Sync en vivo
-        </v-btn>
-        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-          Favoritos
-        </v-btn>
-        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-          Notificaciones
-        </v-btn>
-        <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-          Mi cuenta
-        </v-btn>
-        <v-spacer></v-spacer>
+        <v-container class="ma-auto pa-0" style="display: flex;">
+          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+            <!-- TODO hacer dropdown -->
+            Categorias
+          </v-btn>
+          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+            Ofertas
+          </v-btn>
+          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+            Vendedores destacados
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+            Favoritos
+          </v-btn>
+          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+            Notificaciones
+          </v-btn>
+          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+            Mi cuenta
+          </v-btn>
+        </v-container>
       </template>
-      <v-toolbar-title :class="`${$vuetify.breakpoint.xs ? 'mr-3' : 'mr-4 ml-4'}`">
-        <router-link to="/">
-          <img height="50" src="../../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
-        </router-link>
-      </v-toolbar-title>
-      <v-text-field
-        append-icon="search"
-        label="Buscar"
-        v-model="searchText"
-        @keyup.enter="search()"
-        @click:append="search()"
-        flat solo clearable hide-details light
-      ></v-text-field>
-      <v-spacer></v-spacer>
-      <template v-if="$vuetify.breakpoint.smAndDown">
-        <v-icon color="grey darken-3">notifications</v-icon>
+      <v-container class="ma-auto pa-0" style="display: flex;">
+        <v-toolbar-title :class="`${$vuetify.breakpoint.xs ? 'mr-3' : 'mx-4'}`">
+          <router-link to="/">
+            <img height="50" src="../../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
+          </router-link>
+        </v-toolbar-title>
+        <v-text-field
+          append-icon="search"
+          label="Buscar"
+          v-model="searchText"
+          @keyup.enter="search()"
+          @click:append="search()"
+          flat solo clearable hide-details light
+        ></v-text-field>
         <v-spacer></v-spacer>
-        <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      </template>
-      <v-spacer v-else></v-spacer>
+        <v-btn v-if="$vuetify.breakpoint.mdAndUp" flat color="grey darken-3" class="subheading font-weight-light text-none">
+          <span class="mr-2">Mira el estado de MT en vivo</span>
+          <v-icon>visibility</v-icon>
+        </v-btn>
+        <template v-if="$vuetify.breakpoint.smAndDown">
+          <v-icon color="grey darken-3">notifications</v-icon>
+          <v-spacer></v-spacer>
+          <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        </template>
+      </v-container>
     </v-toolbar>
   </div>
 </template>
