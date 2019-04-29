@@ -223,7 +223,6 @@ export default {
     const id = this.$route.params.id
     http.get(`articles/${id}`)
       .then(res => {
-        console.log(res.data)
         this.article = res.data
         this.loading = false
       })

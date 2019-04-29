@@ -4,7 +4,7 @@
       <v-layout wrap justify-center>
         <v-progress-circular v-if="!etc" color="info" indeterminate></v-progress-circular>
         <v-flex v-else xs12>
-          <v-progress-linear color="info" height="10" :value="percentage"></v-progress-linear>
+          <v-progress-linear color="info darken-2" height="10" :value="percentage"></v-progress-linear>
           <v-layout wrap justify-center>
             <h1 class="subheading">
               <span class="font-weight-black">{{ processed }}</span> Articles processed of

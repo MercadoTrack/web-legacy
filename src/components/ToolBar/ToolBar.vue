@@ -16,6 +16,14 @@
         </v-list-tile>
         <v-list-tile @click="() => {}">
           <v-list-tile-action>
+            <v-icon color="secondary darken-1">notifications</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="subheading font-weight-light text-capitalize">Notificaciones</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="() => {}">
+          <v-list-tile-action>
             <v-icon color="cyan darken-4">verified_user</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
@@ -53,15 +61,25 @@
     <v-toolbar color="secondary" dark fixed app>
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-container class="ma-auto pa-0" style="display: flex;">
-          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-            <!-- TODO hacer dropdown -->
+          <v-menu
+            offset-y
+            content-class="dropdown-menu"
+            transition="slide-y-transition">
+            <v-btn flat slot="activator" color="grey darken-3" class="px-1 subheading font-weight-light
+            text-capitalize">
             Categorias
+            <v-icon>keyboard_arrow_down</v-icon>
           </v-btn>
+          <TreeView />
+          </v-menu>
           <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
             Ofertas
           </v-btn>
           <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
             Vendedores destacados
+          </v-btn>
+          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+            Últimos agregados
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
@@ -92,7 +110,9 @@
         ></v-text-field>
         <v-spacer></v-spacer>
         <v-btn v-if="$vuetify.breakpoint.mdAndUp" flat color="grey darken-3" class="subheading font-weight-light text-none">
-          <span class="mr-2">Mira el estado de MT en vivo</span>
+          <router-link to="/stats" tag="span" class="pointer">
+            <span class="mr-2">Mira el estado de MercadoTrack en vivo</span>
+          </router-link>
           <v-icon>visibility</v-icon>
         </v-btn>
         <template v-if="$vuetify.breakpoint.smAndDown">
@@ -106,10 +126,13 @@
 </template>
 
 <script>
+import TreeView from '../TreeView'
+
 export default {
+  components: { TreeView },
   data: () => ({
     drawer: false,
-    searchText: ''
+    searchText: '',
   }),
   methods: {
     async search () {
