@@ -47,7 +47,7 @@ export default {
     },
   }),
   methods: {
-    categoryName(name) {
+    categoryName (name) {
       return this.icons[name]
     }
   },
