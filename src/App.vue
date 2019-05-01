@@ -50,6 +50,17 @@ figure {
   margin: 0;
 }
 
+// needs to be global
+// ref to ToolBar.vue
+.v-toolbar__content {
+  .v-input {
+    min-height: 40px;
+    .v-input__control {
+      min-height: 40px;
+    }
+  }
+}
+
 .router-link-active {
   text-decoration: none;
   color: inherit;
