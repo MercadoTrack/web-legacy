@@ -1,7 +1,7 @@
 <template>
   <v-menu offset-y content-class="dropdown-menu" transition="slide-y-transition">
     <template v-slot:activator="{ on }">
-      <v-btn flat v-on="on" color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+      <v-btn flat v-on="on" color="grey darken-3" class="px-1 font-weight-light text-capitalize">
         Categorias
       </v-btn>
     </template>
