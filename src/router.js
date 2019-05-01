@@ -5,6 +5,7 @@ import Landing from './views/Landing'
 import Search from './views/Search'
 import Stats from './views/Stats'
 import Article from './views/Article'
+import Favorites from './views/Favorites'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ const router = new Router({
       path: '/article/:id',
       name: 'article',
       component: Article
+    },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: Favorites
     },
     {
       path: '*',

@@ -82,9 +82,11 @@
             Últimos agregados
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
-            Favoritos
-          </v-btn>
+          <router-link to="/favorites" tag="span" class="pointer">
+            <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
+              Favoritos
+            </v-btn>
+          </router-link>
           <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
             Notificaciones
           </v-btn>
