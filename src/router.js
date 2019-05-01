@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import store from './store'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Browse from './views/Browse.vue'
+import Landing from './views/Landing'
+import Search from './views/Search'
 import Stats from './views/Stats'
+import Article from './views/Article'
 
 Vue.use(Router)
 
@@ -13,18 +14,27 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'landing',
+      component: Landing
     },
     {
-      path: '/navegar',
-      name: 'browse',
-      component: Browse
+      path: '/busqueda/:category_id?', // TODO: check the best url for category links
+      name: 'search',
+      component: Search
     },
     {
       path: '/stats',
       name: 'stats',
       component: Stats
+    },
+    {
+      path: '/article/:id',
+      name: 'article',
+      component: Article
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })

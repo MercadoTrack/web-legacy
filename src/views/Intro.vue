@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="intro">
     <figure class="promo-container">
       <img src="../assets/mtrack_promo.svg" alt="">
     </figure>
@@ -12,58 +12,48 @@
           label="Buscar o pegar link"
           clearable
           hide-details
-          :rules="searchRules"
-          @keyup.enter="search"
-          @click:append="search"
+          @keyup.enter="search()"
+          @click:append="search()"
           append-icon="search"
         ></v-text-field>
-        <router-link to="/navegar" class="subheading pointer accent--text">Ver todos</router-link>
+        <router-link to="/navegar" @click.native="dismiss()" class="subheading pointer accent--text">Ver todos</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import http from '../http.js'
-
+// TODO: make better, send to util
 const isLink = str => /https:\/\//ig.test(str)
 
 export default {
-  name: 'home',
+  name: 'intro',
+  props: {
+    dismiss: Function
+  },
   data: () => ({
     searchText: '',
-    searchRules: [
-      str => {
-        if (isLink(str)) {
-          const [ id ] = str.match(/(MLA-\d+)/ig) || []
-          if (!id) {
-            return 'Not a valid link'
-          }
-        }
-        return true
-      }
-    ]
   }),
   methods: {
-    search () {
+    // TODO send to util
+    async search () {
+      if (!this.searchText) return
       if (isLink(this.searchText)) {
-        const [ id ] = this.searchText.match(/(MLA-\d+)/ig) || []
-        if (id) {
-          http.get(`/articles/${id.replace('-', '')}`)
-            .then(res => {
-              console.log(res)
-            })
-        }
+        const [ rawId ] = this.searchText.match(/(MLA-\d+)/ig) || []
+        if (!rawId) return
+        const id = rawId.replace('-', '')
+        this.$router.push(`/article/${id}`)
       } else {
-        this.$router.push(`/navegar?busqueda=${this.searchText}`)
+        this.$router.push(`/busqueda?titulo=${this.searchText}`)
       }
+      this.dismiss()
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.home {
+.intro {
   background-color: #fde500; // TODO: create variables file
   height: 100%;
   display: flex;
@@ -71,14 +61,8 @@ export default {
   align-content: center;
   justify-content: center;
 }
-.subheading {
-  text-decoration: none;
-}
-.promo-container,
-.search-wrapper {
-  padding: 0 10px;
-}
 .promo-container {
+  padding: 0 10px;
   max-width: 700px;
   margin: auto auto 0 auto;
   width: 100%;
@@ -98,5 +82,4 @@ export default {
     }
   }
 }
-
 </style>

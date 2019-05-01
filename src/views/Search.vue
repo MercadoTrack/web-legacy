@@ -1,28 +1,10 @@
 <template>
   <v-content>
     <v-container>
-      <v-layout mt-3 mb-3 px-2 wrap>
-        <v-flex xs12 md4 xl3>
-          <v-text-field solo
-            hide-details
-            v-model="searchText"
-            label="Buscar"
-            @click:append="search"
-            @keyup.enter="search"
-            @click:clear="clear"
-            clearable
-            append-icon="search"
-          ></v-text-field>
-        </v-flex>
-        <v-flex xs12 md8 xl9 class="total-articles mt-2" v-if="totalArticles">
-          <h3 class="subheading text-xs-right font-weight-light grey--text lighten-1">{{ totalArticles }} articulos encontrados</h3>
-        </v-flex>
-      </v-layout>
-      <v-divider class="mb-3"></v-divider>
       <v-layout wrap>
         <template v-if="articles">
           <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in articles" :key="article.id">
-            <ArticleCard :article="article" />
+            <ArticleCard :article="article"/>
           </v-flex>
         </template>
         <template v-else-if="searching">
@@ -37,17 +19,19 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <ArticleShareDialog />
   </v-content>
 </template>
 <script>
 import http from '../http.js'
-import ArticleCard from '../components/ArticleCard.vue'
+import { ArticleCard } from '../components/ArticleCard'
+import ArticleShareDialog from '../components/ArticleShareDialog'
 
 const limit = 30
 
 export default {
-  name: 'browse',
-  components: { ArticleCard },
+  name: 'search',
+  components: { ArticleCard, ArticleShareDialog },
   data: () => ({
     searchText: '',
     articles: null,
@@ -83,7 +67,7 @@ export default {
           skip: (pageNumber - 1) * limit
         }
       }).then(({ data }) => {
-        if (search) this.$router.push({ query: { busqueda: search } })
+        if (search) this.$router.push({ query: { titulo: search } })
         else this.$router.push({ query: {} })
         this.searching = false
         this.articles = data.page
@@ -95,15 +79,22 @@ export default {
     }
   },
   mounted () {
-    this.searchText = this.$route.query.busqueda
+    this.searchText = this.$route.query.titulo
     this.search()
   }
 }
 </script>
 
-<style>
-@media only screen and (min-width: 1904px) {
-  .container {
+<style scoped lang="scss">
+.container {
+  // max-width: 350px;
+  // @media only screen and (min-width: 600px) and (max-width: 960px) {
+  //   max-width: 600px;
+  // }
+  // @media only screen and (min-width: 960px) and (max-width: 1900px) {
+  //   max-width: 900px;
+  // }
+  @media only screen and (min-width: 1900px) {
     max-width: 1500px;
   }
 }
@@ -111,5 +102,9 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+}
+
+.inline {
+  display: inline;
 }
 </style>
