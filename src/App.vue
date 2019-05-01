@@ -35,13 +35,6 @@ export default {
 </script>
 
 <style lang="scss">
-html,
-body,
-#app {
-  overflow: auto;
-  height: 100vh;
-}
-
 a {
   text-decoration: none;
 }
