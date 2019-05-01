@@ -19,7 +19,7 @@ const router = new Router({
       component: Landing
     },
     {
-      path: '/busqueda',
+      path: '/busqueda/:category_id?', // TODO: check the best url for category links
       name: 'search',
       component: Search
     },

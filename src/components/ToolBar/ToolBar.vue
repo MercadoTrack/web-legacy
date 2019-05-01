@@ -61,17 +61,7 @@
     <v-toolbar color="secondary" dark fixed app>
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-container class="ma-auto pa-0" style="display: flex;">
-          <v-menu
-            offset-y
-            content-class="dropdown-menu"
-            transition="slide-y-transition">
-            <v-btn flat slot="activator" color="grey darken-3" class="px-1 subheading font-weight-light
-            text-capitalize">
-            Categorias
-            <v-icon>keyboard_arrow_down</v-icon>
-          </v-btn>
-          <TreeView />
-          </v-menu>
+          <CategoriesDropdown />
           <v-btn flat color="grey darken-3" class="px-1 subheading font-weight-light text-capitalize">
             Ofertas
           </v-btn>
@@ -128,10 +118,10 @@
 </template>
 
 <script>
-import TreeView from '../TreeView'
+import CategoriesDropdown from './CategoriesDropdown'
 
 export default {
-  components: { TreeView },
+  components: { CategoriesDropdown },
   data: () => ({
     drawer: false,
     searchText: '',
