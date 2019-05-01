@@ -6,6 +6,7 @@
     "start": "npm run serve",
     "dev": "npm run serve",
     "serve": "vue-cli-service serve --open",
+    "ngrok": "npx ngrok http 8080 --host-header=\"localhost:8080\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lint:fix": "npm run lint -- --fix"
