@@ -6,7 +6,7 @@
         <v-divider light></v-divider>
         <v-card-text class="relative">
           <v-chip dark label :color="statusColor" class="status">{{ status }}</v-chip>
-          <v-card-title class="pointer" primary-title @click="goToArticle()">
+          <v-card-title class="pa-0 pt-3 pointer" primary-title @click="goToArticle()">
             <v-flex xs12>
               <p class="subheading font-weight-light article-title grey--text mb-0">{{ article.title }}</p>
             </v-flex>

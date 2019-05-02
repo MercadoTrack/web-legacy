@@ -6,7 +6,7 @@
     <span class="subheading grey--text strike-through ml-1" v-if="fluctuation">
       ${{ previousPrice }}
     </span>
-    <span v-if="fluctuation" class="body-1 ml-auto mr-2" :style="{ color: fluctuationColor }">
+    <span v-if="fluctuation" class="body-1 ml-auto" :style="{ color: fluctuationColor }">
       <v-icon v-if="fluctuation > 0" :color="fluctuationColor" small>arrow_upward</v-icon>
       <v-icon v-if="fluctuation < 0" :color="fluctuationColor" small>arrow_downward</v-icon>
       <span>{{ Math.abs(fluctuation) }}%</span>
