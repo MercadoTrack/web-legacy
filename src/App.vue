@@ -35,6 +35,10 @@ export default {
 </script>
 
 <style lang="scss">
+html {
+  overflow-y: auto // vuetify FAQ - https://bit.ly/2vvHSnJ
+}
+
 a {
   text-decoration: none;
 }
@@ -51,6 +55,12 @@ figure {
     .v-input__control {
       min-height: 40px;
     }
+  }
+}
+
+.container {
+  @media only screen and (min-width: 1900px) {
+    max-width: 1185px;
   }
 }
 
