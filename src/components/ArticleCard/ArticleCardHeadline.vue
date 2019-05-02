@@ -4,7 +4,7 @@
       {{ price | priceFilter }}
     </span>
     <span class="subheading grey--text strike-through ml-1" v-if="fluctuation">
-      ${{ previousPrice }}
+      {{ previousPrice | priceFilter }}
     </span>
     <span v-if="fluctuation" class="body-1 ml-auto" :style="{ color: fluctuationColor }">
       <v-icon v-if="fluctuation > 0" :color="fluctuationColor" small>arrow_upward</v-icon>
@@ -19,7 +19,12 @@ export default {
   name: 'article-card-headline',
   props: ['article'],
   filters: {
-    priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
+    priceFilter: (num) => new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: 'ARS',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(num.toFixed(0)),
   },
   computed: {
     price () {
