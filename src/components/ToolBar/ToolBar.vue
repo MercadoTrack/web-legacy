@@ -13,13 +13,13 @@
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-container class="py-0 ma-auto toolbar-container">
           <CategoriesDropdown />
-          <v-btn flat color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Ofertas
           </v-btn>
-          <v-btn flat color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Vendedores destacados
           </v-btn>
-          <v-btn flat color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Últimos agregados
           </v-btn>
           <v-spacer></v-spacer>
@@ -28,10 +28,10 @@
               Favoritos
             </router-link>
           </v-btn>
-          <v-btn flat color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Notificaciones
           </v-btn>
-          <v-btn flat color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Mi cuenta
           </v-btn>
         </v-container>
@@ -59,7 +59,7 @@
           </router-link>
         </v-btn>
         <template v-else>
-          <v-btn flat light fab small>
+          <v-btn flat disabled light fab small>
             <v-icon medium color="grey darken-3">notifications</v-icon>
           </v-btn>
           <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
