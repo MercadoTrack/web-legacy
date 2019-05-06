@@ -46,7 +46,7 @@
           height="40"
           append-icon="search"
           label="Buscar"
-          v-model="searchText"
+          v-model="query"
           @keyup.enter="search()"
           @click:append="search()"
           flat solo clearable hide-details light
@@ -80,14 +80,15 @@ export default {
   },
   data: () => ({
     drawer: false,
-    searchText: '',
+    query: '',
   }),
   methods: {
-    async search () {
-      // should trigger an action and connect with Search component
-      if (!this.searchText) this.$router.push('/')
-      else this.$router.push(`/busqueda?titulo=${this.searchText}`)
+    search () {
+      this.$store.dispatch('search/global', this.query)
     }
+  },
+  mounted () {
+    this.query = this.$route.query.q || ''
   }
 }
 </script>

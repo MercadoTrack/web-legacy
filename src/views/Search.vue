@@ -2,8 +2,8 @@
   <v-content>
     <v-container>
       <v-layout wrap>
-        <template v-if="articles">
-          <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in articles" :key="article.id">
+        <template v-if="page">
+          <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in page" :key="article.id">
             <ArticleCard :article="article"/>
           </v-flex>
         </template>
@@ -14,7 +14,7 @@
         </template>
         <v-flex xs12 mt-2>
           <v-layout justify-center>
-            <v-pagination :length="totalPages" :total-visible="paginationTotalVisible" v-model="page" :disabled="searching" @input="paginate"></v-pagination>
+            <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="paginate"></v-pagination>
           </v-layout>
         </v-flex>
       </v-layout>
@@ -23,64 +23,46 @@
   </v-content>
 </template>
 <script>
-import http from '../http.js'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ArticleCard } from '../components/ArticleCard'
 import ArticleShareDialog from '../components/ArticleShareDialog'
-
-const limit = 30
 
 export default {
   name: 'search',
   components: { ArticleCard, ArticleShareDialog },
   data: () => ({
-    searchText: '',
-    articles: null,
-    searching: false,
-    page: 1,
-    totalArticles: 0,
-    totalPages: 0
+    pageNumber: 1,
   }),
   computed: {
+    ...mapGetters({
+      truncatedTotalPages: 'search/truncatedTotalPages',
+      searching: 'search/loading',
+      searchResult: 'search/result',
+    }),
+    page () {
+      return this.searchResult && this.searchResult.page
+    },
     paginationTotalVisible () {
       return this.$vuetify.breakpoint.xs ? 4 : 7
     }
   },
   methods: {
-    clear () {
-      this.searchText = ''
-      this.search()
-    },
-    search () {
-      this.page = 1
-      this.totalPages = 0
-      this.totalArticles = 0
-      this.paginate()
-    },
-    paginate (pageNumber = this.page, search = this.searchText) {
-      if (this.searching) return
-      this.searching = true
-      this.articles = null
-      http.get(`articles`, {
-        params: {
-          search,
-          limit,
-          skip: (pageNumber - 1) * limit
-        }
-      }).then(({ data }) => {
-        if (search) this.$router.push({ query: { titulo: search } })
-        else this.$router.push({ query: {} })
-        this.searching = false
-        this.articles = data.page
-        this.totalArticles = data.total
-        const realTotalPages = ~~(data.total / limit)
-        const truncatedTotalPages = this.page + 9
-        this.totalPages = Math.min(truncatedTotalPages, realTotalPages)
-      })
-    }
+    ...mapMutations({
+      setQuery: 'search/setQuery',
+      reset: 'search/reset',
+    }),
+    ...mapActions({
+      paginate: 'search/paginate',
+    }),
   },
   mounted () {
-    this.searchText = this.$route.query.titulo
-    this.search()
+    const query = this.$route.query.q
+    if (query) this.setQuery(query)
+    this.pageNumber = Number(this.$route.query.page) || 1
+    this.paginate(this.pageNumber)
+  },
+  destroyed () {
+    this.reset()
   }
 }
 </script>
