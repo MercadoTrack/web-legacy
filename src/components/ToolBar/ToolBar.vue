@@ -13,25 +13,23 @@
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-container class="py-0 ma-auto toolbar-container">
           <CategoriesDropdown />
-          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Ofertas
           </v-btn>
-          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Vendedores destacados
           </v-btn>
-          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Últimos agregados
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="grey darken-3">
-            <router-link to="/favorites" class="pointer d-flex font-weight-light text-none grey--text text--darken-3">
-              Favoritos
-            </router-link>
+          <v-btn flat active-class color="grey darken-3" to="/favorites" class="pointer d-flex font-weight-light text-none">
+            Favoritos
           </v-btn>
-          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Notificaciones
           </v-btn>
-          <v-btn flat disabled light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Mi cuenta
           </v-btn>
         </v-container>
@@ -52,14 +50,18 @@
           flat solo clearable hide-details light
         ></v-text-field>
         <v-spacer></v-spacer>
-        <v-btn v-if="$vuetify.breakpoint.mdAndUp" flat light>
-          <router-link to="/stats" class="pointer d-flex font-weight-light text-none grey--text text--darken-3">
-            <v-icon>visibility</v-icon>
-            <span class="ml-2">Sincronizacion en vivo</span>
-          </router-link>
+        <v-btn
+          v-if="$vuetify.breakpoint.mdAndUp"
+          to="/stats"
+          color="grey darken-3"
+          class="d-flex font-weight-light text-none"
+          flat light active-class
+        >
+          <v-icon>visibility</v-icon>
+          <span class="ml-2">Sincronizacion en vivo</span>
         </v-btn>
         <template v-else>
-          <v-btn flat disabled light fab small>
+          <v-btn flat disabled active-class light fab small>
             <v-icon medium color="grey darken-3">notifications</v-icon>
           </v-btn>
           <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>

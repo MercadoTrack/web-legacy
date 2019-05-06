@@ -61,9 +61,9 @@ export default {
     percentage: 0,
     interval: null
   }),
-  mounted () {
-    this.interval = setInterval(() => {
-      http.get('/sync').then(({ data }) => {
+  methods: {
+    getSync () {
+      return http.get('/sync').then(({ data }) => {
         const [ , processed, total ] = data.progress.progress.match(/(\d+)\/(\d+)/)
         this.percentage = new Intl.NumberFormat('de-DE').format((+processed * 100 / +total).toFixed(3))
         this.total = new Intl.NumberFormat('de-DE').format(+total)
@@ -77,7 +77,11 @@ export default {
           children: this.errors.reduce((acc, error) => [...acc, { name: error }], [])
         }]
       })
-    }, 4000)
+    }
+  },
+  mounted () {
+    this.getSync()
+    this.interval = setInterval(() => this.getSync(), 4000)
   },
   destroyed () {
     clearInterval(this.interval)

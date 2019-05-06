@@ -10,7 +10,7 @@
         <v-list-tile-avatar>
           <v-icon>{{ getCategoryIcon(category) }}</v-icon>
         </v-list-tile-avatar>
-        <v-list-tile-content>
+        <v-list-tile-content class="body-1 font-weight-light">
           <v-list-tile-title>{{ category.name }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
