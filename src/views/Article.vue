@@ -36,7 +36,7 @@
                   <v-card flat>
                     <v-card-text class="pl-0">
                       <div class="d-flex text-xs-left">
-                        <img v-if="!price"height="50" src="../assets/warning.svg" alt="Warning">
+                        <v-icon>warning</v-icon>
                         <p v-if="!price" class="headline pt-2">Sin precio</p>
                       </div>
                       <p v-if="price" class="display-1 font-weight-light">{{ price | priceFilter }}</p>
