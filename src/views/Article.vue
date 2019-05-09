@@ -35,9 +35,9 @@
 
                   <v-card flat>
                     <v-card-text class="pl-0">
-                      <div class="d-flex text-xs-left">
+                      <div v-if="!price" class="d-flex text-xs-left">
                         <v-icon>warning</v-icon>
-                        <p v-if="!price" class="headline pt-2">Sin precio</p>
+                        <p class="headline pt-2">Sin precio</p>
                       </div>
                       <p v-if="price" class="display-1 font-weight-light">{{ price | priceFilter }}</p>
                       <!-- <v-rating v-model="rating"></v-rating> -->
@@ -102,7 +102,7 @@
               <v-flex xs12 md4 lg4 xl4 pa-4>
                 <v-list two-line subheader>
                   <span class="headline">Historial de precios</span>
-                  <v-list-tile>
+                  <v-list-tile v-if="price">
                     <v-list-tile-content>
                       <v-tooltip right max-width="25rem">
                         <template slot="activator">
@@ -114,7 +114,7 @@
                     </v-list-tile-content>
                   </v-list-tile>
 
-                  <v-list-tile>
+                  <v-list-tile v-if="price">
                     <v-list-tile-content>
                       <v-tooltip right max-width="25rem">
                         <template slot="activator">
@@ -126,7 +126,7 @@
                     </v-list-tile-content>
                   </v-list-tile>
 
-                  <v-list-tile>
+                  <v-list-tile v-if="price">
                     <v-list-tile-content>
                       <v-tooltip right max-width="25rem">
                         <template slot="activator">
@@ -138,7 +138,7 @@
                     </v-list-tile-content>
                   </v-list-tile>
 
-                  <v-list-tile>
+                  <v-list-tile v-if="price">
                     <v-list-tile-content>
                       <v-tooltip right max-width="25rem">
                         <template slot="activator">
@@ -150,7 +150,7 @@
                     </v-list-tile-content>
                   </v-list-tile>
 
-                  <v-list-tile>
+                  <v-list-tile v-if="price">
                     <v-list-tile-content>
                       <v-tooltip right max-width="25rem">
                         <template slot="activator">
@@ -262,7 +262,7 @@ export default {
       return items
     },
     price () {
-      return this.article.history[this.article.history.length - 1].price || false
+      return this.article.history[this.article.history.length - 1].price
     },
     multipleImages () {
       if (this.article.images.length > 1) {
