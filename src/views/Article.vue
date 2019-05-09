@@ -35,9 +35,12 @@
 
                   <v-card flat>
                     <v-card-text class="pl-0">
-                      <p class="display-1 font-weight-light">{{ price | priceFilter }}</p>
-
-                      <v-rating v-model="rating"></v-rating>
+                      <div class="d-flex text-xs-left">
+                        <img v-if="!price"height="50" src="../assets/warning.svg" alt="Warning">
+                        <p v-if="!price" class="headline pt-2">Sin precio</p>
+                      </div>
+                      <p v-if="price" class="display-1 font-weight-light">{{ price | priceFilter }}</p>
+                      <!-- <v-rating v-model="rating"></v-rating> -->
 
                       <v-list class="pt-4">
                         <v-list-tile>
@@ -259,7 +262,7 @@ export default {
       return items
     },
     price () {
-      return this.article.history[this.article.history.length - 1].price
+      return this.article.history[this.article.history.length - 1].price || false
     },
     multipleImages () {
       if (this.article.images.length > 1) {
