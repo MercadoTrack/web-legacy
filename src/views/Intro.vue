@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .intro {
-  background-color: #fde500; // TODO: create variables file
+  background-color: #FFF158; // TODO: create variables file
   height: 100%;
   display: flex;
   flex-direction: column;
