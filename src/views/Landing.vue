@@ -37,7 +37,7 @@ export default {
     },
     populateCategoriesWithSamples (mainCategories) {
       mainCategories.forEach((category) => {
-        http.get(`/articles?limit=8&skip=0&category=${category._id}`).then(res => {
+        http.get(`/articles?limit=8&skip=0&category=${category._id}&pretty=true`).then(res => {
           this.categoriesWithSamples.push({
             ...category,
             samples: res.data.page
