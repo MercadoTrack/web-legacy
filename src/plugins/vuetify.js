@@ -7,12 +7,12 @@ import colors from 'vuetify/es5/util/colors'
 Vue.use(Vuetify, {
   theme: {
     primary: '#3483FA',
-    secondary: '#FDE500',
+    secondary: '#FFF158',
     accent: '#1259C3',
     error: colors.red.accent3,
     info: '#2196F3',
     success: '#4CAF50',
-    warning: '#FFC107'
+    warning: '#FFE600'
   }
 })
 
