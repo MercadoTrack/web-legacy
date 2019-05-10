@@ -2,20 +2,13 @@
   <v-content>
     <v-container>
       <div v-for="category in categoriesWithSamples" :key="category._id" class="mb-5">
-        <h2 class="font-weight-light">{{ category.name }}</h2>
+        <h2 class="display-1 grey--text text--darken-3 font-weight-light">{{ category.name }}</h2>
         <v-layout row wrap class="my-2">
-          <v-flex v-for="article in category.samples" :key="article.id" xs3 class="pa-2" @click="goToArticle(article)">
+          <v-flex v-for="article in category.samples" :key="article.id" xs3 class="pa-2">
             <v-card hover>
-              <v-img :src="getArticleImg(article)" contain height="200px"></v-img>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon>favorite</v-icon>
-                </v-btn>
-                <v-btn icon>
-                  <v-icon>share</v-icon>
-                </v-btn>
-              </v-card-actions>
+              <router-link :to="`/article/${article.id}`">
+                <v-img :src="getArticleImg(article)" contain height="200px"></v-img>
+              </router-link>
             </v-card>
           </v-flex>
         </v-layout>
@@ -38,9 +31,6 @@ export default {
     }),
   },
   methods: {
-    goToArticle (article) {
-      this.$router.push(`/article/${article.id}`)
-    },
     getArticleImg (article) {
       const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
       return article.images[0] || fallback
