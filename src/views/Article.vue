@@ -35,11 +35,12 @@
 
                   <v-card flat>
                     <v-card-text class="pl-0">
-                      <div v-if="!price" class="d-flex text-xs-left">
+                      <p v-if="price" class="display-1 font-weight-light">{{ price | priceFilter }}</p>
+                      <div v-else class="d-flex text-xs-left">
                         <v-icon>warning</v-icon>
                         <p class="headline pt-2">Sin precio</p>
                       </div>
-                      <p v-if="price" class="display-1 font-weight-light">{{ price | priceFilter }}</p>
+
                       <!-- <v-rating v-model="rating"></v-rating> -->
 
                       <v-list class="pt-4">
@@ -102,65 +103,75 @@
               <v-flex xs12 md4 lg4 xl4 pa-4>
                 <v-list two-line subheader>
                   <span class="headline">Historial de precios</span>
-                  <v-list-tile v-if="price">
-                    <v-list-tile-content>
-                      <v-tooltip right max-width="25rem">
-                        <template slot="activator">
-                          <v-list-tile-title class="title">{{ article.history.length - 1 }}</v-list-tile-title>
-                          <v-list-tile-sub-title>variaciones</v-list-tile-sub-title>
-                        </template>
-                        <span>Es la cantidad de veces que el precio publicado sufrió modificaciones.</span>
-                      </v-tooltip>
-                    </v-list-tile-content>
-                  </v-list-tile>
-
-                  <v-list-tile v-if="price">
-                    <v-list-tile-content>
-                      <v-tooltip right max-width="25rem">
-                        <template slot="activator">
-                          <v-list-tile-title class="title">${{ price }}</v-list-tile-title>
-                          <v-list-tile-sub-title>Precio actual publicado</v-list-tile-sub-title>
-                        </template>
-                        <span>Es el precio publicado en MercadoLibre por el vendedor.</span>
-                    </v-tooltip>
-                    </v-list-tile-content>
-                  </v-list-tile>
-
-                  <v-list-tile v-if="price">
-                    <v-list-tile-content>
-                      <v-tooltip right max-width="25rem">
-                        <template slot="activator">
-                          <v-list-tile-title class="title">${{ price }}</v-list-tile-title>
-                          <v-list-tile-sub-title>Precio real</v-list-tile-sub-title>
+                  <template v-if="price">
+                    <v-list-tile>
+                      <v-list-tile-content>
+                        <v-tooltip right max-width="25rem">
+                          <template slot="activator">
+                            <v-list-tile-title class="title">{{ article.history.length - 1 }}</v-list-tile-title>
+                            <v-list-tile-sub-title>variaciones</v-list-tile-sub-title>
                           </template>
-                        <span>Es el precio sobre el cual se aplicó el descuento publicado.</span>
-                      </v-tooltip>
-                    </v-list-tile-content>
-                  </v-list-tile>
+                          <span>Es la cantidad de veces que el precio publicado sufrió modificaciones.</span>
+                        </v-tooltip>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </template>
 
-                  <v-list-tile v-if="price">
-                    <v-list-tile-content>
-                      <v-tooltip right max-width="25rem">
-                        <template slot="activator">
-                          <v-list-tile-title class="title">%0</v-list-tile-title>
-                          <v-list-tile-sub-title>Descuento publicado</v-list-tile-sub-title>
+                  <template v-if="price">
+                    <v-list-tile>
+                      <v-list-tile-content>
+                        <v-tooltip right max-width="25rem">
+                          <template slot="activator">
+                            <v-list-tile-title class="title">${{ price }}</v-list-tile-title>
+                            <v-list-tile-sub-title>Precio actual publicado</v-list-tile-sub-title>
                           </template>
-                        <span>Es el descuento publicado en Mercado Libre por el vendedor</span>
+                          <span>Es el precio publicado en MercadoLibre por el vendedor.</span>
                       </v-tooltip>
-                    </v-list-tile-content>
-                  </v-list-tile>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </template>
 
-                  <v-list-tile v-if="price">
-                    <v-list-tile-content>
-                      <v-tooltip right max-width="25rem">
-                        <template slot="activator">
-                          <v-list-tile-title class="title">%0</v-list-tile-title>
-                          <v-list-tile-sub-title>Descuento real</v-list-tile-sub-title>
-                          </template>
-                        <span>Es el descuento real del producto en base a su precio anterior</span>
-                      </v-tooltip>
-                    </v-list-tile-content>
-                  </v-list-tile>
+                  <template v-if="price">
+                    <v-list-tile>
+                      <v-list-tile-content>
+                        <v-tooltip right max-width="25rem">
+                          <template slot="activator">
+                            <v-list-tile-title class="title">${{ price }}</v-list-tile-title>
+                            <v-list-tile-sub-title>Precio real</v-list-tile-sub-title>
+                            </template>
+                          <span>Es el precio sobre el cual se aplicó el descuento publicado.</span>
+                        </v-tooltip>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </template>
+
+                  <template v-if="price">
+                    <v-list-tile>
+                      <v-list-tile-content>
+                        <v-tooltip right max-width="25rem">
+                          <template slot="activator">
+                            <v-list-tile-title class="title">%0</v-list-tile-title>
+                            <v-list-tile-sub-title>Descuento publicado</v-list-tile-sub-title>
+                            </template>
+                          <span>Es el descuento publicado en Mercado Libre por el vendedor</span>
+                        </v-tooltip>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </template>
+
+                  <template v-if="price">
+                    <v-list-tile v-if="price">
+                      <v-list-tile-content>
+                        <v-tooltip right max-width="25rem">
+                          <template slot="activator">
+                            <v-list-tile-title class="title">%0</v-list-tile-title>
+                            <v-list-tile-sub-title>Descuento real</v-list-tile-sub-title>
+                            </template>
+                          <span>Es el descuento real del producto en base a su precio anterior</span>
+                        </v-tooltip>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </template>
                 </v-list>
               </v-flex>
             </v-layout>
