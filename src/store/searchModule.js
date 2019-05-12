@@ -2,17 +2,26 @@ import router from '../router'
 import http from '../http'
 
 const limit = 30
-const generateRouteObject = (q, page) => {
-  const name = 'search'
-  const query = { page }
-  if (!q) {
-    return { name, query }
-  }
+const generateRouteObject = (page, searchTerm) => {
+  const query = Object.assign({}, router.currentRoute.query)
+  if (page) query.page = page
+  if (searchTerm) query.q = searchTerm
+  else if (query.q) delete query.q // resetting search!
   return {
-    name,
-    query: Object.assign(query, { q }),
+    query,
+    name: 'search',
   }
 }
+const generateSearchQuery = (page) => ({
+  ...router.currentRoute.query,
+  limit,
+  page,
+  skip: (page - 1) * limit,
+  pretty: true,
+  // `q` is an arbitrary name set from the ToolBar search
+  // maybe change from the backend someday?
+  search: router.currentRoute.query.q,
+})
 
 export default {
   namespaced: true,
@@ -20,16 +29,8 @@ export default {
     loading: false,
     result: null,
     error: null,
-    filters: {
-      query: null,
-      // the rest of the filters will be here
-      // or maybe just in the route?
-    }
   },
   mutations: {
-    setQuery: (state, query) => {
-      state.filters.query = query
-    },
     loading: (state) => {
       state.error = null
       state.loading = true
@@ -49,27 +50,23 @@ export default {
       state.loading = false
       state.result = null
       state.error = null
-      state.filters = {
-        query: null,
-        // ...
-      }
     },
   },
   actions: {
-    global ({ commit, dispatch }, query) {
-      commit('setQuery', query)
-      dispatch('paginate')
+    global ({ dispatch }, searchTerm) {
+      if (!searchTerm && !router.currentRoute.query.category) {
+        router.push({ name: 'landing' })
+      } else {
+        dispatch('paginate', { searchTerm })
+      }
     },
-    async paginate ({ commit, state }, pageNumber = 1) {
-      const route = generateRouteObject(state.filters.query, pageNumber)
+    // searchTerm is only for search from toolbar, otherwise we take the query param `q`
+    async paginate ({ commit, state }, { page = 1, searchTerm }) {
+      const route = generateRouteObject(page, searchTerm)
       router.push(route)
       if (state.loading) return
       commit('loading')
-      const params = {
-        limit,
-        search: state.filters.query,
-        skip: (pageNumber - 1) * limit
-      }
+      const params = generateSearchQuery(page)
       try {
         const { data } = await http.get('articles', { params })
         commit('success', data)
@@ -89,6 +86,5 @@ export default {
     loading: (state) => state.loading,
     result: (state) => state.result,
     error: (state) => state.error,
-    filters: (state) => state.filters,
   }
 }
