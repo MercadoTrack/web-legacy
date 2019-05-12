@@ -2,14 +2,14 @@
   <v-content>
     <v-container>
       <div v-for="category in categoriesWithSamples" :key="category._id" class="mb-5">
-        <h2 class="headline grey--text text--darken-3 font-weight-light pl-2">{{ category.name }}</h2>
+        <h2 class="headline font-weight-light ml-2">
+          <router-link :to="getCategoryLink(category)" class="grey--text text--darken-3 category-link">
+            {{ category.name }}
+          </router-link>
+        </h2>
         <v-layout row class="my-2">
           <v-flex xs3 v-for="article in category.samples" :key="article.id" class="pa-2">
-            <v-card hover>
-              <router-link :to="`/article/${article.id}`">
-                <v-img :src="getArticleImg(article)" contain height="200px"></v-img>
-              </router-link>
-            </v-card>
+            <LandingArticleCard :article="article" />
           </v-flex>
         </v-layout>
       </div>
@@ -20,20 +20,25 @@
 <script>
 import { mapGetters } from 'vuex'
 import http from '../http'
+import LandingArticleCard from '../components/LandingArticleCard'
+import { CategoriesHelper } from '../utils'
 
 export default {
   data: () => ({
     categoriesWithSamples: []
   }),
+  components: {
+    LandingArticleCard,
+  },
   computed: {
     ...mapGetters({
       mainCategories: 'meta/mainCategories',
     }),
   },
   methods: {
-    getArticleImg (article) {
-      const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
-      return article.images[0] || fallback
+    getCategoryLink (category) {
+      const categoryKeyName = CategoriesHelper.getCategoryKeyName(category.name)
+      return `/${categoryKeyName}`
     },
     populateCategoriesWithSamples (mainCategories) {
       mainCategories.forEach((category) => {
@@ -58,3 +63,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.category-link:hover {
+  color: var(--v-primary-base) !important;
+}
+</style>

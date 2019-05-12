@@ -1,0 +1,61 @@
+<template>
+  <v-hover>
+    <v-card hover slot-scope="{ hover }">
+      <router-link :to="`/article/${article.id}`">
+        <v-img :src="getArticleImg(article)" contain height="200px">
+          <v-expand-transition>
+            <div
+              v-if="hover"
+              class="d-flex transition-fast-in-fast-out primary darken-2 v-card--reveal display-3 white--text"
+            >
+              <v-container fill-height>
+                <v-layout fill-height wrap>
+                  <v-flex xs12 align-end flexbox>
+                    <p class="title font-weight-light text-wrap">
+                      {{ article.price | priceFilter }}
+                    </p>
+                  </v-flex>
+                  <v-flex xs12 align-end flexbox>
+                    <p class="body-1 font-weight-light text-wrap">
+                      {{ article.title }}
+                    </p>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </div>
+          </v-expand-transition>
+        </v-img>
+      </router-link>
+    </v-card>
+  </v-hover>
+</template>
+
+<script>
+export default {
+  props: ['article'],
+  filters: {
+    priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
+  },
+  methods: {
+    getArticleImg (article) {
+      const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
+      return article.images[0] || fallback
+    },
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: .75;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+p.body-1 {
+  letter-spacing: 1px;
+}
+</style>
