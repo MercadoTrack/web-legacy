@@ -16,6 +16,7 @@ Vue.use(Vuetify, {
     error: colors.red.accent3,
     info: '#2196F3',
     success: '#4CAF50',
-    warning: '#FFE600'
+    warning: '#FFE600',
+    background: '#EBEBEB',
   },
 })

@@ -36,7 +36,11 @@ export default {
 
 <style lang="scss">
 html {
-  overflow-y: auto // vuetify FAQ - https://bit.ly/2vvHSnJ
+  overflow-y: auto; // vuetify FAQ - https://bit.ly/2vvHSnJ
+}
+
+#app {
+  background-color: var(--v-background-base);
 }
 
 a {
