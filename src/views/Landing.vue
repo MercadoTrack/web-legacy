@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-container>
+    <v-container class="mt-4">
       <div v-for="category in categoriesWithSamples" :key="category._id" class="mb-5">
         <h2 class="headline font-weight-light ml-2">
           <router-link :to="getCategoryLink(category)" class="grey--text text--darken-3 category-link">
