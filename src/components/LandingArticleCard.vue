@@ -11,12 +11,12 @@
               <v-container fill-height>
                 <v-layout fill-height wrap>
                   <v-flex xs12 align-end flexbox>
-                    <p class="title font-weight-light text-wrap">
+                    <p class="headline font-weight-medium text-wrap">
                       {{ article.price | priceFilter }}
                     </p>
                   </v-flex>
                   <v-flex xs12 align-end flexbox>
-                    <p class="body-1 font-weight-light text-wrap">
+                    <p class="title font-weight-light text-wrap">
                       {{ article.title }}
                     </p>
                   </v-flex>

@@ -1,6 +1,7 @@
 <template>
   <v-content>
     <v-container>
+      <h2 class="display-1 grey--text text--darken-3 font-weight-light">Category name</h2>
       <v-layout wrap>
         <template v-if="page">
           <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in page" :key="article.id">

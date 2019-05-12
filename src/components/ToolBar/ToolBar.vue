@@ -48,7 +48,8 @@
           @keyup.enter="search()"
           @click:append="search()"
           flat solo clearable hide-details light
-        ></v-text-field>
+        >
+        </v-text-field>
         <v-spacer></v-spacer>
         <v-btn
           v-if="$vuetify.breakpoint.mdAndUp"
