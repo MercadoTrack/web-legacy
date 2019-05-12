@@ -6,6 +6,7 @@ import Search from './views/Search'
 import Stats from './views/Stats'
 import Article from './views/Article'
 import Favorites from './views/Favorites'
+import Category from './views/Category'
 
 Vue.use(Router)
 
@@ -19,9 +20,9 @@ const router = new Router({
       component: Landing
     },
     {
-      path: '/busqueda/:category_id?', // TODO: check the best url for category links
+      path: '/busqueda',
       name: 'search',
-      component: Search
+      component: Search,
     },
     {
       path: '/stats',
@@ -37,6 +38,11 @@ const router = new Router({
       path: '/favorites',
       name: 'favorites',
       component: Favorites
+    },
+    {
+      path: '/:category',
+      name: 'category',
+      component: Category,
     },
     {
       path: '*',
