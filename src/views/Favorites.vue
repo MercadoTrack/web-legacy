@@ -94,35 +94,35 @@ export default {
         img: 'https://mla-s1-p.mlstatic.com/723842-MLA27773252626_072018-G.jpg',
         title: 'Velador Decorativo Con Tulipa. Base De Madera',
         permalink: 'https://articulo.mercadolibre.com.ar/MLA-624428536-velador-decorativo-con-tulipa-base-de-madera-moderno-luna-_JM',
-        price: "750",
+        price: '750',
         id: 1
       },
       {
         img: 'https://mla-s2-p.mlstatic.com/812373-MLA29749196213_032019-G.jpg',
         title: 'Tv Smart Samsung 40j5200 40 Pulgadas Full Hd',
         permalink: 'https://articulo.mercadolibre.com.ar/MLA-733113241-tv-smart-samsung-40j5200-40-pulgadas-full-hd-_JM',
-        price: "15.899",
+        price: '15.899',
         id: 2
       },
       {
         img: 'https://mla-s1-p.mlstatic.com/742506-MLA28126349802_092018-G.jpg',
         title: 'Edifier M1360 Parlantes 2.1 Mute Pc Tv Control Volumen',
         permalink: 'https://articulo.mercadolibre.com.ar/MLA-608770332-edifier-m1360-parlantes-21-mute-pc-tv-control-volumen-_JM',
-        price: "2.690",
+        price: '2.690',
         id: 3
       },
       {
         img: 'https://mla-s2-p.mlstatic.com/743457-MLA27722727897_072018-G.jpg',
         title: 'Almohada Cannon Sublime X2, Envío S/c A Todo El País*',
         permalink: 'https://articulo.mercadolibre.com.ar/MLA-736464289-almohada-cannon-sublime-x2-envio-sc-a-todo-el-pais-_JM',
-        price: "1.750",
+        price: '1.750',
         id: 4
       },
       {
         img: 'https://mla-s2-p.mlstatic.com/842655-MLA29650554913_032019-G.jpg',
         title: 'Auriculares Bluetooth Soundbuds Sport Nb10',
         permalink: 'https://articulo.mercadolibre.com.ar/MLA-776100485-auriculares-bluetooth-soundbuds-sport-nb10-_JM',
-        price: "2.500",
+        price: '2.500',
         id: 5
       }
     ]
