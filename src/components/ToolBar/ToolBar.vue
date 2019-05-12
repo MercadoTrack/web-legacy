@@ -44,7 +44,7 @@
           height="40"
           append-icon="search"
           label="Buscar"
-          v-model="query"
+          v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"
           flat solo clearable hide-details light
@@ -82,15 +82,15 @@ export default {
   },
   data: () => ({
     drawer: false,
-    query: '',
+    searchTerm: '',
   }),
   methods: {
     search () {
-      this.$store.dispatch('search/global', this.query)
+      this.$store.dispatch('search/global', this.searchTerm)
     }
   },
   mounted () {
-    this.query = this.$route.query.q || ''
+    this.searchTerm = this.$route.query.q || ''
   }
 }
 </script>
