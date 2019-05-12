@@ -20,6 +20,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { CategoriesHelper } from '../../utils'
+
 export default {
   data: () => ({
     tree: [],
@@ -39,19 +41,13 @@ export default {
   },
   methods: {
     getCategoryIcon (category) {
-      return this.icons[this.getCategoryKey(category)]
+      const categoryKey = CategoriesHelper.getCategoryKeyName(category.name)
+      return this.icons[categoryKey]
     },
     getCategoryLink (category) {
-      const categoryKey = this.getCategoryKey(category)
-      return `/busqueda/${categoryKey}` // TODO: check the best url for category links
+      const categoryKey = CategoriesHelper.getCategoryKeyName(category.name)
+      return `/${categoryKey}`
     },
-    getCategoryKey ({ name }) { // TODO: take to utils or something
-      return name
-        .replace(/[, ].*/, '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-    }
   },
 }
 </script>

@@ -1,12 +1,12 @@
 <template>
   <v-hover>
-    <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
+    <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2} pointer`" @click="goToArticle()">
       <v-container fluid class="pa-0">
         <ArticleCardImage :article="article" :hover="hover" />
         <v-divider light></v-divider>
         <v-card-text class="relative">
           <v-chip dark label :color="statusColor" class="status">{{ status }}</v-chip>
-          <v-card-title class="pa-0 pt-3 pointer" primary-title @click="goToArticle()">
+          <v-card-title class="pa-0 pt-3" primary-title>
             <v-flex xs12>
               <p class="subheading font-weight-light article-title grey--text mb-0">{{ article.title }}</p>
             </v-flex>

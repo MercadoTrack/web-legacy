@@ -14,7 +14,7 @@
         </template>
         <v-flex xs12 mt-2>
           <v-layout justify-center>
-            <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="paginate"></v-pagination>
+            <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="changePage"></v-pagination>
           </v-layout>
         </v-flex>
       </v-layout>
@@ -48,18 +48,25 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setQuery: 'search/setQuery',
       reset: 'search/reset',
     }),
     ...mapActions({
       paginate: 'search/paginate',
     }),
+    changePage (page) {
+      const searchTerm = this.$route.query.q
+      this.paginate({ page, searchTerm })
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    // for when search is resetted from the toolbar
+    this.pageNumber = to.query.page || 1
+    next()
   },
   mounted () {
-    const query = this.$route.query.q
-    if (query) this.setQuery(query)
+    const searchTerm = this.$route.query.q
     this.pageNumber = Number(this.$route.query.page) || 1
-    this.paginate(this.pageNumber)
+    this.paginate({ searchTerm, page: this.pageNumber })
   },
   destroyed () {
     this.reset()
