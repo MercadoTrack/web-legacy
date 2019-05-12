@@ -3,7 +3,7 @@
     <v-container>
       <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
 
-      <v-card v-else>
+      <v-card v-else elevation=0>
         <v-layout row wrap>
           <v-flex xs12 pb-0>
             <v-breadcrumbs :items="breadcrumbItems" divider=">"></v-breadcrumbs>
@@ -11,25 +11,25 @@
           </v-flex>
           <v-container class="pa-0 ma-0 line-wrap">
             <v-layout wrap class="pa-0 ma-0">
-              <v-flex xs12 md2 lg2 xl2 v-if="multipleImages && $vuetify.breakpoint.mdAndUp" class="pa-0">
+              <v-flex xs12 md2 lg2 xl2 v-if="multipleImages && $vuetify.breakpoint.mdAndUp" class="pa-0 border-l">
                 <section
-                  v-for="url in article.images.slice(1,4)"
-                  :key="url"
+                  v-for="img in article.images.slice(1,4)"
+                  :key="img"
                   class="pa-0"
                 >
                   <v-img
-                    :src="url">
+                    :src="img">
                   </v-img>
                 </section>
               </v-flex>
 
-              <v-layout class="pa-0 ma-0 border" align-center justify-center>
-                <v-flex xs12 md6 lg6 xl6>
-                  <v-img class="mx-0" :src="article.images[0]"></v-img>
+              <v-layout class="pa-0 ma-0" align-center justify-center>
+                <v-flex xs12 md12 lg12 xl12 class="ma-4">
+                  <v-img class="ma-0" :src="article.images[0]"></v-img>
                 </v-flex>
               </v-layout>
 
-              <v-flex xs12 md4 lg4 xl4 pa-4>
+              <v-flex xs12 md4 lg4 xl4 pa-4 class="border-r">
                 <v-list two-line subheader>
                   <span class="display-1">{{ article.title }}</span>
 
@@ -96,7 +96,7 @@
 
           <v-container class="pa-0 ma-0 line-wrap" :text-xs-center="$vuetify.breakpoint.mdAndDown">
             <v-layout wrap class="pa-0 ma-0">
-              <v-flex xs12 md8 lg8 xl8 pa-4 class="border">
+              <v-flex xs12 md8 lg8 xl8 pa-4 class="border-l">
                 <Chart :history="article.history" />
               </v-flex>
 
@@ -290,8 +290,11 @@ export default {
 </script>
 
 <style scoped>
-.border {
+.border-l {
   border-right: 1px solid rgba(0,0,0,.12);
+}
+
+.border-r {
   border-left: 1px solid rgba(0,0,0,.12);
 }
 
