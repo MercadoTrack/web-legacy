@@ -221,10 +221,9 @@
 import { mapGetters } from 'vuex'
 import http from '../http.js'
 import Chart from '../components/Chart'
-import Spinner from '../components/Spinner'
 
 export default {
-  components: { Chart, Spinner },
+  components: { Chart },
   filters: {
     priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
   },
@@ -276,9 +275,7 @@ export default {
       return this.article.history[this.article.history.length - 1].price
     },
     multipleImages () {
-      if (this.article.images.length > 1) {
-        return true
-      }
+      return this.article.images.length > 1
     }
   },
   methods: {

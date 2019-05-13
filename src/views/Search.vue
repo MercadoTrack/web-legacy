@@ -1,7 +1,9 @@
 <template>
   <v-content>
     <v-container>
-      <h2 class="display-1 grey--text text--darken-3 font-weight-light">Category name</h2>
+      <h2 v-if="category" class="headline grey--text text--darken-3 font-weight-light ml-3">
+        {{ category.name }}
+      </h2>
       <v-layout wrap>
         <template v-if="page">
           <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in page" :key="article.id">
@@ -39,12 +41,17 @@ export default {
       truncatedTotalPages: 'search/truncatedTotalPages',
       searching: 'search/loading',
       searchResult: 'search/result',
+      categories: 'meta/categories',
     }),
     page () {
       return this.searchResult && this.searchResult.page
     },
     paginationTotalVisible () {
       return this.$vuetify.breakpoint.xs ? 4 : 7
+    },
+    category () {
+      if (!this.$route.query.category) return
+      return this.categories.find(category => category._id === this.$route.query.category)
     }
   },
   methods: {
