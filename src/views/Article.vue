@@ -230,15 +230,20 @@ export default {
   data: () => ({
     loading: true,
     article: null,
+    mlArticle: null,
     rating: 3,
   }),
-  mounted () {
+  async mounted () {
     const id = this.$route.params.id
-    http.get(`articles/${id}`)
-      .then(res => {
-        this.article = res.data
-        this.loading = false
-      })
+    const promises = [ http.get(`articles/${id}`), http.get(`articles/ml/${id}`) ]
+    try {
+      const [ mtRes, mlRes ] = await Promise.all(promises)
+      this.article = mtRes.data
+      this.mlArticle = mlRes.data
+      this.loading = false
+    } catch (err) {
+      console.log(err)
+    }
   },
   computed: {
     ...mapGetters({
