@@ -54,6 +54,12 @@ export default {
 
 <style lang="scss" scoped>
 .intro {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
   background-color: #FFF158; // TODO: create variables file
   height: 100%;
   display: flex;

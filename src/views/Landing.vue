@@ -1,5 +1,6 @@
 <template>
-  <v-content>
+  <Intro v-if="showIntro" :dismiss="dismissIntro"/>
+  <v-content v-else>
     <v-container class="mt-4">
       <v-layout v-if="loading" row>
         <v-flex xs12 d-flex mb-3 class="overflow-hidden">
@@ -24,7 +25,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
+import Intro from './Intro'
 import http from '../http'
 import LandingArticleCard from '../components/LandingArticleCard'
 import { CategoriesHelper } from '../utils'
@@ -35,14 +37,19 @@ export default {
     categoriesWithSamples: []
   }),
   components: {
+    Intro,
     LandingArticleCard,
   },
   computed: {
     ...mapGetters({
+      showIntro: 'intro/show',
       mainCategories: 'meta/mainCategories',
     }),
   },
   methods: {
+    ...mapMutations({
+      dismissIntro: 'intro/dismiss',
+    }),
     getCategoryLink (category) {
       const categoryKeyName = CategoriesHelper.getCategoryKeyName(category.name)
       return `/${categoryKeyName}`

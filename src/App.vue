@@ -1,36 +1,22 @@
 <template>
   <v-app>
-    <Intro v-if="showIntro" :dismiss="dismissIntro"/>
-    <template v-else>
-      <ToolBar />
-      <router-view/>
-      <Footer />
-    </template>
+    <ToolBar />
+    <router-view/>
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import Intro from './views/Intro'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 
 export default {
   name: 'app',
-  components: { Intro, Footer, ToolBar },
+  components: { Footer, ToolBar },
   mounted () {
     this.$store.dispatch('meta/getBase')
   },
-  computed: {
-    ...mapGetters({
-      showIntro: 'intro/show',
-    })
-  },
-  methods: {
-    ...mapMutations({
-      dismissIntro: 'intro/dismiss',
-    })
-  }
 }
 </script>
 
