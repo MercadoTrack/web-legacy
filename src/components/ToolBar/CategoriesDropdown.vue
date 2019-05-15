@@ -24,7 +24,6 @@ import { CategoriesHelper } from '../../utils'
 
 export default {
   data: () => ({
-    tree: [],
     icons: {
       computacion: 'computer',
       celulares: 'smartphone',

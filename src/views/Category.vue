@@ -1,14 +1,14 @@
 <template>
   <v-content>
     <!-- TODO: v-if is bad hack here, need to work meta data better with vuex and router -->
-    <v-container v-if="category">
+    <v-container v-if="category" class="px-4">
       <v-layout wrap>
         <v-flex xs12 class="my-4">
           <h1 class="headline text-capitalize">{{ category.name }}</h1>
         </v-flex>
         <v-flex xs12 v-if="childCategories">
           <v-card class="pa-4 children-card">
-            <div v-for="child in childCategories" :key="child._id" class="ma-1">
+            <div v-for="child in childCategories" :key="child._id" class="my-1">
               <router-link
                 class="grey--text text--darken-3 child-link font-weight-light"
                 :to="`/busqueda?category=${child._id}`"
@@ -51,8 +51,10 @@ export default {
 .children-card {
   display: flex;
   flex-direction: column;
-  max-height: 300px;
   flex-wrap: wrap;
+  @media only screen and (min-width: 700px) {
+    max-height: 300px;
+  }
 }
 .child-link:hover {
   color: var(--v-primary-base) !important;
