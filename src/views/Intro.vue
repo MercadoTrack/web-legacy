@@ -16,7 +16,7 @@
           @click:append="search()"
           append-icon="search"
         ></v-text-field>
-        <router-link to="/navegar" @click.native="dismiss()" class="subheading pointer accent--text">Ver todos</router-link>
+        <router-link to="/" @click.native="dismiss()" class="subheading pointer accent--text">Ver todos</router-link>
       </div>
     </div>
   </div>
