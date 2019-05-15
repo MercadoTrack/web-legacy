@@ -1,19 +1,26 @@
 <template>
   <v-app>
     <ToolBar />
-    <router-view/>
+    <LoadingMeta v-if="isLoadingMeta" />
+    <router-view v-else />
     <Footer />
   </v-app>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
+import LoadingMeta from './views/LoadingMeta'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar },
+  components: { Footer, ToolBar, LoadingMeta },
+  computed: {
+    ...mapGetters({
+      isLoadingMeta: 'meta/isLoading'
+    })
+  },
   mounted () {
     this.$store.dispatch('meta/getBase')
   },
