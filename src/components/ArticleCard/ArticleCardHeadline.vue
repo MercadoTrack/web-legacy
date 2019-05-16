@@ -49,4 +49,18 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+@media screen and (max-width: 600px) {
+  .headline {
+    font-size: 1.2rem !important;
+  }
+  .subheading {
+    font-size: 0.95rem !important;
+  }
+  .body-1 {
+    font-size: 0.8rem !important;
+  }
+  .v-icon {
+    font-size: 1rem !important;
+  }
+}
 </style>
