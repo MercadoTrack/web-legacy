@@ -54,7 +54,7 @@ export default {
     font-size: 1.2rem !important;
   }
   .subheading {
-    font-size: 0.95rem !important;
+    display: none;
   }
   .body-1 {
     font-size: 0.8rem !important;
