@@ -6,7 +6,7 @@
       </h2>
       <v-layout wrap>
         <template v-if="page">
-          <v-flex xs12 sm6 md4 xl3 pa-3 v-for="article in page" :key="article.id">
+          <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
             <ArticleCard :article="article"/>
           </v-flex>
         </template>

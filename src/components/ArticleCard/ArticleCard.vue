@@ -8,7 +8,7 @@
           <v-chip dark label :color="statusColor" class="status">{{ status }}</v-chip>
           <v-card-title class="pa-0 pt-3" primary-title>
             <v-flex xs12>
-              <p class="subheading font-weight-light article-title grey--text mb-0">{{ article.title }}</p>
+              <p class="subheading font-weight-light grey--text mb-1">{{ article.title }}</p>
             </v-flex>
             <v-flex xs12>
               <ArticleCardHeadline :article="article" />
@@ -63,9 +63,17 @@ export default {
   background: white!important;
 }
 
+// https://stackoverflow.com/a/34559614/3916621
 .subheading {
-  $three-lines-aprox-height: 80px;
-  height: $three-lines-aprox-height;
+  height: 48px; // magic number for 2 lines
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -moz-line-clamp: 2;
+  -moz-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .v-chip.status {
