@@ -1,4 +1,4 @@
-const defaultTimeout = 4000
+const defaultTimeout = 3000
 
 export default {
   namespaced: true,
@@ -15,7 +15,7 @@ export default {
     },
     articleNotFound (state) {
       state.show = true
-      state.text = 'ArticleNotFound Message'
+      state.text = 'Aun no estamos trackeando este articulo'
       state.timeout = defaultTimeout
     }
   },

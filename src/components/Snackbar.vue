@@ -2,7 +2,7 @@
     <v-snackbar
       v-model="display"
       color="primary"
-      :multi-line="true"
+      :top="true"
       :timeout="timeout"
     >
       {{ text }}
@@ -11,12 +11,13 @@
         flat
         @click="dismiss()"
       >
-        Close
+        Cerrar
       </v-btn>
     </v-snackbar>
 </template>
 
 <script>
+
 import { mapGetters } from 'vuex'
 
 export default {
