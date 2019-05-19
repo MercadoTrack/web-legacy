@@ -6,8 +6,15 @@
       </h2>
       <v-layout wrap>
         <template v-if="page">
-          <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
-            <ArticleCard :article="article"/>
+          <v-flex xs12>
+            <SearchFiltersBar />
+          </v-flex>
+          <v-flex xs12>
+            <v-layout wrap>
+              <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
+                <ArticleCard :article="article"/>
+              </v-flex>
+            </v-layout>
           </v-flex>
         </template>
         <template v-else-if="searching">
@@ -29,10 +36,11 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ArticleCard } from '../components/ArticleCard'
 import ArticleShareDialog from '../components/ArticleShareDialog'
+import { SearchFiltersBar } from '../components/SearchFiltersBar'
 
 export default {
   name: 'search',
-  components: { ArticleCard, ArticleShareDialog },
+  components: { ArticleCard, ArticleShareDialog, SearchFiltersBar },
   data: () => ({
     pageNumber: 1,
   }),

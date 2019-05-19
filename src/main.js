@@ -7,6 +7,15 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+Vue.filter('priceFilter', (num) => {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(num.toFixed(0))
+})
+
 // https://matteogabriele.gitbooks.io/vue-analytics/
 Vue.use(VueAnalytics, {
   id: 'UA-139863121-1',
