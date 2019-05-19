@@ -62,9 +62,6 @@
           <span class="ml-2">Sincronizacion en vivo</span>
         </v-btn>
         <template v-else>
-          <v-btn flat disabled active-class light fab small>
-            <v-icon medium color="grey darken-3">notifications</v-icon>
-          </v-btn>
           <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         </template>
       </v-container>
