@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
+import { sync } from 'vuex-router-sync'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+
+sync(store, router, { moduleName: 'routeModuleSync' })
 
 Vue.filter('priceFilter', (num) => {
   return new Intl.NumberFormat('es-AR', {
