@@ -72,6 +72,7 @@
 <script>
 import CategoriesDropdown from './CategoriesDropdown'
 import NavigationDrawerList from './NavigationDrawerList'
+import { isLink } from '../../utils'
 
 export default {
   components: {
@@ -84,7 +85,14 @@ export default {
   }),
   methods: {
     search () {
-      this.$store.dispatch('search/global', this.searchTerm)
+      if (isLink(this.searchTerm)) {
+        const [ rawId ] = this.searchTerm.match(/(MLA-\d+)/ig) || []
+        if (!rawId) return
+        const id = rawId.replace('-', '')
+        this.$router.push(`/article/${id}`)
+      } else {
+        this.$store.dispatch('search/global', this.searchTerm)
+      }
     }
   },
   mounted () {

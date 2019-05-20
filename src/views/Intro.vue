@@ -24,7 +24,7 @@
 
 <script>
 // TODO: make better, send to util
-const isLink = str => /https:\/\//ig.test(str)
+import { isLink } from '../utils'
 
 export default {
   name: 'intro',

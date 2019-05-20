@@ -4,6 +4,7 @@
     <LoadingMeta v-if="isLoadingMeta" />
     <router-view v-else />
     <Footer />
+    <Snackbar />
   </v-app>
 </template>
 
@@ -12,10 +13,11 @@ import { mapGetters } from 'vuex'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 import LoadingMeta from './views/LoadingMeta'
+import Snackbar from './components/Snackbar'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar, LoadingMeta },
+  components: { Footer, ToolBar, LoadingMeta, Snackbar },
   computed: {
     ...mapGetters({
       isLoadingMeta: 'meta/isLoading'
