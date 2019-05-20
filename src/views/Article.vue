@@ -243,6 +243,8 @@ export default {
       this.loading = false
     } catch (err) {
       console.log(err)
+      this.$store.commit('snackbar/articleNotFound')
+      this.$router.push('/')
     }
   },
   computed: {
