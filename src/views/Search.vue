@@ -1,9 +1,6 @@
 <template>
   <v-content>
     <v-container>
-      <h2 v-if="category" class="headline grey--text text--darken-3 font-weight-light ml-3">
-        {{ category.name }}
-      </h2>
       <v-layout wrap>
         <v-flex xs12>
           <FiltersBar />
@@ -57,10 +54,6 @@ export default {
     paginationTotalVisible () {
       return this.$vuetify.breakpoint.xs ? 4 : 7
     },
-    category () {
-      if (!this.$route.query.category) return
-      return this.categories.find(category => category._id === this.$route.query.category)
-    }
   },
   methods: {
     ...mapMutations({
@@ -71,7 +64,6 @@ export default {
     }),
     changePage (page) {
       const query = { ...this.$route.query, page }
-      console.log(query)
       this.$router.push({ name: 'search', query })
     }
   },

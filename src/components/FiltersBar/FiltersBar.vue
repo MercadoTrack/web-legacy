@@ -11,7 +11,7 @@
         </v-fade-transition>
       </v-btn>
     </v-flex>
-    <v-flex xs12>
+    <v-flex xs12 class="mb-3">
       <v-expand-transition>
         <v-form v-show="expand">
           <Filters v-on:apply-filters="applyFilters" />

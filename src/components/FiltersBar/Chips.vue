@@ -1,13 +1,16 @@
 <template>
   <div>
+    <v-chip close v-if="category" @input="remove('category')">
+      <span>{{ category.name }}</span>
+    </v-chip>
     <v-chip close v-if="search" @input="remove('search')">
       <span>{{ search }}</span>
     </v-chip>
     <v-chip close v-for="(value, key) in query" :key="key" @input="remove(key)">
-      <span v-if="key == 'minPrice'">
+      <span v-if="key == 'priceMin'">
         Desde {{ value | priceFilter }}
       </span>
-      <span v-else-if="key == 'maxPrice'">
+      <span v-else-if="key == 'priceMax'">
         Hasta {{ value | priceFilter }}
       </span>
       <span v-else>{{ value }}</span>
@@ -16,15 +19,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { chipsKeys } from './filtersHelper'
 
 const showFilterAsChip = (filterKey) => chipsKeys.includes(filterKey)
 
 export default {
   name: 'Chips',
-  data: () => ({
-  }),
   computed: {
+    ...mapGetters({
+      categories: 'meta/categories',
+    }),
     search () {
       return this.$route.query.search
     },
@@ -36,7 +41,11 @@ export default {
           return obj
         }, {})
       return query
-    }
+    },
+    category () {
+      if (!this.$route.query.category) return
+      return this.categories.find(category => category._id === this.$route.query.category)
+    },
   },
   methods: {
     remove (key) {
