@@ -8,7 +8,7 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-sync(store, router, { moduleName: 'routeModuleSync' })
+sync(store, router)
 
 Vue.filter('priceFilter', (num) => {
   return new Intl.NumberFormat('es-AR', {
@@ -16,7 +16,7 @@ Vue.filter('priceFilter', (num) => {
     currency: 'ARS',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(num.toFixed(0))
+  }).format((+num).toFixed(0))
 })
 
 // https://matteogabriele.gitbooks.io/vue-analytics/

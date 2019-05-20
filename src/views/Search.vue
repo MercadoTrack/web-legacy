@@ -5,10 +5,10 @@
         {{ category.name }}
       </h2>
       <v-layout wrap>
+        <v-flex xs12>
+          <FiltersBar />
+        </v-flex>
         <template v-if="page">
-          <v-flex xs12>
-            <SearchFiltersBar />
-          </v-flex>
           <v-flex xs12>
             <v-layout wrap>
               <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
@@ -18,7 +18,7 @@
           </v-flex>
         </template>
         <template v-else-if="searching">
-          <v-flex xs12 d-flex mb-3 class="overflow-hidden">
+          <v-flex xs12 d-flex my-3 class="overflow-hidden">
             <v-progress-circular color="primary" indeterminate height="2"></v-progress-circular>
           </v-flex>
         </template>
@@ -36,11 +36,11 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ArticleCard } from '../components/ArticleCard'
 import ArticleShareDialog from '../components/ArticleShareDialog'
-import { SearchFiltersBar } from '../components/SearchFiltersBar'
+import { FiltersBar } from '../components/FiltersBar'
 
 export default {
   name: 'search',
-  components: { ArticleCard, ArticleShareDialog, SearchFiltersBar },
+  components: { ArticleCard, ArticleShareDialog, FiltersBar },
   data: () => ({
     pageNumber: 1,
   }),

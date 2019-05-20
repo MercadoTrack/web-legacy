@@ -51,9 +51,4 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  store.commit('navigate', to.name)
-  next()
-})
-
 export default router

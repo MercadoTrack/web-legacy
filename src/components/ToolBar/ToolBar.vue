@@ -91,10 +91,15 @@ export default {
         const id = rawId.replace('-', '')
         this.$router.push(`/article/${id}`)
       } else {
-        const query = { search: this.searchTerm }
+        const query = { ...this.$route.query, search: this.searchTerm }
         this.$router.push({ name: 'search', query })
       }
     }
+  },
+  watch: {
+    '$route.query.search'(searchTerm) {
+      this.searchTerm = searchTerm
+    },
   },
   mounted () {
     this.searchTerm = this.$route.query.search || ''
