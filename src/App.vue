@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <ToolBar />
-    <LoadingMeta v-if="isLoadingMeta" />
+    <LoadingMeta v-if="shouldShowLoading && !shouldShowIntro" />
     <router-view v-else />
     <Footer />
   </v-app>
@@ -18,8 +18,17 @@ export default {
   components: { Footer, ToolBar, LoadingMeta },
   computed: {
     ...mapGetters({
-      isLoadingMeta: 'meta/isLoading'
-    })
+      isLoadingMeta: 'meta/isLoading',
+      showIntro: 'intro/show',
+    }),
+    shouldShowLoading () {
+      // only showing loading spinner for meta when we're in the landing
+      return this.isLoadingMeta && this.$route.name === 'landing'
+    },
+    shouldShowIntro () {
+      const routesToShowIntro = [ 'landing', 'category' ]
+      return this.showIntro && routesToShowIntro.includes(this.$route.name)
+    }
   },
   mounted () {
     this.$store.dispatch('meta/getBase')
