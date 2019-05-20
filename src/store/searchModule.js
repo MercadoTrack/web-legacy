@@ -1,26 +1,12 @@
-import router from '../router'
 import http from '../http'
 
 const limit = 30
-const generateRouteObject = (page, searchTerm) => {
-  const query = Object.assign({}, router.currentRoute.query)
-  if (page) query.page = page
-  if (searchTerm) query.q = searchTerm
-  else if (query.q) delete query.q // resetting search!
-  return {
-    query,
-    name: 'search',
-  }
-}
-const generateSearchQuery = (page) => ({
-  ...router.currentRoute.query,
+const generateParams = (query) => ({
+  ...query,
   limit,
-  page,
-  skip: (page - 1) * limit,
+  page: query.page || 1,
+  skip: query.page ? (query.page - 1) * limit : 0,
   pretty: true,
-  // `q` is an arbitrary name set from the ToolBar search
-  // maybe change from the backend someday?
-  search: router.currentRoute.query.q,
 })
 
 export default {
@@ -53,20 +39,10 @@ export default {
     },
   },
   actions: {
-    global ({ dispatch }, searchTerm) {
-      if (!searchTerm && !router.currentRoute.query.category) {
-        router.push({ name: 'landing' })
-      } else {
-        dispatch('paginate', { searchTerm })
-      }
-    },
-    // searchTerm is only for search from toolbar, otherwise we take the query param `q`
-    async paginate ({ commit, state }, { page = 1, searchTerm }) {
-      const route = generateRouteObject(page, searchTerm)
-      router.push(route)
+    async paginate ({ commit, state }, query) {
       if (state.loading) return
       commit('loading')
-      const params = generateSearchQuery(page)
+      const params = generateParams(query)
       try {
         const { data } = await http.get('articles', { params })
         commit('success', data)

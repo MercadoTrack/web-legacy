@@ -91,12 +91,13 @@ export default {
         const id = rawId.replace('-', '')
         this.$router.push(`/article/${id}`)
       } else {
-        this.$store.dispatch('search/global', this.searchTerm)
+        const query = { search: this.searchTerm }
+        this.$router.push({ name: 'search', query })
       }
     }
   },
   mounted () {
-    this.searchTerm = this.$route.query.q || ''
+    this.searchTerm = this.$route.query.search || ''
   }
 }
 </script>

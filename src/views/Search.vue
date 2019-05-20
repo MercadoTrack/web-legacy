@@ -70,19 +70,20 @@ export default {
       paginate: 'search/paginate',
     }),
     changePage (page) {
-      const searchTerm = this.$route.query.q
-      this.paginate({ page, searchTerm })
+      const query = { ...this.$route.query, page }
+      console.log(query)
+      this.$router.push({ name: 'search', query })
     }
   },
   beforeRouteUpdate (to, from, next) {
-    // for when search is resetted from the toolbar
-    this.pageNumber = to.query.page || 1
+    this.paginate(to.query)
     next()
   },
   mounted () {
-    const searchTerm = this.$route.query.q
-    this.pageNumber = Number(this.$route.query.page) || 1
-    this.paginate({ searchTerm, page: this.pageNumber })
+    if (this.$route.query.page) {
+      this.pageNumber = Number(this.$route.query.page)
+    }
+    this.paginate(this.$route.query)
   },
   destroyed () {
     this.reset()
