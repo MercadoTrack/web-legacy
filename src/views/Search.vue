@@ -5,20 +5,24 @@
         <v-flex xs12>
           <FiltersBar />
         </v-flex>
-        <template v-if="page">
-          <v-flex xs12>
+        <v-fade-transition mode="out-in">
+          <v-flex xs12 v-show="page">
             <v-layout wrap>
               <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
                 <ArticleCard :article="article"/>
               </v-flex>
             </v-layout>
           </v-flex>
-        </template>
-        <template v-else-if="searching">
-          <v-flex xs12 d-flex my-3 class="overflow-hidden">
-            <v-progress-circular color="primary" indeterminate height="2"></v-progress-circular>
+        </v-fade-transition>
+        <v-fade-transition mode="in-out">
+          <v-flex xs12 v-show="searching">
+            <v-layout wrap>
+              <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 9" :key="n">
+                <EmptyArticleCard />
+              </v-flex>
+            </v-layout>
           </v-flex>
-        </template>
+        </v-fade-transition>
         <v-flex xs12 mt-2>
           <v-layout justify-center>
             <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="changePage"></v-pagination>
@@ -34,10 +38,11 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { ArticleCard } from '../components/ArticleCard'
 import ArticleShareDialog from '../components/ArticleShareDialog'
 import { FiltersBar } from '../components/FiltersBar'
+import EmptyArticleCard from '../components/EmptyArticleCard'
 
 export default {
   name: 'search',
-  components: { ArticleCard, ArticleShareDialog, FiltersBar },
+  components: { ArticleCard, ArticleShareDialog, FiltersBar, EmptyArticleCard },
   data: () => ({
     pageNumber: 1,
   }),
