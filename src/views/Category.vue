@@ -10,10 +10,10 @@
           <v-card class="pa-4 children-card">
             <div v-for="child in childCategories" :key="child._id" class="my-1">
               <router-link
-                class="grey--text text--darken-3 child-link font-weight-light"
                 :to="`/busqueda?category=${child._id}`"
               >
-                {{ child.name }}
+                <span class="grey--text text--darken-3 child-link font-weight-light">{{ child.name }} </span>
+                <span class="grey--text font-weight-light caption"> ({{ child.articleCount }}) </span>
               </router-link>
             </div>
           </v-card>
