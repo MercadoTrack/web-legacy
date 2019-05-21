@@ -92,12 +92,14 @@ export default {
         this.$router.push(`/article/${id}`)
       } else {
         const query = { ...this.$route.query, search: this.searchTerm }
+        delete query.page // to start over
         this.$router.push({ name: 'search', query })
+        this.$vuetify.goTo(0, { easing: 'easeInOutCubic' }) // scrolling to top
       }
     }
   },
   watch: {
-    '$route.query.search'(searchTerm) {
+    '$route.query.search' (searchTerm) {
       this.searchTerm = searchTerm
     },
   },

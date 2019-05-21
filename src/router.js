@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import store from './store'
 import Router from 'vue-router'
 import Landing from './views/Landing'
 import Search from './views/Search'

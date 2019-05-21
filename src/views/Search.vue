@@ -14,10 +14,10 @@
             </v-layout>
           </v-flex>
         </v-fade-transition>
-        <v-fade-transition mode="in-out">
+        <v-fade-transition mode="out-in">
           <v-flex xs12 v-show="searching">
             <v-layout wrap>
-              <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 9" :key="n">
+              <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 30" :key="n">
                 <EmptyArticleCard />
               </v-flex>
             </v-layout>
@@ -68,11 +68,13 @@ export default {
       paginate: 'search/paginate',
     }),
     changePage (page) {
+      this.$vuetify.goTo(0, { easing: 'easeInOutCubic' }) // scrolling to top
       const query = { ...this.$route.query, page }
       this.$router.push({ name: 'search', query })
     }
   },
   beforeRouteUpdate (to, from, next) {
+    this.pageNumber = to.query.page || 1
     this.paginate(to.query)
     next()
   },

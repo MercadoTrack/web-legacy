@@ -7,7 +7,7 @@
           <v-progress-linear color="info darken-2" height="10" :value="percentage"></v-progress-linear>
           <v-layout wrap justify-center>
             <h1 class="subheading">
-              <span class="font-weight-black">{{ processed }}</span> artículos procesados de 
+              <span class="font-weight-black">{{ processed }}</span> artículos procesados de
               <span class="font-weight-black">{{ total }}</span>
             </h1>
             <v-flex xs12>
