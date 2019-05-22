@@ -1,3 +1,4 @@
+cd ~/mercado-track-web
 git checkout master
 git pull origin master
 npm ci
