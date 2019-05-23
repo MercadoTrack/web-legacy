@@ -42,7 +42,7 @@ export default {
         const [ rawId ] = this.searchText.match(/(MLA-\d+)/ig) || []
         if (!rawId) return
         const id = rawId.replace('-', '')
-        this.$router.push(`/article/${id}`)
+        this.$router.push(`/articulo/${id}`)
       } else {
         this.$router.push('search', { search: this.searchText })
       }

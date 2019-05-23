@@ -1,7 +1,7 @@
 <template>
   <v-hover>
     <v-card hover slot-scope="{ hover }">
-      <router-link :to="`/article/${article.id}`">
+      <router-link :to="`/articulo/${article.id}`">
         <v-img :src="getArticleImg(article)" contain height="200px">
           <v-expand-transition>
             <div
