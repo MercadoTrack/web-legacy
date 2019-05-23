@@ -34,7 +34,7 @@ const router = new Router({
       component: Article
     },
     {
-      path: '/favorites',
+      path: '/favoritos',
       name: 'favorites',
       component: Favorites
     },
