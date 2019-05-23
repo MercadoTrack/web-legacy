@@ -44,7 +44,7 @@ export default {
         const id = rawId.replace('-', '')
         this.$router.push(`/article/${id}`)
       } else {
-        this.$router.push(`/busqueda?titulo=${this.searchText}`)
+        this.$router.push('search', { search: this.searchText })
       }
       this.dismiss()
     }
