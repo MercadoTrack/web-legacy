@@ -22,6 +22,8 @@ const router = new Router({
       path: '/busqueda',
       name: 'search',
       component: Search,
+      // overwrite default transition
+      meta: { transition: 'fade-in-left' },
     },
     {
       path: '/stats',

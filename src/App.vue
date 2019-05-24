@@ -2,7 +2,9 @@
   <v-app>
     <ToolBar />
     <LoadingMeta v-if="shouldShowLoading && !shouldShowIntro" />
-    <router-view v-else />
+    <vue-page-transition v-else name="fade">
+      <router-view />
+    </vue-page-transition>
     <Footer />
     <Snackbar />
   </v-app>
