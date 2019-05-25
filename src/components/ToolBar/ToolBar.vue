@@ -34,13 +34,14 @@
           </v-btn>
         </v-container>
       </template>
-      <v-container class="py-0 ma-auto toolbar-container">
-        <v-toolbar-title :class="`${$vuetify.breakpoint.smAndDown ? 'mr-3' : 'ml-3 mr-4'}`">
+      <v-container :class="`py-0 ma-auto toolbar-container ${$vuetify.breakpoint.smAndDown ? 'px-0' : ''}`">
+        <v-toolbar-title :class="`${$vuetify.breakpoint.smAndUp ? 'ml-3 mr-4' : 'mr-1'}`">
           <router-link to="/" class="d-flex">
             <img height="50" src="../../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
           </router-link>
         </v-toolbar-title>
         <v-text-field
+          :class="$vuetify.breakpoint.smAndUp ? 'max-width-40' : 'ml-1'"
           height="40"
           append-icon="search"
           label="Buscar"
@@ -50,19 +51,20 @@
           flat solo clearable hide-details light
         >
         </v-text-field>
-        <v-spacer></v-spacer>
         <v-btn
           v-if="$vuetify.breakpoint.mdAndUp"
           to="/stats"
           color="grey darken-3"
-          class="d-flex font-weight-light text-none"
+          class="d-flex font-weight-light text-none ml-auto"
           flat light active-class
         >
           <v-icon>visibility</v-icon>
           <span class="ml-2">Sincronizacion en vivo</span>
         </v-btn>
         <template v-else>
-          <v-toolbar-side-icon class="grey--text text--darken-3" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+          <aside class="ml-auto" @click.stop="drawer = !drawer">
+            <v-toolbar-side-icon class="grey--text text--darken-3"></v-toolbar-side-icon>
+          </aside>
         </template>
       </v-container>
     </v-toolbar>
@@ -110,8 +112,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-text-field {
-  max-width: 40%; /* TODO: hacer algo con v-spacer o flex */
+.max-width-40 {
+  max-width: 40%;
+}
+
+.v-toolbar__title {
+  overflow: visible;
 }
 
 .toolbar-container {
