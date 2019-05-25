@@ -1,7 +1,7 @@
 <template>
   <v-hover>
     <v-card hover slot-scope="{ hover }">
-      <router-link :to="`/article/${article.id}`">
+      <router-link :to="`/articulo/${article.id}`">
         <v-img :src="getArticleImg(article)" contain height="200px">
           <v-expand-transition>
             <div
@@ -39,7 +39,7 @@ export default {
   methods: {
     getArticleImg (article) {
       const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
-      return article.images[0] || fallback
+      return article.image || fallback
     },
   }
 }

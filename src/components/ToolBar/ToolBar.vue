@@ -3,7 +3,7 @@
     <!-- drawer for tablet/mobile -->
     <v-navigation-drawer
       v-model="drawer"
-      clipped disable-resize-watcher disable-route-watcher right app
+      clipped disable-resize-watcher right app
     >
       <NavigationDrawerList />
     </v-navigation-drawer>
@@ -23,7 +23,7 @@
             Últimos agregados
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat active-class color="grey darken-3" to="/favorites" class="pointer d-flex font-weight-light text-none">
+          <v-btn flat active-class color="grey darken-3" to="/favoritos" class="pointer d-flex font-weight-light text-none">
             Favoritos
           </v-btn>
           <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
@@ -89,7 +89,7 @@ export default {
         const [ rawId ] = this.searchTerm.match(/(MLA-\d+)/ig) || []
         if (!rawId) return
         const id = rawId.replace('-', '')
-        this.$router.push(`/article/${id}`)
+        this.$router.push(`/articulo/${id}`)
       } else {
         const query = { ...this.$route.query, search: this.searchTerm }
         delete query.page // to start over

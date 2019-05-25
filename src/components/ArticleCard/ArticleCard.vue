@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     goToArticle () {
-      this.$router.push(`/article/${this.article.id}`)
+      this.$router.push(`/articulo/${this.article.id}`)
     }
   }
 }

@@ -42,9 +42,10 @@ export default {
         const [ rawId ] = this.searchText.match(/(MLA-\d+)/ig) || []
         if (!rawId) return
         const id = rawId.replace('-', '')
-        this.$router.push(`/article/${id}`)
+        this.$router.push(`/articulo/${id}`)
       } else {
-        this.$router.push(`/busqueda?titulo=${this.searchText}`)
+        const query = { search: this.searchText }
+        this.$router.push({ name: 'search', query })
       }
       this.dismiss()
     }
