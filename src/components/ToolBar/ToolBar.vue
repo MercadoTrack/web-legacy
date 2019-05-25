@@ -42,6 +42,7 @@
         </v-toolbar-title>
         <v-text-field
           :class="$vuetify.breakpoint.smAndUp ? 'max-width-40' : 'ml-1'"
+          ref="searchInput"
           height="40"
           append-icon="search"
           label="Buscar"
@@ -87,6 +88,7 @@ export default {
   }),
   methods: {
     search () {
+      this.$refs.searchInput.blur()
       if (isLink(this.searchTerm)) {
         const [ rawId ] = this.searchTerm.match(/(MLA-\d+)/ig) || []
         if (!rawId) return
