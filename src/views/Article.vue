@@ -36,6 +36,7 @@
                   <v-card flat>
                     <v-card-text class="pl-0">
                       <p v-if="price" class="display-1 font-weight-light">{{ price | priceFilter }}</p>
+                      
                       <div v-else class="d-flex text-xs-left">
                         <v-icon>warning</v-icon>
                         <p class="headline pt-2">Sin precio</p>
@@ -46,6 +47,16 @@
                       <v-list class="pt-4">
                         <v-list-tile>
                           <v-list-tile-action>
+                            <v-icon>add_shopping_cart</v-icon>
+                          </v-list-tile-action>
+                          <v-list-tile-content>
+                            <v-list-tile-title>Cantidad</v-list-tile-title>
+                            <v-list-tile-sub-title>{{ mlArticle.available_quantity }} disponible<template v-if="mlArticle.available_quantity > 1">s</template></v-list-tile-sub-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+
+                        <v-list-tile>
+                          <v-list-tile-action>
                             <v-icon>payment</v-icon>
                           </v-list-tile-action>
                           <v-list-tile-content>
@@ -54,23 +65,13 @@
                           </v-list-tile-content>
                         </v-list-tile>
 
-                        <v-list-tile>
+                        <v-list-tile v-if="mlArticle.shipping.free_shipping == true">
                           <v-list-tile-action>
                             <v-icon>local_shipping</v-icon>
                           </v-list-tile-action>
                           <v-list-tile-content>
                             <v-list-tile-title>Envío gratis</v-list-tile-title>
                             <v-list-tile-sub-title>Llega el miércoles 10 de abril</v-list-tile-sub-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-
-                        <v-list-tile>
-                          <v-list-tile-action>
-                            <v-icon>360</v-icon>
-                          </v-list-tile-action>
-                          <v-list-tile-content>
-                            <v-list-tile-title>Devolución gratis</v-list-tile-title>
-                            <v-list-tile-sub-title>Tenés 15 días desde que lo recibís</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
 
@@ -96,6 +97,30 @@
 
           <v-container class="pa-0 ma-0 line-wrap" :text-xs-center="$vuetify.breakpoint.mdAndDown">
             <v-layout wrap class="pa-0 ma-0">
+              <v-flex xs12 pa-4>
+                <v-list two-line subheader>
+                  <span class="headline">Características</span>
+
+                  <template>
+                    <v-list-tile v-for="attribute in mlArticle.attributes" v-bind:key="attribute.name">
+                      <v-list-tile-content>
+                        <v-list-tile-title class="subtitle">{{ attribute.name }}</v-list-tile-title>
+                        <v-list-tile-sub-title>{{attribute.value_name}}</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </template>
+                
+                </v-list>
+              </v-flex>
+            </v-layout>
+          </v-container>
+
+          <v-flex xs12 py-0>
+            <v-divider></v-divider>
+          </v-flex>
+
+          <v-container class="pa-0 ma-0 line-wrap" :text-xs-center="$vuetify.breakpoint.mdAndDown">
+            <v-layout wrap class="pa-0 ma-0">
               <v-flex xs12 md8 lg8 xl8 pa-4 class="border-l">
                 <Chart :history="article.history" />
               </v-flex>
@@ -109,7 +134,7 @@
                         <v-tooltip right max-width="25rem">
                           <template slot="activator">
                             <v-list-tile-title class="title">{{ article.history.length - 1 }}</v-list-tile-title>
-                            <v-list-tile-sub-title>variaciones</v-list-tile-sub-title>
+                            <v-list-tile-sub-title>Variaciones</v-list-tile-sub-title>
                           </template>
                           <span>Es la cantidad de veces que el precio publicado sufrió modificaciones.</span>
                         </v-tooltip>
@@ -241,6 +266,7 @@ export default {
       this.article = mtRes.data
       this.mlArticle = mlRes.data
       this.loading = false
+      console.log("ML", this.mlArticle)
     } catch (err) {
       console.log(err)
       this.$store.commit('snackbar/articleNotFound')
