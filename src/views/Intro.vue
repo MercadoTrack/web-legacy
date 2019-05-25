@@ -61,7 +61,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 9;
-  background-color: #FFF158; // TODO: create variables file
+  background-color: var(--v-secondary-base);
   height: 100%;
   display: flex;
   flex-direction: column;
