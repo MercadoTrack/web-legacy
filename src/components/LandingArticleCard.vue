@@ -1,8 +1,8 @@
 <template>
   <v-hover>
-    <v-card hover slot-scope="{ hover }">
+    <v-card hover slot-scope="{ hover }" :height="size" :width="size">
       <router-link :to="`/articulo/${article.id}`">
-        <v-img :src="getArticleImg(article)" contain height="200px">
+        <v-img :src="getArticleImg(article)" contain :height="size" :width="size">
           <v-expand-transition>
             <div
               v-if="hover"
@@ -41,7 +41,12 @@ export default {
       const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
       return article.image || fallback
     },
-  }
+  },
+  computed: {
+    size () {
+      return this.$vuetify.breakpoint.lgAndUp ? 275 : 200
+    }
+  },
 }
 </script>
 
