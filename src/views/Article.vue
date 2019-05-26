@@ -71,7 +71,6 @@
                           </v-list-tile-action>
                           <v-list-tile-content>
                             <v-list-tile-title>Envío gratis</v-list-tile-title>
-                            <v-list-tile-sub-title>Llega el miércoles 10 de abril</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
 
@@ -156,7 +155,7 @@
                     </v-list-tile>
                   </template>
 
-                  <template v-if="price">
+                  <template v-if="mlArticle.original_price">
                     <v-list-tile>
                       <v-list-tile-content>
                         <v-tooltip right max-width="25rem">
@@ -184,7 +183,7 @@
                     </v-list-tile>
                   </template>
 
-                  <template v-if="price">
+                  <template v-if="mlArticle.original_price">
                     <v-list-tile v-if="price">
                       <v-list-tile-content>
                         <v-tooltip right max-width="25rem">
@@ -210,7 +209,8 @@
             <v-layout wrap class="pa-0 ma-0">
               <v-flex xs12 pa-4>
                 <v-list two-line subheader>
-                  <span class="headline">Sobre este vendedor</span>
+                  <span class="headline">{{ mlSeller.nickname}}</span>
+                  <span @click="goToSeller()" class="subtitle pl-3 pointer">ver perfil del vendedor</span>
 
                   <v-list-tile>
                     <v-list-tile-action>
@@ -246,6 +246,7 @@
 import { mapGetters } from 'vuex'
 import http from '../http.js'
 import Chart from '../components/Chart'
+import axios from 'axios'
 
 export default {
   components: { Chart },
@@ -255,18 +256,20 @@ export default {
   data: () => ({
     loading: true,
     article: null,
+    mlSeller: null,
     mlArticle: null,
     rating: 3,
   }),
-  async mounted () {
+  async mounted () { 
     const id = this.$route.params.id
     const promises = [ http.get(`articles/${id}`), http.get(`articles/ml/${id}`) ]
     try {
-      const [ mtRes, mlRes ] = await Promise.all(promises)
+      const [ mtRes, mlRes, mlResS ] = await Promise.all(promises)
       this.article = mtRes.data
       this.mlArticle = mlRes.data
+      const sellerRes = await axios.get(`https://api.mercadolibre.com/users/${this.article.seller_id}`)
+      this.mlSeller = sellerRes.data
       this.loading = false
-      console.log("ML", this.mlArticle)
     } catch (err) {
       console.log(err)
       this.$store.commit('snackbar/articleNotFound')
@@ -314,6 +317,9 @@ export default {
   methods: {
     goToMLArticle () {
       window.open(this.article.permalink)
+    },
+    goToSeller () {
+      this.$router.push(`/seller/${this.mlSeller.id}`)
     }
   }
 }
