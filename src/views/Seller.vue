@@ -6,7 +6,16 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-list-tile class="pa-4">
-              <span class="display-1">{{ seller.nickname }}</span><span class="pointer pl-3" @click="goToMLSeller">Ver en MercadoLibre</span>
+              <span class="display-1">{{ seller.nickname }}</span>
+                <v-btn flat icon color="green lighten-1" v-if="userVerified()">
+                  <v-icon>verified_user</v-icon>
+                </v-btn>
+                <v-btn flat icon color="blue lighten-1" v-if="isBrand()">
+                  <v-icon>store</v-icon>
+                </v-btn>
+                <v-btn flat icon color="grey lighten-1" @click="goToMLSeller">
+                  <v-icon>call_made</v-icon>
+                </v-btn>
               <v-layout justify-end row>
                 <v-img absolute class="floating-logo rounded" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> 
                 </v-img>
@@ -21,36 +30,36 @@
                 <v-list two-line subheader>
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title">{{ seller.address.city }}, {{ seller.country_id}}</v-list-tile-title>
-                      <v-list-tile-sub-title>Ubicación</v-list-tile-sub-title>
+                      <v-list-tile-title class="title font-weight-light">{{ seller.address.city }}, {{ seller.country_id}}</v-list-tile-title>
+                      <v-list-tile-sub-title class="font-weight-light">Ubicación</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title">{{ 2019 - (seller.registration_date.substring(0,4))}}</v-list-tile-title>
-                      <v-list-tile-sub-title>Años vendiendo en MercadoLibre</v-list-tile-sub-title>
+                      <v-list-tile-title class="title font-weight-light">{{ 2019 - (seller.registration_date.substring(0,4))}}</v-list-tile-title>
+                      <v-list-tile-sub-title class="font-weight-light">Años vendiendo en MercadoLibre</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title">{{ seller.seller_reputation.transactions.completed}}</v-list-tile-title>
-                      <v-list-tile-sub-title>Ventas concretadas</v-list-tile-sub-title>
+                      <v-list-tile-title class="title font-weight-light">{{ seller.seller_reputation.transactions.completed}}</v-list-tile-title>
+                      <v-list-tile-sub-title class="font-weight-light">Ventas concretadas</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title">{{ seller.seller_reputation.transactions.canceled}}</v-list-tile-title>
-                      <v-list-tile-sub-title>Ventas canceladas</v-list-tile-sub-title>
+                      <v-list-tile-title class="title font-weight-light">{{ seller.seller_reputation.transactions.canceled}}</v-list-tile-title>
+                      <v-list-tile-sub-title class="font-weight-light">Ventas canceladas</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title">{{ seller.seller_reputation.level_id}}</v-list-tile-title>
-                      <v-list-tile-sub-title>MercadoLibre {{ seller.seller_reputation.power_seller_status.charAt(0).toUpperCase() + seller.seller_reputation.power_seller_status.substr(1)}}</v-list-tile-sub-title>
+                      <v-list-tile-title class="title font-weight-light">{{ seller.seller_reputation.level_id}}</v-list-tile-title>
+                      <v-list-tile-sub-title class="font-weight-light">MercadoLibre {{ seller.seller_reputation.power_seller_status.charAt(0).toUpperCase() + seller.seller_reputation.power_seller_status.substr(1)}}</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
                 </v-list>
@@ -65,7 +74,7 @@
           <v-container class="pa-0 ma-0 line-wrap" :text-xs-center="$vuetify.breakpoint.mdAndDown">
             <v-layout wrap class="pa-0 ma-0">
               <v-flex xs6 pa-4>
-                <v-list two-line subheader>
+                <v-list subheader>
                   <span class="headline ml-3">Calificaciones</span>
                   <v-list-tile>
                     <v-list-tile-action>
@@ -73,7 +82,7 @@
                         <v-icon>mood</v-icon>
                       </v-btn>
                     </v-list-tile-action>
-                      <span>Positivas: {{ seller.seller_reputation.transactions.ratings.positive }}</span>
+                      <span class="font-weight-light">{{ seller.seller_reputation.transactions.ratings.positive }} Positivas</span>
                   </v-list-tile>
 
                   <v-list-tile>
@@ -82,7 +91,7 @@
                         <v-icon>mood_bad</v-icon>
                       </v-btn>
                     </v-list-tile-action>
-                      <span>Negativas: {{ seller.seller_reputation.transactions.ratings.negative }}</span>
+                      <span class="font-weight-light">{{ seller.seller_reputation.transactions.ratings.negative }} Negativas</span>
                   </v-list-tile>
 
                   <v-list-tile>
@@ -91,12 +100,12 @@
                         <v-icon>sentiment_satisfied</v-icon>
                       </v-btn>
                     </v-list-tile-action>
-                      <span>Neutras: {{ seller.seller_reputation.transactions.ratings.neutral }}</span>
+                      <span class="font-weight-light">{{ seller.seller_reputation.transactions.ratings.neutral }} Neutras</span>
                   </v-list-tile>
                 </v-list>
               </v-flex>
               <v-flex xs6 pa-4>
-                <v-list two-line subheader>
+                <v-list subheader>
                   <span class="headline ml-3">Resumen</span>
                   <v-list-tile>
                     <v-list-tile-action>
@@ -104,7 +113,7 @@
                         <v-icon>thumb_up_alt</v-icon>
                       </v-btn>
                     </v-list-tile-action>
-                      <span>Nunca ha aplicado descuentos sobre precios ficticios.</span>
+                      <span class="font-weight-light">Nunca ha aplicado descuentos sobre precios ficticios.</span>
                   </v-list-tile>
 
                   <v-list-tile>
@@ -113,7 +122,7 @@
                         <v-icon>timer</v-icon>
                       </v-btn>
                     </v-list-tile-action>
-                      <span>Despacha sus productos a tiempo.</span>
+                      <span class="font-weight-light">Despacha sus productos a tiempo.</span>
                   </v-list-tile>
 
                   <v-list-tile>
@@ -122,7 +131,7 @@
                         <v-icon>chat</v-icon>
                       </v-btn>
                     </v-list-tile-action>
-                      <span>Brinda buena atención.</span>
+                      <span class="font-weight-light">Brinda buena atención.</span>
                   </v-list-tile>
                 </v-list>
               </v-flex>
@@ -162,9 +171,25 @@ export default {
   console.log(this.seller)
   },
   methods: {
-     goToMLSeller () {
+    goToMLSeller () {
       window.open(this.seller.permalink)
     },
+    userVerified() {
+      if(this.seller.tags.includes("user_info_verified"))
+      return true;
+    },
+    isBrand() {
+      if(this.seller.tags.includes("brand"))
+      return true;
+    },
+    isLargeSeller() {
+      if(this.seller.tags.includes("large_seller"))
+      return true;
+    },
+    isMercadoShop() {
+      if(this.seller.tags.includes("shop"))
+      return true;
+    }
   },
 }
 </script>
@@ -175,5 +200,8 @@ export default {
   max-width: 150px;
 }
 
+.v-btn {
+  margin: 0;
+}
 </style>
 
