@@ -30,35 +30,35 @@
                 <v-list two-line subheader>
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title font-weight-light">{{ seller.address.city }}, {{ seller.country_id}}</v-list-tile-title>
+                      <v-list-tile-title class="subtitle">{{ seller.address.city }}, {{ seller.country_id}}</v-list-tile-title>
                       <v-list-tile-sub-title class="font-weight-light">Ubicación</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title font-weight-light">{{ 2019 - (seller.registration_date.substring(0,4))}}</v-list-tile-title>
+                      <v-list-tile-title class="subtitle">{{ 2019 - (seller.registration_date.substring(0,4))}}</v-list-tile-title>
                       <v-list-tile-sub-title class="font-weight-light">Años vendiendo en MercadoLibre</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title font-weight-light">{{ seller.seller_reputation.transactions.completed}}</v-list-tile-title>
+                      <v-list-tile-title class="subtitle">{{ seller.seller_reputation.transactions.completed}}</v-list-tile-title>
                       <v-list-tile-sub-title class="font-weight-light">Ventas concretadas</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title font-weight-light">{{ seller.seller_reputation.transactions.canceled}}</v-list-tile-title>
+                      <v-list-tile-title class="subtitle">{{ seller.seller_reputation.transactions.canceled}}</v-list-tile-title>
                       <v-list-tile-sub-title class="font-weight-light">Ventas canceladas</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
                   <v-list-tile>
                     <v-list-tile-content>
-                      <v-list-tile-title class="title font-weight-light">{{ seller.seller_reputation.level_id}}</v-list-tile-title>
+                      <v-list-tile-title class="subtitle">{{ seller.seller_reputation.level_id}}</v-list-tile-title>
                       <v-list-tile-sub-title class="font-weight-light">MercadoLibre {{ seller.seller_reputation.power_seller_status.charAt(0).toUpperCase() + seller.seller_reputation.power_seller_status.substr(1)}}</v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>

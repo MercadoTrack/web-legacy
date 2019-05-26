@@ -51,7 +51,7 @@
                           </v-list-tile-action>
                           <v-list-tile-content>
                             <v-list-tile-title>Cantidad</v-list-tile-title>
-                            <v-list-tile-sub-title>{{ mlArticle.available_quantity }} disponible<template v-if="mlArticle.available_quantity > 1">s</template></v-list-tile-sub-title>
+                            <v-list-tile-sub-title class="font-weight-light">{{ mlArticle.available_quantity }} disponible<template v-if="mlArticle.available_quantity > 1">s</template></v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
 
@@ -61,7 +61,7 @@
                           </v-list-tile-action>
                           <v-list-tile-content>
                             <v-list-tile-title>Pagá hasta en 12 cuotas</v-list-tile-title>
-                            <v-list-tile-sub-title>Más información</v-list-tile-sub-title>
+                            <v-list-tile-sub-title class="font-weight-light">Más información</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
 
@@ -80,6 +80,16 @@
                           </v-list-tile-action>
                           <v-list-tile-content>
                             <v-list-tile-title @click="goToMLArticle">Ver en MercadoLibre</v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+
+                        <v-list-tile class="pointer">
+                          <v-list-tile-action>
+                            <v-icon>person</v-icon>
+                          </v-list-tile-action>
+                          <v-list-tile-content>
+                            <v-list-tile-title>{{ mlSeller.nickname }}</v-list-tile-title>
+                            <v-list-tile-sub-title @click="goToSeller()">Ver perfil del vendedor</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
                       </v-list>
@@ -104,7 +114,7 @@
                     <v-list-tile v-for="attribute in mlArticle.attributes" v-bind:key="attribute.name">
                       <v-list-tile-content>
                         <v-list-tile-title class="subtitle">{{ attribute.name }}</v-list-tile-title>
-                        <v-list-tile-sub-title>{{attribute.value_name}}</v-list-tile-sub-title>
+                        <v-list-tile-sub-title class="font-weight-light">{{attribute.value_name}}</v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
                   </template>
@@ -132,8 +142,8 @@
                       <v-list-tile-content>
                         <v-tooltip right max-width="25rem">
                           <template slot="activator">
-                            <v-list-tile-title class="title">{{ article.history.length - 1 }}</v-list-tile-title>
-                            <v-list-tile-sub-title>Variaciones</v-list-tile-sub-title>
+                            <v-list-tile-title class="subtitle">{{ article.history.length - 1 }}</v-list-tile-title>
+                            <v-list-tile-sub-title class="font-weight-light">Variaciones</v-list-tile-sub-title>
                           </template>
                           <span>Es la cantidad de veces que el precio publicado sufrió modificaciones.</span>
                         </v-tooltip>
@@ -146,8 +156,8 @@
                       <v-list-tile-content>
                         <v-tooltip right max-width="25rem">
                           <template slot="activator">
-                            <v-list-tile-title class="title">${{ price }}</v-list-tile-title>
-                            <v-list-tile-sub-title>Precio actual publicado</v-list-tile-sub-title>
+                            <v-list-tile-title class="subtitle">${{ price }}</v-list-tile-title>
+                            <v-list-tile-sub-title class="font-weight-light">Precio actual publicado</v-list-tile-sub-title>
                           </template>
                           <span>Es el precio publicado en MercadoLibre por el vendedor.</span>
                       </v-tooltip>
@@ -160,8 +170,8 @@
                       <v-list-tile-content>
                         <v-tooltip right max-width="25rem">
                           <template slot="activator">
-                            <v-list-tile-title class="title">${{ price }}</v-list-tile-title>
-                            <v-list-tile-sub-title>Precio real</v-list-tile-sub-title>
+                            <v-list-tile-title class="subtitle">${{ price }}</v-list-tile-title>
+                            <v-list-tile-sub-title class="font-weight-light">Precio real</v-list-tile-sub-title>
                             </template>
                           <span>Es el precio sobre el cual se aplicó el descuento publicado.</span>
                         </v-tooltip>
@@ -174,8 +184,8 @@
                       <v-list-tile-content>
                         <v-tooltip right max-width="25rem">
                           <template slot="activator">
-                            <v-list-tile-title class="title">%0</v-list-tile-title>
-                            <v-list-tile-sub-title>Descuento publicado</v-list-tile-sub-title>
+                            <v-list-tile-title class="tsubitle">%0</v-list-tile-title>
+                            <v-list-tile-sub-title class="font-weight-light">Descuento publicado</v-list-tile-sub-title>
                             </template>
                           <span>Es el descuento publicado en Mercado Libre por el vendedor</span>
                         </v-tooltip>
@@ -188,8 +198,8 @@
                       <v-list-tile-content>
                         <v-tooltip right max-width="25rem">
                           <template slot="activator">
-                            <v-list-tile-title class="title">%0</v-list-tile-title>
-                            <v-list-tile-sub-title>Descuento real</v-list-tile-sub-title>
+                            <v-list-tile-title class="subtitle">%0</v-list-tile-title>
+                            <v-list-tile-sub-title class="font-weight-light">Descuento real</v-list-tile-sub-title>
                             </template>
                           <span>Es el descuento real del producto en base a su precio anterior</span>
                         </v-tooltip>
@@ -209,29 +219,7 @@
             <v-layout wrap class="pa-0 ma-0">
               <v-flex xs12 pa-4>
                 <v-list two-line subheader>
-                  <span class="headline">{{ mlSeller.nickname}}</span>
-                  <span @click="goToSeller()" class="subtitle pl-3 pointer">ver perfil del vendedor</span>
-
-                  <v-list-tile>
-                    <v-list-tile-action>
-                      <v-icon>mood</v-icon>
-                    </v-list-tile-action>
-                      <span>Nunca ha aplicado descuentos sobre precios ficticios.</span>
-                  </v-list-tile>
-
-                  <v-list-tile>
-                    <v-list-tile-action>
-                      <v-icon>timer</v-icon>
-                    </v-list-tile-action>
-                      <span>Despacha sus productos a tiempo.</span>
-                  </v-list-tile>
-
-                  <v-list-tile>
-                    <v-list-tile-action>
-                      <v-icon>chat</v-icon>
-                    </v-list-tile-action>
-                      <span>Brinda buena atención.</span>
-                  </v-list-tile>
+                  <span class="headline">Más publicaciones de este vendedor</span>
                 </v-list>
               </v-flex>
             </v-layout>
