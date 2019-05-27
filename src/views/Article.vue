@@ -26,7 +26,7 @@
 
           <v-flex xs12 class="pa-4">
             <span class="headline">Características</span>
-            <ArticleAttributes :mlArticle="mlArticle" />
+            <ArticleAttributes :attributes="mlArticle.attributes" />
           </v-flex>
 
           <v-flex xs12>
