@@ -4,7 +4,7 @@
       <figure
         v-for="(src, i) in images.slice(0, 5)"
         :key="i"
-        :class="`my-2 pa-1 w-100 ${selectedClass(i)}`"
+        :class="`pointer my-2 pa-1 w-100 ${selectedClass(i)}`"
         @click="selectImage(i)"
       >
         <v-img contain :src="src" height="80"></v-img>
