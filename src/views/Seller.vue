@@ -186,7 +186,7 @@ export default {
     },
     isMercadoShop () {
       return this.seller.tags.includes('shop')
-    }, 
+    },
     sellerStatus () {
       return this.seller.seller_reputation.power_seller_status || ''
     }
