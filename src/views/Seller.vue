@@ -7,18 +7,17 @@
           <v-flex xs12>
             <v-list-tile class="pa-4">
               <span class="display-1">{{ seller.nickname }}</span>
-                <v-btn flat icon color="green lighten-1" v-if="userVerified()">
+                <v-btn flat icon color="green lighten-1" v-if="userVerified">
                   <v-icon>verified_user</v-icon>
                 </v-btn>
-                <v-btn flat icon color="blue lighten-1" v-if="isBrand()">
+                <v-btn flat icon color="blue lighten-1" v-if="isBrand">
                   <v-icon>store</v-icon>
                 </v-btn>
                 <v-btn flat icon color="grey lighten-1" @click="goToMLSeller">
                   <v-icon>call_made</v-icon>
                 </v-btn>
               <v-layout justify-end row>
-                <v-img absolute class="floating-logo rounded" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"> 
-                </v-img>
+                <v-img absolute class="floating-logo rounded" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
               </v-layout>
             </v-list-tile>
             <v-divider></v-divider>
@@ -66,7 +65,7 @@
               </v-flex>
             </v-layout>
           </v-container>
-          
+
           <v-flex xs12 py-0>
             <v-divider></v-divider>
           </v-flex>
@@ -165,36 +164,33 @@ export default {
     loading: false,
     seller: null,
   }),
-  async mounted () { 
-  const sellerRes = await axios.get(`https://api.mercadolibre.com/users/${this.$route.params.id}`)
-  this.seller = sellerRes.data
-  console.log(this.seller)
+  async mounted () {
+    const sellerRes = await axios.get(`https://api.mercadolibre.com/users/${this.$route.params.id}`)
+    this.seller = sellerRes.data
+  },
+  computed: {
+    userVerified () {
+      return this.seller.tags.includes('user_info_verified')
+    },
+    isBrand () {
+      return this.seller.tags.includes('brand')
+    },
+    isLargeSeller () {
+      return this.seller.tags.includes('large_seller')
+    },
+    isMercadoShop () {
+      return this.seller.tags.includes('shop')
+    }
   },
   methods: {
     goToMLSeller () {
       window.open(this.seller.permalink)
     },
-    userVerified() {
-      if(this.seller.tags.includes("user_info_verified"))
-      return true;
-    },
-    isBrand() {
-      if(this.seller.tags.includes("brand"))
-      return true;
-    },
-    isLargeSeller() {
-      if(this.seller.tags.includes("large_seller"))
-      return true;
-    },
-    isMercadoShop() {
-      if(this.seller.tags.includes("shop"))
-      return true;
-    }
-  },
+  }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .floating-logo {
   top: 50px;
   max-width: 150px;
@@ -204,4 +200,3 @@ export default {
   margin: 0;
 }
 </style>
-
