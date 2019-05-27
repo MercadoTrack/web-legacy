@@ -4,6 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { CategoriesHelper } from '../../utils'
 
 export default {
   name: 'ArticleBreadcrumb',
@@ -21,13 +22,14 @@ export default {
     },
     breadcrumbItems () {
       const items = [{
-        text: 'Todos los artículos',
+        text: 'Inicio',
         disabled: false,
-        href: '/'
+        to: '/'
       }]
       if (this.parentCategory) {
         items.push({
           text: this.parentCategory.name,
+          to: `/${CategoriesHelper.getCategoryKeyName(this.parentCategory.name)}`,
           disabled: false,
         })
       }
@@ -35,6 +37,7 @@ export default {
         items.push({
           text: this.category.name,
           disabled: false,
+          to: `/busqueda?category=${this.categoryId}`
         })
       }
       return items
