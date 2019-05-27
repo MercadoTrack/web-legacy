@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-container>
-      <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+      <v-progress-linear v-if="!seller" :indeterminate="true"></v-progress-linear>
       <v-card v-else elevation=0>
         <v-layout row wrap>
           <v-flex xs12>
@@ -58,7 +58,9 @@
                   <v-list-tile>
                     <v-list-tile-content>
                       <v-list-tile-title class="subtitle">{{ seller.seller_reputation.level_id}}</v-list-tile-title>
-                      <v-list-tile-sub-title class="font-weight-light">MercadoLibre {{ seller.seller_reputation.power_seller_status.charAt(0).toUpperCase() + seller.seller_reputation.power_seller_status.substr(1)}}</v-list-tile-sub-title>
+                      <v-list-tile-sub-title class="font-weight-light">
+                        MercadoLibre <span class="text-capitalize">{{ sellerStatus }}</span>
+                      </v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>
                 </v-list>
@@ -161,12 +163,16 @@ import axios from 'axios'
 
 export default {
   data: () => ({
-    loading: false,
     seller: null,
   }),
   async mounted () {
-    const sellerRes = await axios.get(`https://api.mercadolibre.com/users/${this.$route.params.id}`)
-    this.seller = sellerRes.data
+    try {
+      const sellerRes = await axios.get(`https://api.mercadolibre.com/users/${this.$route.params.id}`)
+      this.seller = sellerRes.data
+    } catch (err) {
+      console.log('Error getting Seller', err)
+      this.$router.push('/')
+    }
   },
   computed: {
     userVerified () {
@@ -180,6 +186,9 @@ export default {
     },
     isMercadoShop () {
       return this.seller.tags.includes('shop')
+    }, 
+    sellerStatus () {
+      return this.seller.seller_reputation.power_seller_status || ''
     }
   },
   methods: {
