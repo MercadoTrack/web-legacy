@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-window-item {
-  border: none;
+.v-carousel {
+  box-shadow: none;
 }
 </style>
