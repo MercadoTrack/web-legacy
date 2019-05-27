@@ -58,20 +58,15 @@ export default {
 }
 figure {
   position: relative;
-  &.selected {
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      border-color: transparent;
-      border-style: solid;
-    }
-    &::after {
-      border-radius: 50%;
-      border-width: 0.45rem;
-      border-color: var(--v-primary-base);
-    }
+  &.selected::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: var(--v-primary-base);
   }
 }
 </style>
