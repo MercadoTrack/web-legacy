@@ -1,16 +1,26 @@
 <template>
-  <div style="display: flex; align-items: center; width: 100%; margin: auto;">
-    <div v-if="images.length > 1 && $vuetify.breakpoint.mdAndUp" style="width: 80px; display: flex; flex-direction: column; justify-content: center;" class="pa-1">
-      <figure v-for="img in images" :key="img" style="width: 100%;" class="my-2">
-        <v-img
-          :src="img">
-        </v-img>
+  <div class="ma-auto w-100 mt-flex">
+    <div v-if="useControls" style="width: 88px;">
+      <figure
+        v-for="(src, i) in images.slice(0, 5)"
+        :key="i"
+        :class="`my-2 pa-1 w-100 ${selectedClass(i)}`"
+        @click="selectImage(i)"
+      >
+        <v-img contain :src="src" height="80"></v-img>
       </figure>
     </div>
     <v-layout align-center justify-center>
       <v-flex xs12 class="ma-4">
-        <div style="display: flex; align-items: center; justify-content: center;">
-          <v-carousel light hide-delimiters height="auto" style="">
+        <div class="mt-flex">
+          <v-carousel
+            height="500"
+            width="500"
+            class="primary-controls"
+            v-model="srcIndex"
+            :cycle="!useControls"
+            light hide-delimiters
+          >
             <v-carousel-item contain v-for="src in images" :key="src" :src="src"></v-carousel-item>
           </v-carousel>
         </div>
@@ -23,11 +33,45 @@
 export default {
   name: 'ArticleCarousel',
   props: ['images'],
+  data: () => ({
+    srcIndex: 0
+  }),
+  computed: {
+    useControls () {
+      return this.images.length > 1 && this.$vuetify.breakpoint.mdAndUp
+    }
+  },
+  methods: {
+    selectImage (i) {
+      this.srcIndex = i
+    },
+    selectedClass (i) {
+      return this.srcIndex === i ? 'selected' : ''
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .v-carousel {
   box-shadow: none;
+}
+figure {
+  position: relative;
+  &.selected {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-color: transparent;
+      border-style: solid;
+    }
+    &::after {
+      border-radius: 50%;
+      border-width: 0.45rem;
+      border-color: var(--v-primary-base);
+    }
+  }
 }
 </style>

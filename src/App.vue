@@ -99,4 +99,37 @@ figure {
   position: absolute;
 }
 
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.mt-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.v-carousel {
+  &.primary-controls {
+    .v-carousel__prev,
+    .v-carousel__next{
+      .v-btn {
+        color: var(--v-primary-base);
+      }
+    }
+  }
+  &.secondary-controls {
+    .v-carousel__prev,
+    .v-carousel__next{
+      .v-btn {
+        color: var(--v-secondary-base);
+      }
+    }
+  }
+}
+
 </style>
