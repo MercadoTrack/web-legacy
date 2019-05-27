@@ -28,7 +28,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile v-if="mlArticle.shipping.free_shipping == true">
+          <v-list-tile v-if="mlArticle.shipping.free_shipping">
             <v-list-tile-action>
               <v-icon>local_shipping</v-icon>
             </v-list-tile-action>
@@ -46,7 +46,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile class="pointer">
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon>place</v-icon>
             </v-list-tile-action>
