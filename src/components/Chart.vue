@@ -18,7 +18,6 @@ export default {
     price: 212
   */
   mounted () {
-    console.log(this.history.map(({ price }) => price))
     const ctx = document.getElementById('myChart').getContext('2d')
     const lastSnapshot = this.history[this.history.length - 1]
     const todaySnapshot = {
