@@ -21,7 +21,7 @@
             :cycle="!useControls"
             light hide-delimiters
           >
-            <v-carousel-item contain v-for="src in images" :key="src" :src="src"></v-carousel-item>
+            <v-carousel-item contain v-for="(src, i) in images" :key="i" :src="src"></v-carousel-item>
           </v-carousel>
         </div>
       </v-flex>
