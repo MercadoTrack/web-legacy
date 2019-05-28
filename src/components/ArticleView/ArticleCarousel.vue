@@ -19,6 +19,7 @@
             class="primary-controls"
             v-model="srcIndex"
             :cycle="!useControls"
+            :hide-controls="images.length === 1"
             light hide-delimiters
           >
             <v-carousel-item contain v-for="(src, i) in images" :key="i" :src="src"></v-carousel-item>

@@ -23,7 +23,7 @@
             </v-layout>
           </v-flex>
         </v-fade-transition>
-        <v-flex xs12 mt-2>
+        <v-flex xs12 mt-2 v-if="truncatedTotalPages > 1">
           <v-layout justify-center>
             <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="changePage"></v-pagination>
           </v-layout>
