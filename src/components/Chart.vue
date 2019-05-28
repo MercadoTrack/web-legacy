@@ -38,6 +38,7 @@ export default {
           borderColor: this.$vuetify.theme.primary,
           backgroundColor: this.$vuetify.theme.primary,
           borderWidth: 1,
+          pointHitRadius: 17,
           trendlineLinear: {
             style: '#64aa64',
             lineStyle: 'dotted',
