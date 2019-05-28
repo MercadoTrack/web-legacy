@@ -67,7 +67,9 @@ export default {
       return previousSnapshot && previousSnapshot.price
     },
     discount () {
-      return this.previousPrice && (100 - Math.round(this.price * 100 / this.previousPrice))
+      return this.previousPrice
+        ? (100 - Math.round(this.price * 100 / this.previousPrice))
+        : 0
     },
     original_price () {
       // maybe use last snapshot original price instead

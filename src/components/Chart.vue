@@ -39,7 +39,7 @@ export default {
           backgroundColor: this.$vuetify.theme.primary,
           borderWidth: 1,
           pointHitRadius: 17,
-          trendlineLinear: {
+          trendlineLinear: (history.length > 2) && {
             style: '#64aa64',
             lineStyle: 'dotted',
             width: 2
