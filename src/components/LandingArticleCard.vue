@@ -25,13 +25,19 @@
             </div>
           </v-expand-transition>
         </v-img>
+        <ArticleCardHeadline :article="article" />
       </router-link>
     </v-card>
   </v-hover>
 </template>
 
 <script>
+import ArticleCardHeadline from '../components/ArticleCard/ArticleCardHeadline'
+
 export default {
+  components: {
+    ArticleCardHeadline,
+  },
   props: ['article'],
   filters: {
     priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
