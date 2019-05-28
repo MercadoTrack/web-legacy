@@ -16,7 +16,7 @@
           </v-flex>
 
           <v-flex xs12 md4 pa-4 class="border-l">
-            <span class="display-1">{{ article.title }}</span>
+            <h2 class="display-1">{{ article.title }}</h2>
             <ArticleInfo :article="article" :mlArticle="mlArticle" :mlSeller="mlSeller" />
           </v-flex>
 
@@ -25,7 +25,7 @@
           </v-flex>
 
           <v-flex xs12 class="pa-4">
-            <span class="headline">Características</span>
+            <h2 class="headline">Características</h2>
             <ArticleAttributes :attributes="mlArticle.attributes" />
           </v-flex>
 
@@ -38,7 +38,10 @@
           </v-flex>
 
           <v-flex xs12 md4 pa-4>
-            <span class="headline">Historial de precios</span>
+            <h2 class="headline history">
+              <span class="mr-1">Historial de precios</span>
+              <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span>
+            </h2>
             <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
           </v-flex>
 
@@ -101,6 +104,11 @@ export default {
 
 .border-l {
   border-left: 1px solid rgba(0,0,0,.12);
+}
+
+.history {
+  display: flex;
+  align-items: center;
 }
 
 </style>
