@@ -9,20 +9,20 @@ const webAuth = new WebAuth({
 })
 
 export const authorize = (url, opts) => {
-  url = url || '/'
   const options = createQuery(opts)
+  const returnTo = url ? `returnTo=${encodeURIComponent(url + options)}` : ''
   return webAuth.authorize({
     responseType: 'token id_token',
-    redirectUri: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGIN}?returnTo=${encodeURIComponent(url + options)}`,
+    redirectUri: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGIN}?${returnTo}`,
     scope: 'openid profile email',
   })
 }
 
 export const logout = (url, opts) => {
-  url = url || '/'
   const options = createQuery(opts)
+  const returnTo = url ? `returnTo=${encodeURIComponent(url + options)}` : ''
   return webAuth.logout({
-    returnTo: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}?returnTo=${encodeURIComponent(url + options)}`,
+    returnTo: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}?${returnTo}`,
   })
 }
 

@@ -29,10 +29,12 @@ export default {
       }
     },
     login (_, opts = {}) {
-      authorize(router.currentRoute.path, { ...router.currentRoute.query, ...opts })
+      const { path, query } = router.currentRoute
+      return path === '/' ? authorize() : authorize(path, { ...query, ...opts })
     },
     logout (_, opts = {}) {
-      logout(router.currentRoute.path, { ...router.currentRoute.query, ...opts })
+      const { path, query } = router.currentRoute
+      return path === '/' ? logout() : logout(path, { ...query, ...opts })
     },
     parseLogin ({ commit }) {
       return new Promise((resolve, reject) => {
