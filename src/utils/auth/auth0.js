@@ -8,16 +8,6 @@ const webAuth = new WebAuth({
   domain: ROUTES.DOMAIN,
 })
 
-const createQuery = (options = {}) => {
-  const query = Object.keys(options).reduce((partial, key) => {
-    const option = encodeURIComponent(options[key])
-    const val = `${key}=${option}`
-    return partial ? `${partial}&${val}` : `?${val}`
-  }, '')
-  return query
-}
-
-// https://auth0.com/docs/libraries/auth0js/v9#login
 export const authorize = (url, opts) => {
   url = url || '/'
   const options = createQuery(opts)
@@ -28,13 +18,21 @@ export const authorize = (url, opts) => {
   })
 }
 
-// https://auth0.com/docs/libraries/auth0js/v9#logout
 export const logout = (url, opts) => {
   url = url || '/'
   const options = createQuery(opts)
   return webAuth.logout({
     returnTo: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}?returnTo=${encodeURIComponent(url + options)}`,
   })
+}
+
+const createQuery = (options = {}) => {
+  const query = Object.keys(options).reduce((partial, key) => {
+    const option = encodeURIComponent(options[key])
+    const val = `${key}=${option}`
+    return partial ? `${partial}&${val}` : `?${val}`
+  }, '')
+  return query
 }
 
 export const parseHash = callback => webAuth.parseHash(callback)

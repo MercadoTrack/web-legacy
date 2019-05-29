@@ -1,10 +1,8 @@
 import jwtDecode from 'jwt-decode'
 import Cookie from 'js-cookie'
 
-export const setToken = (idToken, accessToken) => {
-  Cookie.set('user', jwtDecode(idToken))
-  Cookie.set('idToken', idToken)
-  Cookie.set('accessToken', accessToken)
+export const getUser = () => {
+  return Cookie.getJSON('user')
 }
 
 export const unsetToken = () => {
@@ -13,8 +11,10 @@ export const unsetToken = () => {
   Cookie.remove('user')
 }
 
-export const getUser = () => {
-  return Cookie.getJSON('user')
+export const setToken = (idToken, accessToken) => {
+  Cookie.set('user', jwtDecode(idToken))
+  Cookie.set('idToken', idToken)
+  Cookie.set('accessToken', accessToken)
 }
 
 export const isLoggedIn = () => !!getUser()
