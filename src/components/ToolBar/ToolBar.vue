@@ -22,22 +22,10 @@
           <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Últimos agregados
           </v-btn>
+
           <v-spacer></v-spacer>
-          <v-btn flat active-class color="grey darken-3" to="/favoritos" class="pointer d-flex font-weight-light text-none">
-            Favoritos
-          </v-btn>
-          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
-            Notificaciones
-          </v-btn>
-          <v-btn
-            v-if="isAuthenticated"
-            flat active-class light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            @click="logout()"
-          >
-            Salir
-          </v-btn>
+
+          <MyAccountDropdown v-if="isAuthenticated" :user="user" />
           <v-btn v-else
             flat active-class light
             color="grey darken-3"
@@ -89,14 +77,16 @@
 <script>
 import { mapGetters } from 'vuex'
 import CategoriesDropdown from './CategoriesDropdown'
+import MyAccountDropdown from './MyAccountDropdown'
 import NavigationDrawerList from './NavigationDrawerList'
 import { isLink } from '../../utils'
-import { login, logout } from '../../utils/auth'
+import { login } from '../../utils/auth'
 
 export default {
   components: {
     CategoriesDropdown,
     NavigationDrawerList,
+    MyAccountDropdown,
   },
   data: () => ({
     drawer: false,
@@ -110,7 +100,6 @@ export default {
   },
   methods: {
     login,
-    logout,
     search () {
       this.$refs.searchInput.blur()
       if (isLink(this.searchTerm)) {
