@@ -25,7 +25,16 @@
 
           <v-spacer></v-spacer>
 
-          <MyAccountDropdown v-if="isAuthenticated" :user="user" />
+          <v-menu v-if="isAuthenticated" offset-y left content-class="dropdown-menu" transition="slide-y-transition">
+            <template v-slot:activator="{ on }">
+              <v-btn flat v-on="on" color="grey darken-3" class="px-3 font-weight-light text-capitalize">
+                Mi cuenta
+              </v-btn>
+            </template>
+            <v-card>
+              <MyAccountList :user="user" />
+            </v-card>
+          </v-menu>
           <v-btn v-else
             flat active-class light
             color="grey darken-3"
@@ -77,7 +86,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import CategoriesDropdown from './CategoriesDropdown'
-import MyAccountDropdown from './MyAccountDropdown'
+import MyAccountList from './MyAccountList'
 import NavigationDrawerList from './NavigationDrawerList'
 import { isLink } from '../../utils'
 import { login } from '../../utils/auth'
@@ -86,7 +95,7 @@ export default {
   components: {
     CategoriesDropdown,
     NavigationDrawerList,
-    MyAccountDropdown,
+    MyAccountList,
   },
   data: () => ({
     drawer: false,
