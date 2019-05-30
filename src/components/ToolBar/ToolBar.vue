@@ -29,8 +29,22 @@
           <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
             Notificaciones
           </v-btn>
-          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
-            Mi cuenta
+          <v-btn
+            v-if="isAuthenticated"
+            flat active-class light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+            @click="logout()"
+          >
+            Salir
+          </v-btn>
+          <v-btn v-else
+            flat active-class light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+            @click="login()"
+          >
+            Ingresar
           </v-btn>
         </v-container>
       </template>
@@ -73,6 +87,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import CategoriesDropdown from './CategoriesDropdown'
 import NavigationDrawerList from './NavigationDrawerList'
 import { isLink } from '../../utils'
@@ -86,7 +101,17 @@ export default {
     drawer: false,
     searchTerm: '',
   }),
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+      isAuthenticated: 'auth/isAuthenticated'
+    })
+  },
   methods: {
+    ...mapActions({
+      login: 'auth/login',
+      logout: 'auth/logout',
+    }),
     search () {
       this.$refs.searchInput.blur()
       if (isLink(this.searchTerm)) {

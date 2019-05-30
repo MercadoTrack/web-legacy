@@ -36,6 +36,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('meta/getBase')
+    this.$store.dispatch('auth/init')
   },
 }
 </script>
