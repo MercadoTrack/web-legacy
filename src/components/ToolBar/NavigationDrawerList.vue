@@ -69,7 +69,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
+import { login, logout } from '../../utils/auth'
 
 export default {
   computed: {
@@ -79,10 +80,8 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      login: 'auth/login',
-      logout: 'auth/logout',
-    }),
+    login,
+    logout,
   }
 }
 </script>

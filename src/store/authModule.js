@@ -1,12 +1,8 @@
 import {
-  parseHash,
-  setToken,
+  parseLoginHash,
   unsetToken,
   getUser,
-  authorize,
-  logout,
 } from '../utils/auth'
-import router from '../router'
 
 export default {
   namespaced: true,
@@ -28,29 +24,12 @@ export default {
         commit('login', user)
       }
     },
-    login (_, opts = {}) {
-      const { path, query } = router.currentRoute
-      return path === '/' ? authorize() : authorize(path, { ...query, ...opts })
+    async loginCallbackAction ({ commit }) {
+      const user = await parseLoginHash()
+      commit('login', user)
+      return user
     },
-    logout (_, opts = {}) {
-      const { path, query } = router.currentRoute
-      return path === '/' ? logout() : logout(path, { ...query, ...opts })
-    },
-    parseLogin ({ commit }) {
-      return new Promise((resolve, reject) => {
-        parseHash((err, result) => {
-          if (err) {
-            reject(new Error('Something happened with the Sign In request'))
-            return
-          }
-          setToken(result.idToken, result.accessToken)
-          const user = getUser()
-          commit('login', user)
-          resolve(user)
-        })
-      })
-    },
-    parseLogout ({ commit }) {
+    logoutCallbackAction ({ commit }) {
       unsetToken()
       commit('logout')
     }
