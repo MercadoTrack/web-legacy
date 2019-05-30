@@ -13,8 +13,8 @@ export default {
   name: 'Callback',
   methods: {
     ...mapActions({
-      parseLogin: 'auth/parseLogin',
-      parseLogout: 'auth/parseLogout',
+      loginCallbackAction: 'auth/loginCallbackAction',
+      logoutCallbackAction: 'auth/logoutCallbackAction',
     }),
     ...mapMutations({
       welcome: 'snackbar/welcome',
@@ -24,10 +24,10 @@ export default {
     const { action } = this.$route.params
     try {
       if (action === 'login') {
-        const user = await this.parseLogin()
+        const user = await this.loginCallbackAction()
         this.welcome(user)
       } else if (action === 'logout') {
-        this.parseLogout()
+        this.logoutCallbackAction()
       }
       const { returnTo } = this.$route.query
       this.$router.push(returnTo || '/')

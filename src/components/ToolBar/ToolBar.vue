@@ -87,10 +87,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import CategoriesDropdown from './CategoriesDropdown'
 import NavigationDrawerList from './NavigationDrawerList'
 import { isLink } from '../../utils'
+import { login, logout } from '../../utils/auth'
 
 export default {
   components: {
@@ -108,10 +109,8 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      login: 'auth/login',
-      logout: 'auth/logout',
-    }),
+    login,
+    logout,
     search () {
       this.$refs.searchInput.blur()
       if (isLink(this.searchTerm)) {

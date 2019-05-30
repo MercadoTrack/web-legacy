@@ -16,5 +16,3 @@ export const setToken = (idToken, accessToken) => {
   Cookie.set('idToken', idToken)
   Cookie.set('accessToken', accessToken)
 }
-
-export const isLoggedIn = () => !!getUser()
