@@ -25,7 +25,7 @@
             </div>
           </v-expand-transition>
         </v-img>
-        <ArticleCardHeadline :article="article" />
+        <!-- <ArticleCardHeadline :article="article" /> -->
       </router-link>
     </v-card>
   </v-hover>
