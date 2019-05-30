@@ -20,7 +20,7 @@ export default {
     },
     welcome (state, user) {
       state.show = true
-      state.text = `Bienvenido ${user.given_name}!`
+      state.text = `Hola ${user.given_name}!`
       state.timeout = defaultTimeout
     }
   },
