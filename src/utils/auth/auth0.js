@@ -14,13 +14,16 @@ export const login = () => lock.show()
 
 export const logout = () => {
   const { path, query } = router.currentRoute
+  const logoutRoute = `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}`
   if (path === '/') {
-    lock.logout()
+    lock.logout({
+      returnTo: logoutRoute
+    })
   } else {
     let queryStr = qs.stringify(query)
     queryStr = queryStr ? `?${queryStr}` : ''
     lock.logout({
-      returnTo: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}?returnTo=${encodeURIComponent(path + queryStr)}`,
+      returnTo: `${logoutRoute}?returnTo=${encodeURIComponent(path + queryStr)}`,
     })
   }
 }
