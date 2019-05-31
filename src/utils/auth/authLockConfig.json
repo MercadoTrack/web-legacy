@@ -11,7 +11,7 @@
     "title": "MercadoTrack"
   },
   "theme": {
-    "logo": "http://localhost:8080/img/mtrack_icon.f52cac11.svg",
+    "logo": "https://mercadotrack.com/img/mtrack_icon.f52cac11.svg",
     "primaryColor": "#3483FA",
     "authButtons": {
       "primaryColor": "#3483FA",
