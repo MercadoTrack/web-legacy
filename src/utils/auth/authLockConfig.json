@@ -1,0 +1,21 @@
+{
+  "language": "en",
+  "allowShowPassword": true,
+  "autoclose": true,
+  "auth": {
+    "sso": false,
+    "redirect": false,
+    "responseType": "token id_token"
+  },
+  "languageDictionary": {
+    "title": "MercadoTrack"
+  },
+  "theme": {
+    "logo": "http://localhost:8080/img/mtrack_icon.f52cac11.svg",
+    "primaryColor": "#3483FA",
+    "authButtons": {
+      "primaryColor": "#3483FA",
+      "displayName": "MercadoTrack"
+    }
+  }
+}

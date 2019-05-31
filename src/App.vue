@@ -12,6 +12,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { initAuth } from './utils/auth'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 import LoadingMeta from './views/LoadingMeta'
@@ -34,9 +35,9 @@ export default {
       return this.showIntro && routesToShowIntro.includes(this.$route.name)
     }
   },
-  mounted () {
+  async mounted () {
     this.$store.dispatch('meta/getBase')
-    this.$store.dispatch('auth/init')
+    initAuth()
   },
 }
 </script>

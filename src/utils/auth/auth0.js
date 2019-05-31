@@ -1,92 +1,67 @@
-import { WebAuth } from 'auth0-js'
-import { getUser, setToken } from './auth'
+import { Auth0Lock } from 'auth0-lock'
+import qs from 'query-string'
+import { getUser, setToken, unsetToken } from './auth'
 import { CLIENT_ID, ROUTES } from './authConstants'
+import config from './authLockConfig.json'
+import store from '../../store'
 import router from '../../router'
 
 const baseUrl = `${window.location.protocol}//${window.location.host}`
 
-const webAuth = new WebAuth({
-  clientID: CLIENT_ID,
-  domain: ROUTES.DOMAIN,
-  responseType: 'token id_token',
-  scope: 'openid profile email',
-  redirectUri: baseUrl,
-})
+const lock = new Auth0Lock(CLIENT_ID, ROUTES.DOMAIN, config)
 
-const createQuery = (options = {}) => {
-  const query = Object.keys(options).reduce((partial, key) => {
-    const option = encodeURIComponent(options[key])
-    const val = `${key}=${option}`
-    return partial ? `${partial}&${val}` : `?${val}`
-  }, '')
-  return query
-}
+export const login = () => lock.show()
 
-export const login = (opts = {}) => {
+export const logout = () => {
   const { path, query } = router.currentRoute
-  return path === '/' ? webLogin() : webLogin(path, { ...query, ...opts })
-}
-
-export const logout = (opts = {}) => {
-  const { path, query } = router.currentRoute
-  return path === '/' ? webLogout() : webLogout(path, { ...query, ...opts })
-}
-
-export const checkSession = async () => {
-  try {
-    const result = await webCheckSession()
-    setToken(result.idToken, result.accessToken)
-    return getUser()
-  } catch (err) {
-    // no previous session: failing silently
+  if (path === '/') {
+    lock.logout()
+  } else {
+    let queryStr = qs.stringify(query)
+    queryStr = queryStr ? `?${queryStr}` : ''
+    lock.logout({
+      returnTo: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}?returnTo=${encodeURIComponent(path + queryStr)}`,
+    })
   }
 }
 
-export const parseLoginHash = () => {
-  return new Promise((resolve, reject) => {
-    webAuth.parseHash((err, result) => {
-      if (err) {
-        console.log('Something happened with the Sign In request')
-        reject(err)
-        return
+export const logoutCallback = (returnTo) => {
+  unsetToken()
+  store.commit('auth/logout')
+  router.push(returnTo || '/')
+}
+
+export const initAuth = async () => {
+  const user = await checkSession(lock)
+  if (user) {
+    addUserToStore(user)
+  }
+  lock.on('authenticated', (result) => {
+    setToken(result.idToken, result.accessToken)
+    addUserToStore(getUser())
+  })
+}
+
+const addUserToStore = (user) => {
+  store.commit('auth/login', user)
+  store.commit('snackbar/welcome', user)
+}
+
+const checkSession = async (lock) => {
+  return new Promise((resolve) => {
+    // check if only checkSession should be called
+    const user = getUser()
+    if (user) {
+      return resolve(user)
+    }
+    lock.checkSession({
+      redirectUri: baseUrl
+    }, (err, result) => {
+      if (err) resolve(null) // always resolving
+      else {
+        setToken(result.idToken, result.accessToken)
+        resolve(getUser())
       }
-      setToken(result.idToken, result.accessToken)
-      resolve(getUser())
-    })
-  })
-}
-
-const webLogin = (url, opts) => {
-  const options = createQuery(opts)
-  const returnTo = url ? `?returnTo=${encodeURIComponent(url + options)}` : ''
-  return new Promise((resolve, reject) => {
-    webAuth.authorize({
-      redirectUri: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGIN}${returnTo}`,
-    }, (err, result) => {
-      if (err) reject(err)
-      else resolve(result)
-    })
-  })
-}
-
-const webLogout = (url, opts) => {
-  const options = createQuery(opts)
-  const returnTo = url ? `?returnTo=${encodeURIComponent(url + options)}` : ''
-  return new Promise((resolve, reject) => {
-    webAuth.logout({
-      returnTo: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}${returnTo}`,
-    }, (err, result) => {
-      if (err) reject(err)
-      else resolve(result)
-    })
-  })
-}
-
-const webCheckSession = () => {
-  return new Promise((resolve, reject) => {
-    webAuth.checkSession({}, (err, result) => {
-      if (err) reject(err)
-      else resolve(result)
     })
   })
 }

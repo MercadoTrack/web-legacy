@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "auth0-js": "^9.10.4",
+    "auth0-lock": "^11.16.0",
     "axios": "^0.18.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-trendline": "^0.1.1",
@@ -20,6 +21,7 @@
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "material-design-icons-iconfont": "^5.0.1",
+    "query-string": "^6.5.0",
     "vue": "^2.6.10",
     "vue-analytics": "^5.16.4",
     "vue-page-transition": "^0.2.2",
