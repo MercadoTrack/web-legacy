@@ -2,6 +2,7 @@ import {
   parseLoginHash,
   unsetToken,
   getUser,
+  checkSession,
 } from '../utils/auth'
 
 export default {
@@ -18,8 +19,8 @@ export default {
     }
   },
   actions: {
-    init ({ commit }) {
-      const user = getUser()
+    async init ({ commit }) {
+      const user = getUser() || await checkSession()
       if (user) {
         commit('login', user)
       }

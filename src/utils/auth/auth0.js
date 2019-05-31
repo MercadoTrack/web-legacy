@@ -8,6 +8,9 @@ const baseUrl = `${window.location.protocol}//${window.location.host}`
 const webAuth = new WebAuth({
   clientID: CLIENT_ID,
   domain: ROUTES.DOMAIN,
+  responseType: 'token id_token',
+  scope: 'openid profile email',
+  redirectUri: baseUrl,
 })
 
 const createQuery = (options = {}) => {
@@ -29,6 +32,16 @@ export const logout = (opts = {}) => {
   return path === '/' ? webLogout() : webLogout(path, { ...query, ...opts })
 }
 
+export const checkSession = async () => {
+  try {
+    const result = await webCheckSession()
+    setToken(result.idToken, result.accessToken)
+    return getUser()
+  } catch (err) {
+    // no previous session: failing silently
+  }
+}
+
 export const parseLoginHash = () => {
   return new Promise((resolve, reject) => {
     webAuth.parseHash((err, result) => {
@@ -48,9 +61,7 @@ const webLogin = (url, opts) => {
   const returnTo = url ? `?returnTo=${encodeURIComponent(url + options)}` : ''
   return new Promise((resolve, reject) => {
     webAuth.authorize({
-      responseType: 'token id_token',
       redirectUri: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGIN}${returnTo}`,
-      scope: 'openid profile email',
     }, (err, result) => {
       if (err) reject(err)
       else resolve(result)
@@ -65,6 +76,15 @@ const webLogout = (url, opts) => {
     webAuth.logout({
       returnTo: `${baseUrl}${ROUTES.CALLBACK_ROUTE_LOGOUT}${returnTo}`,
     }, (err, result) => {
+      if (err) reject(err)
+      else resolve(result)
+    })
+  })
+}
+
+const webCheckSession = () => {
+  return new Promise((resolve, reject) => {
+    webAuth.checkSession({}, (err, result) => {
       if (err) reject(err)
       else resolve(result)
     })
