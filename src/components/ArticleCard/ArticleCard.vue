@@ -1,6 +1,6 @@
 <template>
   <v-hover>
-    <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2} pointer`" @click="goToArticle()">
+    <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2} pointer`" :to="`/articulo/${article.id}`">
       <v-container fluid class="pa-0">
         <ArticleCardImage :article="article" :hover="hover" />
         <v-divider light></v-divider>
@@ -44,11 +44,6 @@ export default {
       }
     }
   },
-  methods: {
-    goToArticle () {
-      this.$router.push(`/articulo/${this.article.id}`)
-    }
-  }
 }
 </script>
 
