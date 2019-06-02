@@ -17,17 +17,7 @@
               <v-list-tile-sub-title class="font-weight-light">{{ mlArticle.available_quantity }} disponible<template v-if="mlArticle.available_quantity > 1">s</template></v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
-
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>payment</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Pagá hasta en 12 cuotas</v-list-tile-title>
-              <v-list-tile-sub-title class="font-weight-light">Más información</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
+          
           <v-list-tile v-if="mlArticle.shipping.free_shipping">
             <v-list-tile-action>
               <v-icon>local_shipping</v-icon>
