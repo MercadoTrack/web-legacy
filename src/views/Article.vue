@@ -25,8 +25,16 @@
           </v-flex>
 
           <v-flex xs12 class="pa-4">
-            <h2 class="headline">Características</h2>
-            <ArticleAttributes :attributes="mlArticle.attributes" />
+              <h2 class="headline pointer d-inline-block" @click="expandAttributes = !expandAttributes">
+                <span>Características</span>
+                <v-icon color="grey darken-4" v-if="expandAttributes">keyboard_arrow_up</v-icon>
+                <v-icon color="grey darken-4" v-else>keyboard_arrow_down</v-icon>
+              </h2>
+              <v-expand-transition>
+                <div v-show="expandAttributes">
+                  <ArticleAttributes :attributes="mlArticle.attributes" />
+                </div>
+              </v-expand-transition>
           </v-flex>
 
           <v-flex xs12>
@@ -77,6 +85,7 @@ export default {
     article: null,
     mlSeller: null,
     mlArticle: null,
+    expandAttributes: false,
   }),
   async mounted () {
     const id = this.$route.params.id
