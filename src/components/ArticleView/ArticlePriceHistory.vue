@@ -17,7 +17,7 @@
         <v-list-tile-content>
           <v-tooltip right max-width="25rem">
             <!-- has fluctuation -->
-            <template v-if="fluctuation > 0" slot="activator">
+            <template v-if="fluctuation < 0" slot="activator">
               <v-list-tile-sub-title class="font-weight-light">Descuento</v-list-tile-sub-title>
               <v-list-tile-title class="fluctuation-title green--text text--lighten-2">
                 <span class="mr-1">{{ Math.abs(fluctuation) }}%</span>
