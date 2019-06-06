@@ -16,26 +16,26 @@
       <v-list-tile>
         <v-list-tile-content>
           <v-tooltip right max-width="25rem">
-            <!-- has discount -->
-            <template v-if="discount > 0" slot="activator">
+            <!-- has fluctuation -->
+            <template v-if="fluctuation > 0" slot="activator">
               <v-list-tile-sub-title class="font-weight-light">Descuento</v-list-tile-sub-title>
-              <v-list-tile-title class="discount-title green--text text--lighten-2">
-                <span class="mr-1">{{ Math.abs(discount) }}%</span>
+              <v-list-tile-title class="fluctuation-title green--text text--lighten-2">
+                <span class="mr-1">{{ Math.abs(fluctuation) }}%</span>
                 <v-icon color="green lighten-2">mood</v-icon>
               </v-list-tile-title>
             </template>
-            <!-- no discount -->
-            <template v-else-if="!discount && previousPrice" slot="activator">
+            <!-- no fluctuation -->
+            <template v-else-if="!fluctuation && previousPrice" slot="activator">
               <v-list-tile-sub-title class="font-weight-light">Sin descuento</v-list-tile-sub-title>
-              <v-list-tile-title class="discount-title yellow--text text--darken-2">
+              <v-list-tile-title class="fluctuation-title yellow--text text--darken-2">
                 <v-icon color="yellow darken-2">sentiment_satisfied</v-icon>
               </v-list-tile-title>
             </template>
             <!-- price increased -->
-            <template v-else-if="discount" slot="activator">
+            <template v-else-if="fluctuation" slot="activator">
               <v-list-tile-sub-title class="font-weight-light">Aumento</v-list-tile-sub-title>
-              <v-list-tile-title class="discount-title red--text text--lighten-2">
-                <span class="mr-1">{{ Math.abs(discount) }}%</span>
+              <v-list-tile-title class="fluctuation-title red--text text--lighten-2">
+                <span class="mr-1">{{ Math.abs(fluctuation) }}%</span>
                 <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
               </v-list-tile-title>
             </template>
@@ -85,9 +85,9 @@ export default {
       const previousSnapshot = this.article.history[this.article.history.length - 2]
       return previousSnapshot && previousSnapshot.price
     },
-    discount () {
+    fluctuation () {
       return this.previousPrice
-        ? (100 - Math.round(this.price * 100 / this.previousPrice))
+        ? (100 - Math.round(this.previousPrice * 100 / this.price))
         : 0
     },
     original_price () {
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.discount-title {
+.fluctuation-title {
   display: flex;
   justify-content: flex-start;
 }
