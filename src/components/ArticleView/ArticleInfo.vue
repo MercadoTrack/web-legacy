@@ -17,7 +17,7 @@
               <v-list-tile-sub-title class="font-weight-light">{{ mlArticle.available_quantity }} disponible<template v-if="mlArticle.available_quantity > 1">s</template></v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
-          
+
           <v-list-tile v-if="mlArticle.shipping.free_shipping">
             <v-list-tile-action>
               <v-icon>local_shipping</v-icon>

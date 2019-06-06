@@ -33,7 +33,7 @@
                       <v-checkbox></v-checkbox>
                     </v-list-tile-action>
 
-                    <v-list-tile-avatar tile=false size="150">
+                    <v-list-tile-avatar :tile="false" size="150">
                       <img :src="item.img">
                     </v-list-tile-avatar>
 
