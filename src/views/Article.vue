@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import http from '../http.js'
+import api from '../api'
 import Chart from '../components/Chart'
 import axios from 'axios'
 import {
@@ -89,12 +89,12 @@ export default {
   }),
   async mounted () {
     const id = this.$route.params.id
-    const promises = [ http.get(`articles/${id}`), http.get(`articles/ml/${id}`) ]
+    const promises = [ api.getArticle(id), api.getMlArticle(id) ]
     try {
       const [ mtRes, mlRes ] = await Promise.all(promises)
       this.article = mtRes.data
       this.mlArticle = mlRes.data
-      const sellerRes = await axios.get(`https://api.mercadolibre.com/users/${this.article.seller_id}`)
+      const sellerRes = await api.getMlSeller(this.article.seller_id)
       this.mlSeller = sellerRes.data
       this.loading = false
     } catch (err) {

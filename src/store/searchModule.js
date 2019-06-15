@@ -1,4 +1,4 @@
-import http from '../http'
+import api from '../api'
 
 const limit = 30
 const generateParams = (query) => ({
@@ -44,7 +44,7 @@ export default {
       commit('loading')
       const params = generateParams(query)
       try {
-        const { data } = await http.get('articles', { params })
+        const { data } = await api.getPaginatedArticles(params)
         commit('success', data)
       } catch (error) {
         commit('fail', error)

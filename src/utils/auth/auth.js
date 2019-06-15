@@ -5,6 +5,12 @@ export const getUser = () => {
   return Cookie.getJSON('user')
 }
 
+export const getTokens = () => {
+  const idToken = Cookie.get('idToken')
+  const accessToken = Cookie.get('accessToken')
+  return { idToken, accessToken }
+}
+
 export const unsetToken = () => {
   Cookie.remove('idToken')
   Cookie.remove('accessToken')

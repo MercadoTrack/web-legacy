@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import api from '../../api'
+
 export default {
   name: 'ArticleCardShare',
   props: ['article', 'hover'],
@@ -28,6 +30,7 @@ export default {
     },
     toggleFavorite (event) {
       event.stopPropagation()
+      api.toggleFavorite(this.article.id)
       this.favorite = !this.favorite
     }
   }

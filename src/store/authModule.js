@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     user: null,
+    favorites: [],
   },
   mutations: {
     login (state, user) {
