@@ -36,11 +36,13 @@ export const logoutCallback = (returnTo) => {
 }
 
 export const initAuth = async () => {
+  store.commit('auth/started')
   const user = await checkSession(lock)
   if (user) {
     const { data: favorites } = await api.getFavorites()
     addUserToStore(user, favorites)
   }
+  store.commit('auth/finished')
   lock.on('authenticated', async (result) => {
     setToken(result.idToken, result.accessToken)
     const user = getUser()

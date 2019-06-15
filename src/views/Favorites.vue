@@ -86,9 +86,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: () => ({
-    loading: false,
+    loading: true,
     items: [
       {
         img: 'https://mla-s1-p.mlstatic.com/723842-MLA27773252626_072018-G.jpg',
@@ -127,10 +129,28 @@ export default {
       }
     ]
   }),
+  computed: {
+    ...mapGetters({
+      authenticating: 'auth/authenticating',
+      isAuthenticated: 'auth/isAuthenticated',
+      favorites: 'auth/favorites',
+    })
+  },
   methods: {
     goToMLArticle (link) {
       window.open(link)
     }
+  },
+  mounted () {
+    const interval = setInterval(() => {
+      if (!this.authenticating) {
+        if (!this.isAuthenticated) {
+          this.$router.push('/')
+        }
+        this.loading = false
+        clearInterval(interval)
+      }
+    }, 100)
   }
 }
 </script>
