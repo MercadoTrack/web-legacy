@@ -40,8 +40,9 @@ export default {
     async toggleFavorite (event) {
       event.stopPropagation()
       this.isFavorite = !this.isFavorite
-      const favorites = await api.toggleFavorite(this.article.id)
-      this.updateFavorites(favorites)
+      // TODO: api response should be consistent with getFavorites!
+      const res = await api.toggleFavorite(this.article.id)
+      this.updateFavorites(res.data.favorites)
     }
   },
   mounted () {
