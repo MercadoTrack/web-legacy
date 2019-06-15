@@ -29,7 +29,7 @@ class Api {
   }
 
   getPaginatedArticles (params) {
-    this.instance.get('/articles', { params })
+    return this.instance.get('/articles', { params })
   }
 
   getMlSeller (id) {
@@ -38,6 +38,10 @@ class Api {
 
   getCategories () {
     return this.instance.get('/categories')
+  }
+
+  getFavorites () {
+    return this.instance.get('/user/favorites')
   }
 
   toggleFavorite (articleId) {

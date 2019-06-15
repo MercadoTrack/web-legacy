@@ -6,7 +6,7 @@
           <v-icon color="primary">share</v-icon>
         </v-btn>
         <v-btn fab small class="ma-0 ml-2" @click="toggleFavorite">
-          <v-icon v-if="favorite" color="primary">favorite</v-icon>
+          <v-icon v-if="isFavorite" color="primary">favorite</v-icon>
           <v-icon v-else color="primary">favorite_border</v-icon>
         </v-btn>
       </span>
@@ -15,24 +15,37 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import api from '../../api'
 
 export default {
   name: 'ArticleCardShare',
   props: ['article', 'hover'],
   data: () => ({
-    favorite: false,
+    isFavorite: false,
   }),
+  computed: {
+    ...mapGetters({
+      favorites: 'auth/favorites'
+    })
+  },
   methods: {
+    ...mapMutations({
+      updateFavorites: 'auth/updateFavorites'
+    }),
     share (event) {
       event.stopPropagation()
       this.$store.commit('share/setArticle', this.article)
     },
-    toggleFavorite (event) {
+    async toggleFavorite (event) {
       event.stopPropagation()
-      api.toggleFavorite(this.article.id)
-      this.favorite = !this.favorite
+      this.isFavorite = !this.isFavorite
+      const favorites = await api.toggleFavorite(this.article.id)
+      this.updateFavorites(favorites)
     }
+  },
+  mounted () {
+    this.isFavorite = this.favorites.includes(this.article.id)
   }
 }
 </script>

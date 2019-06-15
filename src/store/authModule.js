@@ -10,10 +10,15 @@ export default {
     },
     logout (state) {
       state.user = null
+      state.favorites = []
+    },
+    updateFavorites (state, favorites) {
+      state.favorites = favorites
     }
   },
   getters: {
     user: (state) => state.user,
+    favorites: (state) => state.favorites,
     isAuthenticated: (state) => Boolean(state.user),
   }
 }

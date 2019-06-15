@@ -5,6 +5,7 @@ import { CLIENT_ID, ROUTES } from './authConstants'
 import config from './authLockConfig.json'
 import store from '../../store'
 import router from '../../router'
+import api from '../../api'
 
 const baseUrl = `${window.location.protocol}//${window.location.host}`
 
@@ -37,16 +38,20 @@ export const logoutCallback = (returnTo) => {
 export const initAuth = async () => {
   const user = await checkSession(lock)
   if (user) {
-    addUserToStore(user)
+    const { data: favorites } = await api.getFavorites()
+    addUserToStore(user, favorites)
   }
-  lock.on('authenticated', (result) => {
+  lock.on('authenticated', async (result) => {
     setToken(result.idToken, result.accessToken)
-    addUserToStore(getUser())
+    const user = getUser()
+    const { data: favorites } = await api.getFavorites()
+    addUserToStore(user, favorites)
   })
 }
 
-const addUserToStore = (user) => {
+const addUserToStore = (user, favorites) => {
   store.commit('auth/login', user)
+  store.commit('auth/updateFavorites', favorites)
   store.commit('snackbar/welcome', user)
 }
 

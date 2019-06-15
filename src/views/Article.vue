@@ -62,7 +62,6 @@
 <script>
 import api from '../api'
 import Chart from '../components/Chart'
-import axios from 'axios'
 import {
   ArticleCarousel,
   ArticlePriceHistory,
