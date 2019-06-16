@@ -16,7 +16,13 @@
           </v-flex>
 
           <v-flex xs12 md4 pa-4 class="border-l">
-            <h2 class="display-1">{{ article.title }}</h2>
+            <div>
+              <h1 class="display-1 d-inline">{{ article.title }}</h1>
+              <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite">
+                <v-icon v-if="isFavorite" medium color="primary">favorite</v-icon>
+                <v-icon v-else medium color="primary">favorite_border</v-icon>
+              </figure>
+            </div>
             <ArticleInfo :article="article" :mlArticle="mlArticle" :mlSeller="mlSeller" />
           </v-flex>
 
@@ -60,8 +66,10 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import api from '../api'
 import Chart from '../components/Chart'
+import { login } from '../utils/auth'
 import {
   ArticleCarousel,
   ArticlePriceHistory,
@@ -80,13 +88,23 @@ export default {
     ArticleBreadcrumb
   },
   data: () => ({
+    isFavorite: false,
     loading: true,
     article: null,
     mlSeller: null,
     mlArticle: null,
     expandAttributes: false,
   }),
+  computed: {
+    ...mapGetters({
+      isAuthenticated: 'auth/isAuthenticated',
+      favorites: 'auth/favorites'
+    })
+  },
   methods: {
+    ...mapMutations({
+      updateFavorites: 'auth/updateFavorites'
+    }),
     async fetch () {
       this.loading = true
       const id = this.$route.params.id
@@ -103,13 +121,25 @@ export default {
         this.$store.commit('snackbar/articleNotFound')
         this.$router.push('/')
       }
+    },
+    async toggleFavorite (event) {
+      event.stopPropagation()
+      if (!this.isAuthenticated) {
+        login(this.article.id)
+      } else {
+        this.isFavorite = !this.isFavorite
+        // TODO: api response should be consistent with getFavorites!
+        const res = await api.toggleFavorite(this.article.id)
+        this.updateFavorites(res.data.favorites) // this should be an action probably
+      }
     }
   },
   watch: {
     '$route.params': {
       immediate: true, // acts like mounted
-      handler () {
-        this.fetch()
+      async handler () {
+        await this.fetch()
+        this.isFavorite = this.favorites.includes(this.article.id)
       }
     }
   }
