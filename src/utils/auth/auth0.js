@@ -10,8 +10,12 @@ import api from '../../api'
 const baseUrl = `${window.location.protocol}//${window.location.host}`
 
 const lock = new Auth0Lock(CLIENT_ID, ROUTES.DOMAIN, config)
+let articleIdPendingToFav = null
 
-export const login = () => lock.show()
+export const login = (articleId) => {
+  articleIdPendingToFav = articleId
+  lock.show()
+}
 
 export const logout = () => {
   const { path, query } = router.currentRoute
@@ -46,8 +50,14 @@ export const initAuth = async () => {
   lock.on('authenticated', async (result) => {
     setToken(result.idToken, result.accessToken)
     const user = getUser()
-    const { data: favorites } = await api.getFavorites()
-    addUserToStore(user, favorites)
+    if (articleIdPendingToFav) {
+      const favoritesRes = await api.toggleFavorite(articleIdPendingToFav)
+      addUserToStore(user, favoritesRes.data.favorites)
+    } else {
+      const { data: favorites } = await api.getFavorites()
+      addUserToStore(user, favorites)
+    }
+    articleIdPendingToFav = null
   })
 }
 

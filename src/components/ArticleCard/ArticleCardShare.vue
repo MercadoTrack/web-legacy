@@ -16,6 +16,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import { login } from '../../utils/auth'
 import api from '../../api'
 
 export default {
@@ -26,6 +27,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
+      isAuthenticated: 'auth/isAuthenticated',
       favorites: 'auth/favorites'
     })
   },
@@ -39,10 +41,20 @@ export default {
     },
     async toggleFavorite (event) {
       event.stopPropagation()
-      this.isFavorite = !this.isFavorite
-      // TODO: api response should be consistent with getFavorites!
-      const res = await api.toggleFavorite(this.article.id)
-      this.updateFavorites(res.data.favorites)
+      if (!this.isAuthenticated) {
+        login(this.article.id)
+      } else {
+        this.isFavorite = !this.isFavorite
+        // TODO: api response should be consistent with getFavorites!
+        const res = await api.toggleFavorite(this.article.id)
+        this.updateFavorites(res.data.favorites)
+      }
+    }
+  },
+  watch: {
+    // maybe favorite boolean should be passed as a prop instead of doing this
+    favorites (favorites) {
+      this.isFavorite = favorites.includes(this.article.id)
     }
   },
   mounted () {
