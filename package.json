@@ -14,7 +14,7 @@
   "dependencies": {
     "auth0-js": "^9.10.4",
     "auth0-lock": "^11.16.0",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-trendline": "^0.1.1",
     "date-fns": "^1.30.1",
