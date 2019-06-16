@@ -141,7 +141,11 @@ export default {
         await this.fetch()
         this.isFavorite = this.favorites.includes(this.article.id)
       }
-    }
+    },
+    favorites (favorites) {
+      if (!this.article) return
+      this.isFavorite = favorites.includes(this.article.id)
+    },
   }
 }
 </script>
