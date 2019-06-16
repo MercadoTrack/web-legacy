@@ -86,22 +86,33 @@ export default {
     mlArticle: null,
     expandAttributes: false,
   }),
-  async mounted () {
-    const id = this.$route.params.id
-    const promises = [ api.getArticle(id), api.getMlArticle(id) ]
-    try {
-      const [ mtRes, mlRes ] = await Promise.all(promises)
-      this.article = mtRes.data
-      this.mlArticle = mlRes.data
-      const sellerRes = await api.getMlSeller(this.article.seller_id)
-      this.mlSeller = sellerRes.data
-      this.loading = false
-    } catch (err) {
-      console.log(err)
-      this.$store.commit('snackbar/articleNotFound')
-      this.$router.push('/')
+  methods: {
+    async fetch () {
+      this.loading = true
+      const id = this.$route.params.id
+      const promises = [ api.getArticle(id), api.getMlArticle(id) ]
+      try {
+        const [ mtRes, mlRes ] = await Promise.all(promises)
+        this.article = mtRes.data
+        this.mlArticle = mlRes.data
+        const sellerRes = await api.getMlSeller(this.article.seller_id)
+        this.mlSeller = sellerRes.data
+        this.loading = false
+      } catch (err) {
+        console.log(err)
+        this.$store.commit('snackbar/articleNotFound')
+        this.$router.push('/')
+      }
     }
   },
+  watch: {
+    '$route.params': {
+      immediate: true, // acts like mounted
+      handler () {
+        this.fetch()
+      }
+    }
+  }
 }
 </script>
 
