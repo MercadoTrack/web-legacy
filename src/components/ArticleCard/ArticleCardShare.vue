@@ -45,9 +45,8 @@ export default {
         login(this.article.id)
       } else {
         this.isFavorite = !this.isFavorite
-        // TODO: api response should be consistent with getFavorites!
-        const res = await api.toggleFavorite(this.article.id)
-        this.updateFavorites(res.data.favorites)
+        const { data: favorites } = await api.toggleFavorite(this.article.id)
+        this.updateFavorites(favorites)
       }
     }
   },

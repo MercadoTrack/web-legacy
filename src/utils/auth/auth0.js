@@ -51,8 +51,8 @@ export const initAuth = async () => {
     setToken(result.idToken, result.accessToken)
     const user = getUser()
     if (articleIdPendingToFav) {
-      const favoritesRes = await api.toggleFavorite(articleIdPendingToFav)
-      addUserToStore(user, favoritesRes.data.favorites)
+      const { data: favorites } = await api.toggleFavorite(articleIdPendingToFav)
+      addUserToStore(user, favorites)
     } else {
       const { data: favorites } = await api.getFavorites()
       addUserToStore(user, favorites)

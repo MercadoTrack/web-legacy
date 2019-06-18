@@ -45,11 +45,15 @@ class Api {
   }
 
   toggleFavorite (articleId) {
-    return this.instance({
-      method: `POST`,
-      url: `/user/favorites`,
-      data: { articleId },
-    })
+    return this.instance.put('/user/favorites', { articleId })
+  }
+
+  addFavorites (articleIds) {
+    return this.instance.post('/user/favorites', { articleIds })
+  }
+
+  removeFavorites (articleIds) {
+    return this.instance.delete('/user/favorites', { articleIds })
   }
 
   getSyncStatus () {
