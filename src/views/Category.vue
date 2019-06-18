@@ -52,8 +52,10 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  font-size: 16px;
   @media only screen and (min-width: 700px) {
     max-height: 300px;
+    font-size: 14px;
   }
 }
 .child-link:hover {
