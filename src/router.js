@@ -30,7 +30,7 @@ const router = new Router({
       name: 'search',
       component: Search,
       // overwrite default transition
-      meta: { transition: 'fade-in-left' },
+      // meta: { transition: 'fade-in-left' },
     },
     {
       path: '/stats',
