@@ -14,10 +14,16 @@
                 <v-list>
                   <v-list-tile class="line py-2">
                     <v-list-tile-action>
-                      <v-checkbox></v-checkbox>
+                      <v-checkbox v-model="allSelected" @click.native="checkAllArticles"></v-checkbox>
                     </v-list-tile-action>
 
                     <v-list-tile-content>
+                      <v-btn :disabled="this.selected.length === 0"
+                        @click="deleteMultiple()"
+                        light color="info"
+                        class="px-1 font-weight-light text-capitalize">
+                        Eliminar
+                      </v-btn>
                       <v-list-tile-title>Todos ({{this.articles.length}})</v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
@@ -30,7 +36,7 @@
                     >
 
                     <v-list-tile-action>
-                      <v-checkbox></v-checkbox>
+                      <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
                     </v-list-tile-action>
 
                     <v-list-tile-avatar :tile="false" size="150">
@@ -67,12 +73,12 @@
                     <v-tooltip bottom max-width="25rem">
                       <template slot="activator">
                         <v-list-tile-action>
-                          <v-btn icon ripple>
-                            <v-icon color="grey lighten-1">more_vert</v-icon>
+                          <v-btn icon ripple @click="toggleFavorite(article)">
+                            <v-icon color="grey lighten-1">delete_outline</v-icon>
                           </v-btn>
                         </v-list-tile-action>
                       </template>
-                        <span>Opciones</span>
+                        <span>Borrar</span>
                     </v-tooltip>
                   </v-list-tile>
                 </v-list>
@@ -86,13 +92,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import api from '../api'
 
 export default {
   data: () => ({
     loading: true,
-    articles: []
+    articles: [],
+    selected: [],
+    allSelected: false
   }),
   computed: {
     ...mapGetters({
@@ -102,9 +110,30 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      updateFavorites: 'auth/updateFavorites'
+    }),
     getImage (article) {
       const [image] = article.images
       return image
+    },
+    async deleteMultiple () {
+      if (this.selected.length > 0) {
+        const res = await api.removeFavorites(this.selected)
+        this.updateFavorites(res.data.favorites)
+      }
+    },
+    checkAllArticles () {
+      if (this.allSelected) {
+        this.selected = this.articles.map((article) => article.id)
+      } else {
+        this.selected = []
+      }
+    },
+    async toggleFavorite (article) {
+      // TODO: api response should be consistent with getFavorites!
+      const res = await api.toggleFavorite(article.id)
+      this.updateFavorites(res.data.favorites)
     }
   },
   mounted () {

@@ -53,7 +53,7 @@ class Api {
   }
 
   removeFavorites (articleIds) {
-    return this.instance.delete('/user/favorites', { articleIds })
+    return this.instance.delete('/user/favorites', { data: { articleIds } })
   }
 
   getSyncStatus () {
