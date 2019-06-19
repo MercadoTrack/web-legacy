@@ -61,6 +61,9 @@ export default {
     percentage: 0,
     interval: null
   }),
+  metaInfo: {
+    title: 'Sincronizacion en MercadoTrack'
+  },
   methods: {
     getSync () {
       return api.getSyncStatus().then(({ data }) => {

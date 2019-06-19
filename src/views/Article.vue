@@ -95,6 +95,12 @@ export default {
     mlArticle: null,
     expandAttributes: false,
   }),
+  metaInfo () {
+    if (!this.article) return
+    return {
+      title: `${this.article.title} - ${this.$options.filters.priceFilter(this.article.price)} en MercadoTrack`
+    }
+  },
   computed: {
     ...mapGetters({
       isAuthenticated: 'auth/isAuthenticated',

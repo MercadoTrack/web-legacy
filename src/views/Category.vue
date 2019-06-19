@@ -28,6 +28,11 @@ import { mapGetters } from 'vuex'
 import { CategoriesHelper } from '../utils'
 
 export default {
+  metaInfo () {
+    return {
+      title: `${this.category.name} en MercadoTrack`
+    }
+  },
   computed: {
     ...mapGetters({
       mainCategories: 'meta/mainCategories',

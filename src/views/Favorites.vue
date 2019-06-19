@@ -111,6 +111,9 @@ export default {
     selected: [],
     allSelected: false
   }),
+  metaInfo: {
+    title: 'Favoritos en MercadoTrack'
+  },
   computed: {
     ...mapGetters({
       authenticating: 'auth/authenticating',

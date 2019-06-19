@@ -21,6 +21,9 @@ import Snackbar from './components/Snackbar'
 export default {
   name: 'app',
   components: { Footer, ToolBar, LoadingMeta, Snackbar },
+  metaInfo: {
+    title: 'MercadoTrack',
+  },
   computed: {
     ...mapGetters({
       isLoadingMeta: 'meta/isLoading',

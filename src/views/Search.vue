@@ -46,6 +46,11 @@ export default {
   data: () => ({
     pageNumber: 1,
   }),
+  metaInfo () {
+    return {
+      title: `${this.$route.query.search || 'Busqueda'} en MercadoTrack`
+    }
+  },
   computed: {
     ...mapGetters({
       truncatedTotalPages: 'search/truncatedTotalPages',

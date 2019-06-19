@@ -165,6 +165,11 @@ export default {
   data: () => ({
     seller: null,
   }),
+  metaInfo () {
+    return {
+      title: `${this.seller.nickname} en MercadoTrack`
+    }
+  },
   async mounted () {
     try {
       const sellerRes = await axios.get(`https://api.mercadolibre.com/users/${this.$route.params.id}`)
