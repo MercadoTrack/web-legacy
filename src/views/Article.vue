@@ -97,8 +97,18 @@ export default {
   }),
   metaInfo () {
     if (!this.article) return
+    const title = `${this.article.title} - ${this.$options.filters.priceFilter(this.article.price)}`
     return {
-      title: `${this.article.title} - ${this.$options.filters.priceFilter(this.article.price)} en MercadoTrack`
+      title: `${title} en MercadoTrack`,
+      meta: [
+        // Twitter card
+        { name: 'twitter:card', content: 'summary' },
+        { name: 'twitter:site', content: '@MercadoTrack' },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: 'Mira el producto en MercadoTrack.' },
+        { name: 'twitter:creator', content: '@MercadoTrack' },
+        { name: 'twitter:image:src', content: this.article.images[0] },
+      ]
     }
   },
   computed: {
