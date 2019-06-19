@@ -29,6 +29,7 @@ import { CategoriesHelper } from '../utils'
 
 export default {
   metaInfo () {
+    if (!this.category) return
     return {
       title: `${this.category.name} en MercadoTrack`
     }
