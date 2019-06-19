@@ -101,13 +101,12 @@ export default {
     return {
       title: `${title} en MercadoTrack`,
       meta: [
-        // Twitter card
+        { name: 'og:title', content: title },
+        { name: 'og:description', content: 'Mira el producto en MercadoTrack.' },
+        { name: 'og:image', content: this.article.images[0] },
         { name: 'twitter:card', content: 'summary' },
         { name: 'twitter:site', content: '@MercadoTrack' },
-        { name: 'twitter:title', content: title },
-        { name: 'twitter:description', content: 'Mira el producto en MercadoTrack.' },
         { name: 'twitter:creator', content: '@MercadoTrack' },
-        { name: 'twitter:image:src', content: this.article.images[0] },
       ]
     }
   },
