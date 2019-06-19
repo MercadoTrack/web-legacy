@@ -101,12 +101,12 @@ export default {
     return {
       title: `${title} en MercadoTrack`,
       meta: [
-        { name: 'og:title', content: title },
-        { name: 'og:description', content: 'Mira el producto en MercadoTrack.' },
-        { name: 'og:image', content: this.article.images[0] },
-        { name: 'twitter:card', content: 'summary' },
-        { name: 'twitter:site', content: '@MercadoTrack' },
-        { name: 'twitter:creator', content: '@MercadoTrack' },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: 'Mira el producto en MercadoTrack.' },
+        { property: 'og:image', content: this.article.images[0] },
+        { property: 'twitter:card', content: 'summary' },
+        { property: 'twitter:site', content: '@MercadoTrack' },
+        { property: 'twitter:creator', content: '@MercadoTrack' },
       ]
     }
   },
