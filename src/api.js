@@ -40,8 +40,8 @@ class Api {
     return this.instance.get('/categories')
   }
 
-  getFavorites () {
-    return this.instance.get('/user/favorites')
+  getFavorites (params = {}) {
+    return this.instance.get('/user/favorites', { params })
   }
 
   toggleFavorite (articleId) {

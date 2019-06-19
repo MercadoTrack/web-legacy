@@ -10,7 +10,16 @@
           </v-flex>
           <v-container class="pa-0 ma-0 line-wrap">
             <v-layout wrap class="pa-0 ma-0">
-              <v-flex xs12 md12 lg12 xl12 class="pa-0">
+              <v-alert
+                v-if="!articles.length"
+                class="ml-2 mb-2 caption"
+                :value="true"
+                color="info"
+                icon="info"
+                outline>
+                  Aún no tienes favoritos.
+              </v-alert>
+              <v-flex v-else xs12 class="pa-0">
                 <v-list>
                   <v-list-tile class="line py-2">
                     <v-list-tile-action>
@@ -24,7 +33,7 @@
                         class="px-1 font-weight-light text-capitalize">
                         Eliminar
                       </v-btn>
-                      <v-list-tile-title>Todos ({{this.articles.length}})</v-list-tile-title>
+                      <v-list-tile-title>Todos ({{articles.length}})</v-list-tile-title>
                     </v-list-tile-content>
                   </v-list-tile>
 
@@ -117,11 +126,18 @@ export default {
       const [image] = article.images
       return image
     },
+    removeFromArray (ids) {
+      this.articles = this.articles.filter(article => !ids.includes(article.id))
+    },
     async deleteMultiple () {
       if (this.selected.length > 0) {
         const res = await api.removeFavorites(this.selected)
-        this.updateFavorites(res.data.favorites)
+        this.updateFavorites(res.data)
+        this.removeFromArray(this.selected)
       }
+    },
+    async fetchFavorites () {
+      this.articles = (await api.getFavorites({ full: true })).data
     },
     checkAllArticles () {
       if (this.allSelected) {
@@ -131,9 +147,9 @@ export default {
       }
     },
     async toggleFavorite (article) {
-      // TODO: api response should be consistent with getFavorites!
       const res = await api.toggleFavorite(article.id)
-      this.updateFavorites(res.data.favorites)
+      this.updateFavorites(res.data)
+      this.removeFromArray([article.id])
     }
   },
   mounted () {
@@ -143,13 +159,7 @@ export default {
           this.$router.push('/')
         }
         clearInterval(interval)
-        // TODO: refactor this from the BE so we only do 1 paginated request
-        this.articles = await Promise.all(
-          this.favorites.map(async (id) => {
-            const { data } = await api.getArticle(id)
-            return data
-          })
-        )
+        await this.fetchFavorites()
         this.loading = false
       }
     }, 100)
