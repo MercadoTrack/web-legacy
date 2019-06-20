@@ -21,7 +21,7 @@
           <v-flex v-else xs12 class="pa-0">
             <v-list>
               <v-list-tile class="line py-2">
-                <v-list-tile-action style="flex-direction: row;">
+                <v-list-tile-action>
                   <v-checkbox :value="selected.length === favorites.length" @click.native="selectAll()"></v-checkbox>
                 </v-list-tile-action>
                 <v-list-tile-content>
