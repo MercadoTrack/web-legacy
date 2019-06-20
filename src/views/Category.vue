@@ -28,6 +28,12 @@ import { mapGetters } from 'vuex'
 import { CategoriesHelper } from '../utils'
 
 export default {
+  metaInfo () {
+    if (!this.category) return
+    return {
+      title: `${this.category.name} en MercadoTrack`
+    }
+  },
   computed: {
     ...mapGetters({
       mainCategories: 'meta/mainCategories',
@@ -52,8 +58,10 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  font-size: 16px;
   @media only screen and (min-width: 700px) {
     max-height: 300px;
+    font-size: 14px;
   }
 }
 .child-link:hover {

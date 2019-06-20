@@ -1,34 +1,39 @@
 <template>
   <v-hover>
-    <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2} pointer`" @click="goToArticle()">
-      <v-container fluid class="pa-0">
-        <ArticleCardImage :article="article" :hover="hover" />
-        <v-divider light></v-divider>
-        <v-card-text class="relative">
-          <v-chip dark label :color="statusColor" class="status">{{ status }}</v-chip>
-          <v-card-title class="pa-0 pt-3" primary-title>
-            <v-flex xs12>
-              <p class="subheading font-weight-light grey--text mb-1">{{ article.title }}</p>
-            </v-flex>
-            <v-flex xs12>
-              <ArticleCardHeadline :article="article" />
-            </v-flex>
-          </v-card-title>
-        </v-card-text>
-      </v-container>
-    </v-card>
+    <div slot-scope="{ hover }" class="relative">
+      <ArticleCardShare :article="article" :hover="hover" />
+      <v-card :class="`elevation-${hover ? 12 : 2} pointer`" :to="`/articulo/${article.id}`">
+        <v-container fluid class="pa-0">
+          <ArticleCardImage :article="article" />
+          <v-divider light></v-divider>
+          <v-card-text class="relative">
+            <v-chip dark label :color="statusColor" class="status">{{ status }}</v-chip>
+            <v-card-title class="pa-0 pt-3" primary-title>
+              <v-flex xs12>
+                <p class="subheading font-weight-light grey--text mb-1">{{ article.title }}</p>
+              </v-flex>
+              <v-flex xs12>
+                <ArticleCardHeadline :article="article" />
+              </v-flex>
+            </v-card-title>
+          </v-card-text>
+        </v-container>
+      </v-card>
+    </div>
   </v-hover>
 </template>
 
 <script>
 import ArticleCardHeadline from './ArticleCardHeadline'
 import ArticleCardImage from './ArticleCardImage'
+import ArticleCardShare from './ArticleCardShare'
 
 export default {
   name: 'article-card',
   components: {
     ArticleCardHeadline,
     ArticleCardImage,
+    ArticleCardShare,
   },
   props: [ 'article' ],
   computed: {
@@ -44,11 +49,6 @@ export default {
       }
     }
   },
-  methods: {
-    goToArticle () {
-      this.$router.push(`/articulo/${this.article.id}`)
-    }
-  }
 }
 </script>
 

@@ -8,77 +8,80 @@
           <v-flex xs12 pb-0>
             <h5 class="headline font-weight-light pa-3">Favoritos</h5>
           </v-flex>
-          <v-container class="pa-0 ma-0 line-wrap">
-            <v-layout wrap class="pa-0 ma-0">
-              <v-flex xs12 md12 lg12 xl12 class="pa-0">
-                <v-list>
-                  <v-list-tile class="line py-2">
-                    <v-list-tile-action>
-                      <v-checkbox></v-checkbox>
-                    </v-list-tile-action>
-
-                    <v-list-tile-content>
-                      <v-list-tile-title>Todos ({{this.items.length}})</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-
-                  <v-list-tile
-                    v-for="item in items"
-                    :key="item.id"
-                    avatar
-                    class="line border"
+          <v-alert
+            v-if="!articles.length"
+            class="ml-2 mb-2 caption"
+            :value="true"
+            color="info"
+            icon="info"
+            outline
+          >
+              Aún no tienes favoritos.
+          </v-alert>
+          <v-flex v-else xs12 class="pa-0">
+            <v-list>
+              <v-list-tile class="line py-2">
+                <v-list-tile-action style="flex-direction: row;">
+                  <v-checkbox :value="selected.length === favorites.length" @click.native="selectAll()"></v-checkbox>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-layout justify-start row class="w-100">
+                    <v-btn
+                      :disabled="!selected.length"
+                      @click="remove()"
+                      color="primary"
+                      class="font-weight-light text-capitalize"
                     >
+                      <span>Eliminar</span>
+                      <span v-if="selected.length === favorites.length" class="ml-1">todos</span>
+                      <span v-else-if="selected.length" class="caption ml-1">({{ selected.length }})</span>
+                    </v-btn>
+                    <h2 class="ml-auto body-1 font-weight-light grey--text">
+                      {{ favorites.length }} Favoritos
+                    </h2>
+                  </v-layout>
+                </v-list-tile-content>
+              </v-list-tile>
 
+              <v-list-tile
+                v-for="article in articles"
+                :key="article.id"
+                avatar
+                class="line border"
+              >
+                <v-list-tile-action>
+                  <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
+                </v-list-tile-action>
+                <v-list-tile-avatar :tile="false" size="150">
+                  <img :src="getImage(article)">
+                </v-list-tile-avatar>
+                <v-list-tile-content class="ml-4">
+                  <v-list-tile-title class="title font-weight-light mb-2">{{ article.title }}</v-list-tile-title>
+                  <v-list-tile-sub-title class="title font-weight-light">{{ article.price | priceFilter }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-tooltip bottom max-width="25rem">
+                  <template slot="activator">
                     <v-list-tile-action>
-                      <v-checkbox></v-checkbox>
+                      <v-btn icon ripple :to="`/articulo/${article.id}`">
+                        <v-icon color="grey lighten-1">show_chart</v-icon>
+                      </v-btn>
                     </v-list-tile-action>
-
-                    <v-list-tile-avatar tile=false size="150">
-                      <img :src="item.img">
-                    </v-list-tile-avatar>
-
-                    <v-list-tile-content class="ml-4 article-caption">
-                      <v-list-tile-title class="title font-weight-light mb-2">{{ item.title }}</v-list-tile-title>
-                      <v-list-tile-sub-title class="title font-weight-light">${{ item.price }}</v-list-tile-sub-title>
-                    </v-list-tile-content>
-
-                    <v-tooltip bottom max-width="25rem">
-                      <template slot="activator">
-                        <v-list-tile-action>
-                          <v-btn icon ripple>
-                            <v-icon color="grey lighten-1" @click="goToMLArticle(item.permalink)">call_made</v-icon>
-                          </v-btn>
-                        </v-list-tile-action>
-                      </template>
-                        <span>Ver en Mercado Libre</span>
-                    </v-tooltip>
-
-                    <v-tooltip bottom max-width="25rem">
-                      <template slot="activator">
-                        <v-list-tile-action>
-                          <v-btn icon ripple>
-                            <v-icon color="grey lighten-1">show_chart</v-icon>
-                          </v-btn>
-                        </v-list-tile-action>
-                      </template>
-                        <span>Ver artículo</span>
-                    </v-tooltip>
-
-                    <v-tooltip bottom max-width="25rem">
-                      <template slot="activator">
-                        <v-list-tile-action>
-                          <v-btn icon ripple>
-                            <v-icon color="grey lighten-1">more_vert</v-icon>
-                          </v-btn>
-                        </v-list-tile-action>
-                      </template>
-                        <span>Opciones</span>
-                    </v-tooltip>
-                  </v-list-tile>
-                </v-list>
-              </v-flex>
-            </v-layout>
-          </v-container>
+                  </template>
+                    <span>Ver artículo</span>
+                </v-tooltip>
+                <v-tooltip bottom max-width="25rem">
+                  <template slot="activator">
+                    <v-list-tile-action>
+                      <v-btn icon ripple @click="remove([ article.id ])">
+                        <v-icon color="grey lighten-1">delete_outline</v-icon>
+                      </v-btn>
+                    </v-list-tile-action>
+                  </template>
+                    <span>Borrar</span>
+                </v-tooltip>
+              </v-list-tile>
+            </v-list>
+          </v-flex>
         </v-layout>
       </v-card>
     </v-container>
@@ -86,51 +89,60 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+import api from '../api'
+
 export default {
   data: () => ({
-    loading: false,
-    items: [
-      {
-        img: 'https://mla-s1-p.mlstatic.com/723842-MLA27773252626_072018-G.jpg',
-        title: 'Velador Decorativo Con Tulipa. Base De Madera',
-        permalink: 'https://articulo.mercadolibre.com.ar/MLA-624428536-velador-decorativo-con-tulipa-base-de-madera-moderno-luna-_JM',
-        price: '750',
-        id: 1
-      },
-      {
-        img: 'https://mla-s2-p.mlstatic.com/812373-MLA29749196213_032019-G.jpg',
-        title: 'Tv Smart Samsung 40j5200 40 Pulgadas Full Hd',
-        permalink: 'https://articulo.mercadolibre.com.ar/MLA-733113241-tv-smart-samsung-40j5200-40-pulgadas-full-hd-_JM',
-        price: '15.899',
-        id: 2
-      },
-      {
-        img: 'https://mla-s1-p.mlstatic.com/742506-MLA28126349802_092018-G.jpg',
-        title: 'Edifier M1360 Parlantes 2.1 Mute Pc Tv Control Volumen',
-        permalink: 'https://articulo.mercadolibre.com.ar/MLA-608770332-edifier-m1360-parlantes-21-mute-pc-tv-control-volumen-_JM',
-        price: '2.690',
-        id: 3
-      },
-      {
-        img: 'https://mla-s2-p.mlstatic.com/743457-MLA27722727897_072018-G.jpg',
-        title: 'Almohada Cannon Sublime X2, Envío S/c A Todo El País*',
-        permalink: 'https://articulo.mercadolibre.com.ar/MLA-736464289-almohada-cannon-sublime-x2-envio-sc-a-todo-el-pais-_JM',
-        price: '1.750',
-        id: 4
-      },
-      {
-        img: 'https://mla-s2-p.mlstatic.com/842655-MLA29650554913_032019-G.jpg',
-        title: 'Auriculares Bluetooth Soundbuds Sport Nb10',
-        permalink: 'https://articulo.mercadolibre.com.ar/MLA-776100485-auriculares-bluetooth-soundbuds-sport-nb10-_JM',
-        price: '2.500',
-        id: 5
-      }
-    ]
+    loading: true,
+    articles: [],
+    selected: [],
   }),
+  metaInfo: {
+    title: 'Favoritos en MercadoTrack'
+  },
+  computed: {
+    ...mapGetters({
+      authenticating: 'auth/authenticating',
+      isAuthenticated: 'auth/isAuthenticated',
+      favorites: 'auth/favorites',
+    })
+  },
   methods: {
-    goToMLArticle (link) {
-      window.open(link)
-    }
+    ...mapMutations({
+      updateFavorites: 'auth/updateFavorites'
+    }),
+    getImage (article) {
+      const [image] = article.images
+      return image
+    },
+    async remove (ids = this.selected) {
+      const { data: favorites } = await api.removeFavorites(ids)
+      this.selected = []
+      this.articles = this.articles.filter(article => !ids.includes(article.id))
+      this.updateFavorites(favorites)
+    },
+    selectAll () {
+      if (!this.selected.length || this.selected.length < this.favorites.length) {
+        this.selected = this.articles.map(article => article.id)
+      } else {
+        this.selected = []
+      }
+    },
+  },
+  mounted () {
+    const interval = setInterval(async () => {
+      if (!this.authenticating) {
+        clearInterval(interval)
+        if (!this.isAuthenticated) {
+          this.$router.push('/')
+          return
+        }
+        const { data: articles } = await api.getFavorites({ full: true })
+        this.articles = articles
+        this.loading = false
+      }
+    }, 100)
   }
 }
 </script>
@@ -145,7 +157,4 @@ export default {
   padding: 5rem 1rem;
 }
 
-.article-caption {
-  min-height: 50px;
-}
 </style>

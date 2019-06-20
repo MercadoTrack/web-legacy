@@ -6,6 +6,7 @@
     <div class="search-wrapper text-xs-right">
       <div class="search-container">
         <v-text-field
+          ref="searchInput"
           class="mb-1"
           solo
           v-model="searchText"
@@ -38,6 +39,7 @@ export default {
     // TODO send to util
     async search () {
       if (!this.searchText) return
+      this.$refs.searchInput.blur()
       if (isLink(this.searchText)) {
         const [ rawId ] = this.searchText.match(/(MLA-\d+)/ig) || []
         if (!rawId) return
@@ -61,7 +63,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 9;
-  background-color: #FFF158; // TODO: create variables file
+  background-color: var(--v-secondary-base);
   height: 100%;
   display: flex;
   flex-direction: column;

@@ -12,6 +12,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { initAuth } from './utils/auth'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 import LoadingMeta from './views/LoadingMeta'
@@ -20,6 +21,9 @@ import Snackbar from './components/Snackbar'
 export default {
   name: 'app',
   components: { Footer, ToolBar, LoadingMeta, Snackbar },
+  metaInfo: {
+    title: 'MercadoTrack',
+  },
   computed: {
     ...mapGetters({
       isLoadingMeta: 'meta/isLoading',
@@ -34,8 +38,9 @@ export default {
       return this.showIntro && routesToShowIntro.includes(this.$route.name)
     }
   },
-  mounted () {
+  async mounted () {
     this.$store.dispatch('meta/getBase')
+    initAuth()
   },
 }
 </script>
@@ -97,6 +102,39 @@ figure {
 
 .absolute {
   position: absolute;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.mt-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.v-carousel {
+  &.primary-controls {
+    .v-carousel__prev,
+    .v-carousel__next{
+      .v-btn {
+        color: var(--v-primary-base);
+      }
+    }
+  }
+  &.secondary-controls {
+    .v-carousel__prev,
+    .v-carousel__next{
+      .v-btn {
+        color: var(--v-secondary-base);
+      }
+    }
+  }
 }
 
 </style>

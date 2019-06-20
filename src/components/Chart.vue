@@ -3,7 +3,9 @@
 </template>
 
 <script>
+import { format } from 'date-fns'
 import Chart from 'chart.js'
+import 'chartjs-plugin-trendline'
 
 export default {
   data: () => ({
@@ -16,19 +18,32 @@ export default {
     price: 212
   */
   mounted () {
-    console.log(this.$vuetify.theme)
     const ctx = document.getElementById('myChart').getContext('2d')
+    const lastSnapshot = this.history[this.history.length - 1]
+    const todaySnapshot = {
+      date: format(new Date(), 'DD/MM/YYYY'),
+      fluctuation: 0,
+      price: lastSnapshot.price
+    }
+    const history = lastSnapshot.date !== todaySnapshot.date
+      ? [...this.history, todaySnapshot]
+      : this.history
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: this.history.map(({ date }) => date.slice(0, 5)),
+        labels: history.map(({ date }) => date.slice(0, 5)),
         datasets: [{
           label: 'Precio',
-          data: this.history.map(({ price }) => price),
-          // backgroundColor: this.$vuetify.theme.secondary,
+          data: history.map(({ price }) => price),
           borderColor: this.$vuetify.theme.primary,
           backgroundColor: this.$vuetify.theme.primary,
-          borderWidth: 1
+          borderWidth: 1,
+          pointHitRadius: 17,
+          trendlineLinear: (history.length > 2) && {
+            style: '#64aa64',
+            lineStyle: 'dotted',
+            width: 2
+          }
         }]
       },
       options: {

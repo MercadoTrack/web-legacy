@@ -7,6 +7,14 @@ const port = 8088
 app.use(compression())
 app.use(express.static('./dist'))
 
+app.get('/mtrack_promo_large.png', (req, res) => {
+  res.sendFile('mtrack_promo_large.png', { root: './dist' })
+})
+
+app.get('/mtrack_promo_small.png', (req, res) => {
+  res.sendFile('mtrack_promo_small.png', { root: './dist' })
+})
+
 app.get('*', (req, res) => {
   res.sendFile('index.html', { root: './dist' })
 })

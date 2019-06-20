@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import http from '../http'
+import api from '../api'
 
 export default {
   name: 'stat',
@@ -61,9 +61,12 @@ export default {
     percentage: 0,
     interval: null
   }),
+  metaInfo: {
+    title: 'Sincronizacion en MercadoTrack'
+  },
   methods: {
     getSync () {
-      return http.get('/sync').then(({ data }) => {
+      return api.getSyncStatus().then(({ data }) => {
         const [ , processed, total ] = data.progress.progress.match(/(\d+)\/(\d+)/)
         this.percentage = new Intl.NumberFormat('de-DE').format((+processed * 100 / +total).toFixed(3))
         this.total = new Intl.NumberFormat('de-DE').format(+total)

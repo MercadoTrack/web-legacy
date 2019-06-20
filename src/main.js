@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VuePageTransition from 'vue-page-transition'
 import VueAnalytics from 'vue-analytics'
+import VueMeta from 'vue-meta'
 import { sync } from 'vuex-router-sync'
 import './plugins/vuetify'
 import App from './App.vue'
@@ -12,6 +13,7 @@ Vue.config.productionTip = false
 sync(store, router)
 
 Vue.use(VuePageTransition)
+Vue.use(VueMeta)
 
 Vue.filter('priceFilter', (num) => {
   return new Intl.NumberFormat('es-AR', {

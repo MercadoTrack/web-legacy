@@ -1,8 +1,8 @@
 <template>
   <v-hover>
-    <v-card hover slot-scope="{ hover }">
+    <v-card hover slot-scope="{ hover }" :height="size" :width="size">
       <router-link :to="`/articulo/${article.id}`">
-        <v-img :src="getArticleImg(article)" contain height="200px">
+        <v-img :src="getArticleImg(article)" contain :height="size" :width="size">
           <v-expand-transition>
             <div
               v-if="hover"
@@ -25,13 +25,19 @@
             </div>
           </v-expand-transition>
         </v-img>
+        <!-- <ArticleCardHeadline :article="article" /> -->
       </router-link>
     </v-card>
   </v-hover>
 </template>
 
 <script>
+import ArticleCardHeadline from '../components/ArticleCard/ArticleCardHeadline'
+
 export default {
+  components: {
+    ArticleCardHeadline,
+  },
   props: ['article'],
   filters: {
     priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
@@ -41,7 +47,12 @@ export default {
       const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
       return article.image || fallback
     },
-  }
+  },
+  computed: {
+    size () {
+      return this.$vuetify.breakpoint.lgAndUp ? 275 : 200
+    }
+  },
 }
 </script>
 

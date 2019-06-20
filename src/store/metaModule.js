@@ -1,4 +1,4 @@
-import http from '../http.js'
+import api from '../api'
 
 export default {
   namespaced: true,
@@ -28,7 +28,7 @@ export default {
     async getCategories ({ commit }) {
       commit('loading')
       try {
-        const { data } = await http.get('categories')
+        const { data } = await api.getCategories()
         const payload = {
           count: data.count,
           child: data.categories.filter((category) => Boolean(category.parent)),

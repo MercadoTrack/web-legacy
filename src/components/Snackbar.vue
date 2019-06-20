@@ -2,7 +2,9 @@
     <v-snackbar
       v-model="display"
       color="primary"
-      :top="true"
+      :right="true"
+      :bottom="true"
+      :multi-line="$vuetify.breakpoint.smAndDown"
       :timeout="timeout"
     >
       {{ text }}

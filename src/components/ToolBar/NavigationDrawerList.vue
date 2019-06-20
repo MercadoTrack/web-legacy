@@ -1,59 +1,71 @@
 <template>
-  <v-list class="font-weight-light">
-    <v-list-tile disabled active-class="selected">
+  <div>
+    <MyAccountList v-if="isAuthenticated" :user="user" />
+    <v-list-tile v-else active-class="selected">
       <v-list-tile-action>
-        <!-- color="orange darken-2" -->
-        <v-icon color="gray">whatshot</v-icon>
+        <v-icon color="primary">person</v-icon>
       </v-list-tile-action>
       <v-list-tile-content>
-        <v-list-tile-title class="subheading text-capitalize">Ofertas</v-list-tile-title>
+        <v-list-tile-title
+          class="subheading text-capitalize"
+          @click="login()"
+        >
+          Ingresar
+        </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
-    <v-list-tile disabled active-class="selected">
-      <v-list-tile-action>
-        <!-- color="secondary darken-1" -->
-        <v-icon color="gray">notifications</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-content>
-        <v-list-tile-title class="subheading text-capitalize">Notificaciones</v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
-    <v-list-tile disabled active-class="selected">
-      <v-list-tile-action>
-        <!-- color="cyan darken-4" -->
-        <v-icon color="gray">verified_user</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-content>
-        <v-list-tile-title class="subheading text-capitalize">Vendedores destacados</v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
-    <v-list-tile to="/stats" active-class="selected">
-      <v-list-tile-action>
-        <v-icon color="primary">sync</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-content>
-        <v-list-tile-title class="subheading text-capitalize">Sincronizacion en vivo</v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
-    <v-list-tile to="/favoritos" active-class="selected">
-      <v-list-tile-action>
-        <v-icon color="red darken-2">favorite</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-content>
-        <v-list-tile-title class="subheading text-capitalize">Favoritos</v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
-    <v-list-tile disabled active-class="selected">
-      <v-list-tile-action>
-        <!-- color="indigo darken-2" -->
-        <v-icon color="gray">person</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-content>
-        <v-list-tile-title class="subheading text-capitalize">Mi cuenta</v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
-  </v-list>
+
+    <v-divider></v-divider>
+
+    <v-list class="font-weight-light">
+      <v-list-tile disabled active-class="selected">
+        <v-list-tile-action>
+          <!-- color="orange darken-2" -->
+          <v-icon color="gray">whatshot</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title class="subheading text-capitalize">Ofertas</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile disabled active-class="selected">
+        <v-list-tile-action>
+          <!-- color="cyan darken-4" -->
+          <v-icon color="gray">verified_user</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title class="subheading text-capitalize">Vendedores destacados</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile to="/stats" active-class="selected">
+        <v-list-tile-action>
+          <v-icon color="green darken-2">sync</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title class="subheading text-capitalize">Sincronizacion en vivo</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+  </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+import MyAccountList from './MyAccountList'
+import { login } from '../../utils/auth'
+
+export default {
+  components: { MyAccountList },
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+      isAuthenticated: 'auth/isAuthenticated'
+    })
+  },
+  methods: {
+    login,
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .selected .subheading {
