@@ -118,6 +118,7 @@ export default {
     },
     async remove (ids = this.selected) {
       const { data: favorites } = await api.removeFavorites(ids)
+      this.selected = []
       this.articles = this.articles.filter(article => !ids.includes(article.id))
       this.updateFavorites(favorites)
     },
