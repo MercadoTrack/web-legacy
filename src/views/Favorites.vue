@@ -16,71 +16,71 @@
             icon="info"
             outline
           >
-              Aún no tienes favoritos.
+            Aún no tienes favoritos.
           </v-alert>
-          <v-flex v-else xs12 class="pa-0">
-            <v-list>
-              <v-list-tile class="line py-2">
-                <v-list-tile-action>
-                  <v-checkbox :value="selected.length === favorites.length" @click.native="selectAll()"></v-checkbox>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-layout justify-start row class="w-100">
+          <v-flex v-else xs12 class="py-0 px-4">
+            <v-layout row wrap>
+
+              <!-- delete all row -->
+              <v-flex xs12>
+                <v-layout row align-center justify-start fill-height>
+                  <div>
+                    <v-checkbox :value="selected.length === favorites.length" @click.native="selectAll()"></v-checkbox>
+                  </div>
+                  <div>
                     <v-btn
                       :disabled="!selected.length"
                       @click="remove()"
                       color="primary"
-                      class="font-weight-light text-capitalize"
+                      class="ml-3 font-weight-light text-none"
                     >
                       <span>Eliminar</span>
                       <span v-if="selected.length === favorites.length" class="ml-1">todos</span>
                       <span v-else-if="selected.length" class="caption ml-1">({{ selected.length }})</span>
                     </v-btn>
-                    <h2 class="ml-auto body-1 font-weight-light grey--text">
-                      {{ favorites.length }} Favoritos
-                    </h2>
-                  </v-layout>
-                </v-list-tile-content>
-              </v-list-tile>
+                  </div>
+                  <h2 class="ml-auto body-1 font-weight-light grey--text">
+                    {{ favorites.length }} Favoritos
+                  </h2>
+                </v-layout>
+                <v-divider></v-divider>
+              </v-flex>
 
-              <v-list-tile
-                v-for="article in articles"
-                :key="article.id"
-                avatar
-                class="line border"
-              >
-                <v-list-tile-action>
-                  <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
-                </v-list-tile-action>
-                <v-list-tile-avatar :tile="false" size="150">
-                  <img :src="getImage(article)">
-                </v-list-tile-avatar>
-                <v-list-tile-content class="ml-4">
-                  <v-list-tile-title class="title font-weight-light mb-2">{{ article.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="title font-weight-light">{{ article.price | priceFilter }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-tooltip bottom max-width="25rem">
-                  <template slot="activator">
-                    <v-list-tile-action>
-                      <v-btn icon ripple :to="`/articulo/${article.id}`">
-                        <v-icon color="grey lighten-1">show_chart</v-icon>
-                      </v-btn>
-                    </v-list-tile-action>
-                  </template>
-                    <span>Ver artículo</span>
-                </v-tooltip>
-                <v-tooltip bottom max-width="25rem">
-                  <template slot="activator">
-                    <v-list-tile-action>
-                      <v-btn icon ripple @click="remove([ article.id ])">
-                        <v-icon color="grey lighten-1">delete_outline</v-icon>
-                      </v-btn>
-                    </v-list-tile-action>
-                  </template>
-                    <span>Borrar</span>
-                </v-tooltip>
-              </v-list-tile>
-            </v-list>
+              <!-- favorites list -->
+              <v-flex xs12 v-for="article in articles" :key="article.id">
+                <v-layout row align-center justify-start fill-height class="py-4">
+                  <div>
+                    <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
+                  </div>
+                  <v-avatar size="150px" v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
+                    <img :src="getImage(article)">
+                  </v-avatar>
+                  <div class="pl-4" style="flex: 1; min-width: 0;">
+                    <router-link
+                      tag="h4"
+                      :to="`/articulo/${article.id}`"
+                      class="title mr-4 mb-3 font-weight-light text-truncate"
+                      :title="article.title"
+                    >
+                      <a style="color: inherit;">{{ article.title }}</a>
+                    </router-link>
+                    <p class="title">{{ article.price | priceFilter }}</p>
+                  </div>
+                  <div>
+                    <v-btn
+                      v-if="$vuetify.breakpoint.smAndUp"
+                      color="primary"
+                      class="body-1 font-weight-light text-none"
+                      :to="`/articulo/${article.id}`"
+                    >
+                      Ver articulo
+                    </v-btn>
+                  </div>
+                </v-layout>
+                <v-divider></v-divider>
+              </v-flex>
+
+            </v-layout>
           </v-flex>
         </v-layout>
       </v-card>
@@ -146,15 +146,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.border {
-  border-top: 1px solid rgba(0,0,0,.12);
-}
-
-.line {
-  min-height: auto;
-  padding: 5rem 1rem;
-}
-
-</style>
