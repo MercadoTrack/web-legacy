@@ -100,14 +100,6 @@ export default {
     const title = `${this.article.title} - ${this.$options.filters.priceFilter(this.article.price)}`
     return {
       title: `${title} en MercadoTrack`,
-      meta: [
-        { property: 'og:title', content: title },
-        { property: 'og:description', content: 'Mira el producto en MercadoTrack.' },
-        { property: 'og:image', content: this.article.images[0] },
-        { property: 'twitter:card', content: 'summary' },
-        { property: 'twitter:site', content: '@MercadoTrack' },
-        { property: 'twitter:creator', content: '@MercadoTrack' },
-      ]
     }
   },
   computed: {
