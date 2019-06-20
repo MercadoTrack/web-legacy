@@ -64,7 +64,24 @@
                     >
                       <a style="color: inherit;">{{ article.title }}</a>
                     </router-link>
-                    <p class="title">{{ article.price | priceFilter }}</p>
+
+                    <!-- TODO: make component -->
+                    <span class="price-info">
+                      <span class="title mr-2">{{ article.price | priceFilter }}</span>
+                      <span v-if="getArticleFluctuation(article) < 0" class="fluctuation green--text text--lighten-2">
+                        <span class="mr-1">Bajó {{ Math.abs(getArticleFluctuation(article)) }}%</span>
+                        <v-icon color="green lighten-2">mood</v-icon>
+                      </span>
+                      <span v-else-if="!getArticleFluctuation(article)" class="fluctuation yellow--text text--lighten-2">
+                        <span class="mr-1">Sin descuento</span>
+                        <v-icon color="yellow darken-2">sentiment_satisfied</v-icon>
+                      </span>
+                      <span v-else class="fluctuation red--text text--lighten-2">
+                        <span class="mr-1">Subió {{ Math.abs(getArticleFluctuation(article)) }}%</span>
+                        <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
+                      </span>
+                    </span>
+
                   </div>
                   <div>
                     <v-btn
@@ -116,6 +133,14 @@ export default {
       const [image] = article.images
       return image
     },
+    getArticleFluctuation (article) {
+      const price = article.history[article.history.length - 1].price
+      const previousSnapshot = article.history[article.history.length - 2]
+      const previousPrice = previousSnapshot && previousSnapshot.price
+      return previousPrice
+        ? (100 - Math.round(previousPrice * 100 / price))
+        : 0
+    },
     async remove (ids = this.selected) {
       const { data: favorites } = await api.removeFavorites(ids)
       this.selected = []
@@ -146,3 +171,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.price-info,
+.fluctuation {
+  display: inline-flex;
+  align-items: center;
+}
+</style>
