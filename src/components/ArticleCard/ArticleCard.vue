@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { ArticlesHelper } from '../../utils'
 import ArticleCardHeadline from './ArticleCardHeadline'
 import ArticleCardImage from './ArticleCardImage'
 import ArticleCardShare from './ArticleCardShare'
@@ -38,7 +39,7 @@ export default {
   props: [ 'article' ],
   computed: {
     status () {
-      return this.article.status.split('_').join(' ')
+      return ArticlesHelper.getTranslatedStatus(this.article)
     },
     statusColor () {
       switch (this.article.status) {
