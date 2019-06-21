@@ -12,7 +12,7 @@
             <div row wrap>
               <v-alert
                 v-if="!articles.length"
-                class="ml-2 mb-2 caption"
+                class="caption"
                 :value="true"
                 color="info"
                 icon="info"
@@ -69,17 +69,13 @@
 
                         <!-- TODO: make component -->
                         <p class="price-info w-100 pr-4">
-                          <span class="title font-weight-regular mr-2">{{ article.price | priceFilter }}</span>
-                          <span v-if="getArticleFluctuation(article) < 0" class="fluctuation green--text text--lighten-2">
-                            <span class="mr-1">{{ Math.abs(getArticleFluctuation(article)) }}%</span>
+                          <span class="title font-weight-regular mr-2">{{ price(article) | priceFilter }}</span>
+                          <span v-if="fluctuation(article) < 0" class="fluctuation green--text text--lighten-2">
+                            <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
                             <v-icon color="green lighten-2">mood</v-icon>
                           </span>
-                          <span v-else-if="!getArticleFluctuation(article)" class="fluctuation yellow--text text--lighten-2">
-                            <span class="mr-1">Sin descuento</span>
-                            <v-icon color="yellow darken-2">sentiment_satisfied</v-icon>
-                          </span>
-                          <span v-else class="fluctuation red--text text--lighten-2">
-                            <span class="mr-1">{{ Math.abs(getArticleFluctuation(article)) }}%</span>
+                          <span v-else-if="fluctuation(article) > 0" class="fluctuation blue-grey--text text--darken-3">
+                            <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
                             <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
                           </span>
                         </p>
@@ -111,6 +107,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import { ArticlesHelper } from '../utils'
 import api from '../api'
 
 export default {
@@ -137,14 +134,8 @@ export default {
       const [image] = article.images
       return image
     },
-    getArticleFluctuation (article) {
-      const price = article.history[article.history.length - 1].price
-      const previousSnapshot = article.history[article.history.length - 2]
-      const previousPrice = previousSnapshot && previousSnapshot.price
-      return previousPrice
-        ? (100 - Math.round(previousPrice * 100 / price))
-        : 0
-    },
+    price (article) { return ArticlesHelper.price(article) },
+    fluctuation (article) { return ArticlesHelper.fluctuation(article) },
     async remove (ids = this.selected) {
       const { data: favorites } = await api.removeFavorites(ids)
       this.selected = []
