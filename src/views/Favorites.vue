@@ -49,52 +49,63 @@
                       <v-divider></v-divider>
                     </v-flex>
 
-                    <!-- favorites list -->
-                    <v-flex xs12 v-for="article in articles" :key="article.id">
-                      <v-layout row align-center justify-start fill-height class="py-4">
-                        <div>
-                          <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
-                        </div>
-                        <v-avatar size="150px" v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
-                          <img :src="getImage(article)">
-                        </v-avatar>
-                        <div class="pl-4" style="flex: 1; min-width: 0;">
-                          <router-link
-                            tag="h4"
-                            :to="`/articulo/${article.id}`"
-                            class="title mr-4 mb-3 font-weight-light text-truncate"
-                            :title="article.title"
-                          >
-                            <a style="color: inherit;">{{ article.title }}</a>
-                          </router-link>
+                  <!-- favorites list -->
+                  <v-flex xs12 v-for="article in articles" :key="article.id">
+                    <v-layout row align-center justify-start fill-height class="py-4">
+                      <div>
+                        <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
+                      </div>
+                      <v-avatar size="150px" v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
+                        <img class="article-image" :src="getImage(article)">
+                      </v-avatar>
+                      <div class="pl-4" style="flex: 1; min-width: 0;">
+                        <router-link
+                          tag="h4"
+                          :to="`/articulo/${article.id}`"
+                          class="title mr-4 mb-3 font-weight-light text-truncate"
+                          :title="article.title"
+                        >
+                          <a style="color: inherit;">{{ article.title }}</a>
+                        </router-link>
 
-                          <!-- TODO: make component -->
-                          <p class="price-info w-100 pr-4">
-                            <span class="title font-weight-regular mr-2">{{ price(article) | priceFilter }}</span>
-                            <span v-if="fluctuation(article) < 0" class="fluctuation green--text text--lighten-2">
-                              <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
-                              <v-icon color="green lighten-2">mood</v-icon>
-                            </span>
-                            <span v-else-if="fluctuation(article) > 0" class="fluctuation red--text text--darken-3">
-                              <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
-                              <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
-                            </span>
-                          </p>
+                        <!-- TODO: make component -->
+                        <p class="price-info w-100 pr-4">
+                          <span class="title font-weight-regular mr-2">{{ price(article) | priceFilter }}</span>
+                          <span class="subheading grey--text strike-through ml-1" v-if="fluctuation(article)">
+                              {{ previousPrice(article) | priceFilter }}
+                          </span>
+                          <span v-if="fluctuation(article) < 0" class="fluctuation green--text text--lighten-2 ml-3">
+                            <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
+                            <v-icon color="green lighten-2">mood</v-icon>
+                          </span>
+                          <span v-else-if="fluctuation(article) > 0" class="fluctuation red--text text--darken-3 ml-3">
+                            <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
+                            <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
+                          </span>
+                        </p>
 
-                        </div>
-                        <div>
-                          <v-btn
-                            v-if="$vuetify.breakpoint.smAndUp"
-                            color="primary"
-                            class="body-1 font-weight-light text-none"
-                            :to="`/articulo/${article.id}`"
-                          >
-                            Ver articulo
-                          </v-btn>
-                        </div>
-                      </v-layout>
-                      <v-divider></v-divider>
-                    </v-flex>
+                      </div>
+                      <div>
+                        <v-btn
+                          v-if="$vuetify.breakpoint.smAndUp"
+                          color="primary"
+                          class="body-1 font-weight-light text-none"
+                          :to="`/articulo/${article.id}`"
+                        >
+                          Ver articulo
+                        </v-btn>
+                        <v-btn
+                          v-if="$vuetify.breakpoint.smAndUp"
+                          color="red darken-1"
+                          class="body-1 font-weight-light text-none white--text"
+                          @click="remove([article.id])"
+                        >
+                          Borrar
+                        </v-btn>
+                      </div>
+                    </v-layout>
+                    <v-divider></v-divider>
+                  </v-flex>
 
                   </v-layout>
                 </div>
@@ -109,6 +120,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import ArticleFluctuation from '../components/Article/ArticleFluctuation'
 import { ArticlesHelper } from '../utils'
 import api from '../api'
 
@@ -118,6 +130,9 @@ export default {
     articles: [],
     selected: [],
   }),
+  components: {
+    ArticleFluctuation,
+  },
   metaInfo: {
     title: 'Favoritos en MercadoTrack'
   },
@@ -126,18 +141,19 @@ export default {
       authenticating: 'auth/authenticating',
       isAuthenticated: 'auth/isAuthenticated',
       favorites: 'auth/favorites',
-    })
+    }),
   },
   methods: {
     ...mapMutations({
       updateFavorites: 'auth/updateFavorites'
     }),
+    price (article) { return ArticlesHelper.price(article) },
+    previousPrice (article) { return ArticlesHelper.previousPrice(article) },
+    fluctuation (article) { return ArticlesHelper.fluctuation(article) },
     getImage (article) {
       const [image] = article.images
       return image
     },
-    price (article) { return ArticlesHelper.price(article) },
-    fluctuation (article) { return ArticlesHelper.fluctuation(article) },
     async remove (ids = this.selected) {
       const { data: favorites } = await api.removeFavorites(ids)
       this.selected = []
@@ -170,15 +186,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.price-info,
-.fluctuation {
-  display: inline-flex;
-  align-items: center;
-}
-
-.fluctuation {
-  @media screen and (max-width: 768px) {
-    margin-left: auto;
+  .price-info,
+  .fluctuation {
+    display: inline-flex;
+    align-items: center;
   }
-}
+
+  .article-image {
+    border: 1px solid var(--v-background-darken1);
+  }
+  .price {
+    flex-direction: column;
+  }
+
+  .headline {
+    display: flex;
+    justify-content: flex-end;
+  }
+  @media screen and (max-width: 600px) {
+    .subheading {
+      display: none;
+    }
+      .headline {
+      font-size: 1.2rem !important;
+    }
+  }
+
+  .fluctuation {
+    @media screen and (max-width: 768px) {
+      margin-left: auto;
+    }
+  }
 </style>
