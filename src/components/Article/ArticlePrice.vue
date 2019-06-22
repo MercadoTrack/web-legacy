@@ -15,14 +15,6 @@ import { ArticlesHelper } from '../../utils'
 export default {
   name: 'ArticlePrice',
   props: ['article'],
-  filters: {
-    priceFilter: (num) => new Intl.NumberFormat('es-AR', {
-      style: 'currency',
-      currency: 'ARS',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(num.toFixed(0)),
-  },
   computed: {
     price () { return ArticlesHelper.price(this.article) },
     previousPrice () { return ArticlesHelper.previousPrice(this.article) },

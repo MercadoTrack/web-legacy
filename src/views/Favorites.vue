@@ -74,7 +74,7 @@
                             <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
                             <v-icon color="green lighten-2">mood</v-icon>
                           </span>
-                          <span v-else-if="fluctuation(article) > 0" class="fluctuation blue-grey--text text--darken-3">
+                          <span v-else-if="fluctuation(article) > 0" class="fluctuation red--text text--darken-3">
                             <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
                             <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
                           </span>
