@@ -1,66 +1,68 @@
 <template>
   <v-content>
     <v-container>
-      <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+      <v-fade-transition mode="out-in">
+        <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
 
-      <v-card v-else elevation=0>
-        <v-layout row wrap>
+        <v-card v-else elevation=0>
+          <v-layout row wrap>
 
-          <v-flex xs12>
-            <ArticleBreadcrumb :categoryId="article.category_id" />
-            <v-divider></v-divider>
-          </v-flex>
+            <v-flex xs12>
+              <ArticleBreadcrumb :categoryId="article.category_id" />
+              <v-divider></v-divider>
+            </v-flex>
 
-          <v-flex xs12 md8 style="align-items: center; display: flex;">
-            <ArticleCarousel :images="article.images" />
-          </v-flex>
+            <v-flex xs12 md8 style="align-items: center; display: flex;">
+              <ArticleCarousel :images="article.images" />
+            </v-flex>
 
-          <v-flex xs12 md4 pa-4 class="border-l">
-            <div>
-              <h1 class="display-1 d-inline">{{ article.title }}</h1>
-              <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite">
-                <v-icon v-if="isFavorite" medium color="primary">favorite</v-icon>
-                <v-icon v-else medium color="primary">favorite_border</v-icon>
-              </figure>
-            </div>
-            <ArticleInfo :article="article" :mlArticle="mlArticle" :mlSeller="mlSeller" />
-          </v-flex>
+            <v-flex xs12 md4 pa-4 class="border-l">
+              <div>
+                <h1 class="display-1 d-inline">{{ article.title }}</h1>
+                <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite">
+                  <v-icon v-if="isFavorite" medium color="primary">favorite</v-icon>
+                  <v-icon v-else medium color="primary">favorite_border</v-icon>
+                </figure>
+              </div>
+              <ArticleInfo :article="article" :mlArticle="mlArticle" :mlSeller="mlSeller" />
+            </v-flex>
 
-          <v-flex xs12>
-            <v-divider></v-divider>
-          </v-flex>
+            <v-flex xs12>
+              <v-divider></v-divider>
+            </v-flex>
 
-          <v-flex xs12 class="pa-4">
-              <h2 class="headline pointer d-inline-block" @click="expandAttributes = !expandAttributes">
-                <span>Características</span>
-                <v-icon color="grey darken-4" v-if="expandAttributes">keyboard_arrow_up</v-icon>
-                <v-icon color="grey darken-4" v-else>keyboard_arrow_down</v-icon>
+            <v-flex xs12 class="pa-4">
+                <h2 class="headline pointer d-inline-block" @click="expandAttributes = !expandAttributes">
+                  <span>Características</span>
+                  <v-icon color="grey darken-4" v-if="expandAttributes">keyboard_arrow_up</v-icon>
+                  <v-icon color="grey darken-4" v-else>keyboard_arrow_down</v-icon>
+                </h2>
+                <v-expand-transition>
+                  <div v-show="expandAttributes">
+                    <ArticleAttributes :attributes="mlArticle.attributes" />
+                  </div>
+                </v-expand-transition>
+            </v-flex>
+
+            <v-flex xs12>
+              <v-divider></v-divider>
+            </v-flex>
+
+            <v-flex xs12 md8 pa-4 class="border-r">
+              <Chart :history="article.history" />
+            </v-flex>
+
+            <v-flex xs12 md4 pa-4>
+              <h2 class="headline history">
+                <span class="mr-1">Historial de precios</span>
+                <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span>
               </h2>
-              <v-expand-transition>
-                <div v-show="expandAttributes">
-                  <ArticleAttributes :attributes="mlArticle.attributes" />
-                </div>
-              </v-expand-transition>
-          </v-flex>
+              <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
+            </v-flex>
 
-          <v-flex xs12>
-            <v-divider></v-divider>
-          </v-flex>
-
-          <v-flex xs12 md8 pa-4 class="border-r">
-            <Chart :history="article.history" />
-          </v-flex>
-
-          <v-flex xs12 md4 pa-4>
-            <h2 class="headline history">
-              <span class="mr-1">Historial de precios</span>
-              <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span>
-            </h2>
-            <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
-          </v-flex>
-
-        </v-layout>
-      </v-card>
+          </v-layout>
+        </v-card>
+      </v-fade-transition>
     </v-container>
   </v-content>
 </template>
