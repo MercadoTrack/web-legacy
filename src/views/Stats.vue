@@ -2,44 +2,45 @@
   <v-content>
     <v-container>
       <v-layout wrap justify-center>
-        <v-progress-circular v-if="!etc" color="info" indeterminate></v-progress-circular>
-        <v-flex v-else xs12>
-          <v-progress-linear color="info darken-2" height="10" :value="percentage"></v-progress-linear>
-          <v-layout wrap justify-center>
-            <h1 class="subheading">
-              <span class="font-weight-black">{{ processed }}</span> artículos procesados de
-              <span class="font-weight-black">{{ total }}</span>
-            </h1>
-            <v-flex xs12>
-              <v-divider class="my-4"></v-divider>
-              <v-card>
-                <v-card-title><h4>Proceso de sincronización</h4></v-card-title>
-                <v-divider></v-divider>
-                <v-list>
-                  <v-list-tile>
-                    <v-list-tile-content>Total procesado:</v-list-tile-content>
-                    <v-list-tile-content class="align-end text-xs-right">{{ percentage }} %</v-list-tile-content>
-                  </v-list-tile>
-                  <v-list-tile>
-                    <v-list-tile-content>Tiempo corriendo:</v-list-tile-content>
-                    <v-list-tile-content class="align-end text-xs-right">{{ timeRunning }} minutos</v-list-tile-content>
-                  </v-list-tile>
-                  <v-list-tile>
-                    <v-list-tile-content>Tiempo estimado para terminar:</v-list-tile-content>
-                    <v-list-tile-content class="align-end text-xs-right">~{{ etc }}</v-list-tile-content>
-                  </v-list-tile>
-                  <div class="px-3" :style="{ 'margin-left': errors.length ? '-6px' : '-30px' }">
-                    <v-treeview :items="errorsTree">
-                      <template slot="prepend" slot-scope="{ item }" leaf>
-                        <v-icon v-if="!item.children">error</v-icon>
-                      </template>
-                    </v-treeview>
-                  </div>
-                </v-list>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-flex>
+        <v-fade-transition mode="out-in" tag="div" class="flex xs12">
+          <v-flex v-if="etc" xs12>
+            <v-progress-linear color="info darken-2" height="10" :value="percentage"></v-progress-linear>
+            <v-layout wrap justify-center>
+              <h1 class="subheading">
+                <span class="font-weight-black">{{ processed }}</span> artículos procesados de
+                <span class="font-weight-black">{{ total }}</span>
+              </h1>
+              <v-flex xs12>
+                <v-divider class="my-4"></v-divider>
+                <v-card>
+                  <v-card-title><h4>Proceso de sincronización</h4></v-card-title>
+                  <v-divider></v-divider>
+                  <v-list>
+                    <v-list-tile>
+                      <v-list-tile-content>Total procesado:</v-list-tile-content>
+                      <v-list-tile-content class="align-end text-xs-right">{{ percentage }} %</v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile>
+                      <v-list-tile-content>Tiempo corriendo:</v-list-tile-content>
+                      <v-list-tile-content class="align-end text-xs-right">{{ timeRunning }} minutos</v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile>
+                      <v-list-tile-content>Tiempo estimado para terminar:</v-list-tile-content>
+                      <v-list-tile-content class="align-end text-xs-right">~{{ etc }}</v-list-tile-content>
+                    </v-list-tile>
+                    <div class="px-3" :style="{ 'margin-left': errors.length ? '-6px' : '-30px' }">
+                      <v-treeview :items="errorsTree">
+                        <template slot="prepend" slot-scope="{ item }" leaf>
+                          <v-icon v-if="!item.children">error</v-icon>
+                        </template>
+                      </v-treeview>
+                    </div>
+                  </v-list>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-fade-transition>
       </v-layout>
     </v-container>
   </v-content>
