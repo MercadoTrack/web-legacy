@@ -5,23 +5,17 @@
         <v-flex xs12>
           <FiltersBar />
         </v-flex>
-        <v-fade-transition mode="out-in">
-          <v-flex xs12 v-show="page">
-            <v-layout wrap>
-              <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
-                <ArticleCard :article="article"/>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-fade-transition>
-        <v-fade-transition mode="out-in">
-          <v-flex xs12 v-show="searching">
-            <v-layout wrap>
-              <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 30" :key="n">
-                <EmptyArticleCard />
-              </v-flex>
-            </v-layout>
-          </v-flex>
+        <v-fade-transition mode="out-in" tag="div" class="flex xs12">
+          <v-layout v-if="searching" key="empty-cards" wrap>
+            <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 30" :key="n">
+              <EmptyArticleCard />
+            </v-flex>
+          </v-layout>
+          <v-layout v-else key="article-cards" wrap>
+            <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
+              <ArticleCard :article="article"/>
+            </v-flex>
+          </v-layout>
         </v-fade-transition>
         <v-flex xs12 mt-2 v-if="truncatedTotalPages > 1">
           <v-layout justify-center>
