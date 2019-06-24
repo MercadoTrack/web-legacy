@@ -71,7 +71,7 @@
                         <!-- TODO: make component -->
                         <p class="price-info w-100 pr-4">
                           <span class="title font-weight-regular mr-2">{{ price(article) | priceFilter }}</span>
-                          <span class="subheading grey--text strike-through ml-1" v-if="fluctuation(article)">
+                          <span class="previous-price subheading grey--text strike-through ml-1" v-if="fluctuation(article)">
                               {{ previousPrice(article) | priceFilter }}
                           </span>
                           <span v-if="fluctuation(article) < 0" class="fluctuation green--text text--lighten-2 ml-3">
@@ -196,26 +196,10 @@ export default {
   .article-image {
     border: 1px solid var(--v-background-darken1);
   }
-  .price {
-    flex-direction: column;
-  }
 
-  .headline {
-    display: flex;
-    justify-content: flex-end;
-  }
-  @media screen and (max-width: 600px) {
-    .subheading {
+  @media screen and (max-width: 375px) {
+    .previous-price {
       display: none;
-    }
-      .headline {
-      font-size: 1.2rem !important;
-    }
-  }
-
-  .fluctuation {
-    @media screen and (max-width: 768px) {
-      margin-left: auto;
     }
   }
 </style>
