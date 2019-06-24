@@ -158,6 +158,7 @@ export default {
       const { data: favorites } = await api.removeFavorites(ids)
       this.selected = []
       this.articles = this.articles.filter(article => !ids.includes(article.id))
+      this.$store.commit('snackbar/favoritesDeleted', ids.length)
       this.updateFavorites(favorites)
     },
     selectAll () {
