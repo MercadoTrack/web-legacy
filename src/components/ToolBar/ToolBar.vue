@@ -116,6 +116,7 @@ export default {
         if (!rawId) return
         const id = rawId.replace('-', '')
         this.$router.push(`/articulo/${id}`)
+        this.searchTerm = ''
       } else {
         const query = { ...this.$route.query, search: this.searchTerm }
         delete query.page // to start over
