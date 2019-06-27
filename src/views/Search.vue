@@ -5,7 +5,7 @@
         <v-flex xs12>
           <FiltersBar />
         </v-flex>
-        <v-fade-transition mode="out-in" tag="div" class="flex xs12">
+        <v-flex xs12>
           <v-layout v-if="searching" key="empty-cards" wrap>
             <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 30" :key="n">
               <EmptyArticleCard />
@@ -16,7 +16,7 @@
               <ArticleCard :article="article"/>
             </v-flex>
           </v-layout>
-        </v-fade-transition>
+        </v-flex>
         <v-flex xs12 mt-2 v-if="truncatedTotalPages > 1">
           <v-layout justify-center>
             <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="changePage"></v-pagination>
