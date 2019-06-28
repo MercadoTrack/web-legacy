@@ -13,6 +13,11 @@ export default {
       state.text = ''
       state.timeout = defaultTimeout
     },
+    favoritesDeleted (state, amount) {
+      state.show = true
+      state.text = amount === 1 ? 'Favorito eliminado' : `${amount} favoritos eliminados`
+      state.timeout = defaultTimeout
+    },
     articleNotFound (state) {
       state.show = true
       state.text = 'Aun no estamos trackeando este articulo'
