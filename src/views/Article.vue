@@ -126,6 +126,7 @@ export default {
         this.mlSeller = sellerRes.data
         this.loading = false
       } catch (err) {
+        // TODO: some sort of 404 page instead of redirecting
         console.log(err)
         this.$store.commit('snackbar/articleNotFound')
         this.$router.push('/')
@@ -154,7 +155,10 @@ export default {
       if (!this.article) return
       this.isFavorite = favorites.includes(this.article.id)
     },
-  }
+  },
+  created () {
+    this.$store.commit('intro/dismiss') // temporary thing to avoid redirecting to intro for new users
+  },
 }
 </script>
 
