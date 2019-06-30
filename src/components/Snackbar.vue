@@ -2,8 +2,10 @@
     <v-snackbar
       v-model="display"
       color="primary"
-      :right="true"
-      :bottom="true"
+      :top="top"
+      :left="left"
+      :right="right"
+      :bottom="bottom"
       :multi-line="$vuetify.breakpoint.smAndDown"
       :timeout="timeout"
     >
@@ -27,7 +29,11 @@ export default {
     ...mapGetters({
       show: 'snackbar/show',
       text: 'snackbar/text',
-      timeout: 'snackbar/timeout'
+      timeout: 'snackbar/timeout',
+      right: 'snackbar/right',
+      bottom: 'snackbar/bottom',
+      top: 'snackbar/top',
+      left: 'snackbar/left'
     }),
     display: {
       get () {
