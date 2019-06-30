@@ -148,7 +148,9 @@ export default {
       immediate: true, // acts like mounted
       async handler () {
         await this.fetch()
-        this.isFavorite = this.favorites.includes(this.article.id)
+        if (this.article) {
+          this.isFavorite = this.favorites.includes(this.article.id)
+        }
       }
     },
     favorites (favorites) {
