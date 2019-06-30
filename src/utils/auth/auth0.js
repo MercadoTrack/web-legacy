@@ -44,27 +44,21 @@ export const initAuth = async () => {
   const user = await checkSession(lock)
   if (user) {
     const { data: favorites } = await api.getFavorites()
-    addUserToStore(user, favorites)
+    store.commit('auth/login', user)
+    store.commit('auth/updateFavorites', favorites)
   }
   store.commit('auth/finished')
   lock.on('authenticated', async (result) => {
     setToken(result.idToken, result.accessToken)
     const user = getUser()
-    if (articleIdPendingToFav) {
-      const { data: favorites } = await api.toggleFavorite(articleIdPendingToFav)
-      addUserToStore(user, favorites)
-    } else {
-      const { data: favorites } = await api.getFavorites()
-      addUserToStore(user, favorites)
-    }
+    const { data: favorites } = articleIdPendingToFav
+      ? await api.toggleFavorite(articleIdPendingToFav)
+      : await api.getFavorites()
+    store.commit('auth/login', user)
+    store.commit('auth/updateFavorites', favorites)
+    store.commit('snackbar/welcome', user)
     articleIdPendingToFav = null
   })
-}
-
-const addUserToStore = (user, favorites) => {
-  store.commit('auth/login', user)
-  store.commit('auth/updateFavorites', favorites)
-  store.commit('snackbar/welcome', user)
 }
 
 const checkSession = async (lock) => {
