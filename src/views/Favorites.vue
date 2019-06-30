@@ -52,7 +52,7 @@
                 <v-list-tile-action>
                   <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
                 </v-list-tile-action>
-                <v-list-tile-avatar :tile="false" size="150">
+                <v-list-tile-avatar tile="false" size="150">
                   <img :src="getImage(article)">
                 </v-list-tile-avatar>
                 <v-list-tile-content class="ml-4">
