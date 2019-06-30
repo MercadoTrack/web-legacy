@@ -55,8 +55,8 @@
                       <div>
                         <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
                       </div>
-                      <v-avatar size="150px" v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
-                        <img class="article-image" :src="getImage(article)">
+                      <v-avatar tile="false" size="150px" v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
+                        <img :src="getImage(article)">
                       </v-avatar>
                       <div class="pl-4" style="flex: 1; min-width: 0;">
                         <router-link
