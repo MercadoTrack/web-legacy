@@ -43,9 +43,18 @@ export const initAuth = async () => {
   store.commit('auth/started')
   const user = await checkSession(lock)
   if (user) {
-    const { data: favorites } = await api.getFavorites()
-    store.commit('auth/login', user)
-    store.commit('auth/updateFavorites', favorites)
+    try {
+      const { data: favorites } = await api.getFavorites()
+      store.commit('auth/login', user)
+      store.commit('auth/updateFavorites', favorites)
+    } catch (error) {
+      // TODO: loggin you out only if there was an auth error while getting favorites here
+      // error.response.status == 403
+      // this happens because token expired and we're still saving the info locally
+      // temporary fix, logging you out if there was any issue with the favorites request here
+      unsetToken()
+      store.commit('auth/logout')
+    }
   }
   store.commit('auth/finished')
   lock.on('authenticated', async (result) => {
