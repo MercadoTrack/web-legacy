@@ -50,7 +50,6 @@ export default {
       truncatedTotalPages: 'search/truncatedTotalPages',
       searching: 'search/loading',
       searchResult: 'search/result',
-      categories: 'meta/categories',
     }),
     page () {
       return this.searchResult && this.searchResult.page

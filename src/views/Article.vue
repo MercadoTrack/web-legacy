@@ -158,9 +158,6 @@ export default {
       this.isFavorite = favorites.includes(this.article.id)
     },
   },
-  created () {
-    this.$store.commit('intro/dismiss') // temporary thing to avoid redirecting to intro for new users
-  },
 }
 </script>
 

@@ -1,8 +1,7 @@
 <template>
   <v-app>
     <ToolBar />
-    <LoadingMeta v-if="shouldShowLoading && !shouldShowIntro" />
-    <vue-page-transition v-else name="fade">
+    <vue-page-transition name="fade">
       <router-view />
     </vue-page-transition>
     <Footer />
@@ -11,32 +10,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import { initAuth } from './utils/auth'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
-import LoadingMeta from './views/LoadingMeta'
 import Snackbar from './components/Snackbar'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar, LoadingMeta, Snackbar },
+  components: { Footer, ToolBar, Snackbar },
   metaInfo: {
     title: 'MercadoTrack',
-  },
-  computed: {
-    ...mapGetters({
-      isLoadingMeta: 'meta/isLoading',
-      showIntro: 'intro/show',
-    }),
-    shouldShowLoading () {
-      // only showing loading spinner for meta when we're in the landing
-      return this.isLoadingMeta && this.$route.name === 'landing'
-    },
-    shouldShowIntro () {
-      const routesToShowIntro = [ 'landing', 'category' ]
-      return this.showIntro && routesToShowIntro.includes(this.$route.name)
-    }
   },
   async mounted () {
     this.$store.dispatch('meta/getBase')
