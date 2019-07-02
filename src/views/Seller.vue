@@ -13,7 +13,7 @@
                 <v-btn flat icon color="blue lighten-1" v-if="isBrand">
                   <v-icon>store</v-icon>
                 </v-btn>
-                <v-btn flat icon color="grey lighten-1" @click="goToMLSeller">
+                <v-btn flat icon color="grey lighten-1" style="cursor:pointer" @click="goToMLSeller">
                   <v-icon>call_made</v-icon>
                 </v-btn>
               <v-layout justify-end row>
@@ -212,5 +212,6 @@ export default {
 
 .v-btn {
   margin: 0;
+  cursor: default;
 }
 </style>
