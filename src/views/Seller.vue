@@ -79,7 +79,7 @@
                   <span class="headline ml-3">Calificaciones</span>
                   <v-list-tile>
                     <v-list-tile-action>
-                      <v-btn flat icon color="green lighten-2">
+                      <v-btn disabled flat icon color="green lighten-2">
                         <v-icon>mood</v-icon>
                       </v-btn>
                     </v-list-tile-action>
@@ -88,7 +88,7 @@
 
                   <v-list-tile>
                     <v-list-tile-action>
-                      <v-btn flat icon color="red lighten-2">
+                      <v-btn disabled flat icon color="red lighten-2">
                         <v-icon>mood_bad</v-icon>
                       </v-btn>
                     </v-list-tile-action>
@@ -97,7 +97,7 @@
 
                   <v-list-tile>
                     <v-list-tile-action>
-                      <v-btn flat icon color="yellow darken-2">
+                      <v-btn disabled flat icon color="yellow darken-2">
                         <v-icon>sentiment_satisfied</v-icon>
                       </v-btn>
                     </v-list-tile-action>
@@ -110,7 +110,7 @@
                   <span class="headline ml-3">Resumen</span>
                   <v-list-tile>
                     <v-list-tile-action>
-                      <v-btn flat icon color="grey lighten-1">
+                      <v-btn disabled flat icon>
                         <v-icon>thumb_up_alt</v-icon>
                       </v-btn>
                     </v-list-tile-action>
@@ -119,7 +119,7 @@
 
                   <v-list-tile>
                     <v-list-tile-action>
-                      <v-btn flat icon color="grey lighten-1">
+                      <v-btn disabled flat icon>
                         <v-icon>timer</v-icon>
                       </v-btn>
                     </v-list-tile-action>
@@ -128,7 +128,7 @@
 
                   <v-list-tile>
                     <v-list-tile-action>
-                      <v-btn flat icon color="grey lighten-1">
+                      <v-btn disabled flat icon>
                         <v-icon>chat</v-icon>
                       </v-btn>
                     </v-list-tile-action>
@@ -212,6 +212,5 @@ export default {
 
 .v-btn {
   margin: 0;
-  cursor: default;
-}
+  cursor: default;}
 </style>
