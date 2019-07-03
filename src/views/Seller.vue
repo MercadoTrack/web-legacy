@@ -212,5 +212,6 @@ export default {
 
 .v-btn {
   margin: 0;
-  cursor: default;}
+  cursor: default;
+  }
 </style>
