@@ -7,18 +7,13 @@
           <v-flex xs12>
             <v-list-tile class="pa-4">
               <span class="display-1">{{ seller.nickname }}</span>
-                <v-btn flat icon color="green lighten-1" v-if="userVerified">
-                  <v-icon>verified_user</v-icon>
-                </v-btn>
-                <v-btn flat icon color="blue lighten-1" v-if="isBrand">
-                  <v-icon>store</v-icon>
-                </v-btn>
+
+                  <v-icon class="ml-2" color="green darken-1" v-if="userVerified">verified_user</v-icon>
+                  <v-icon v-if="isBrand">store</v-icon>
+
                 <v-btn flat icon color="grey lighten-1" style="cursor:pointer" @click="goToMLSeller">
                   <v-icon>call_made</v-icon>
                 </v-btn>
-              <v-layout justify-end row>
-                <v-img absolute class="floating-logo rounded" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
-              </v-layout>
             </v-list-tile>
             <v-divider></v-divider>
           </v-flex>
