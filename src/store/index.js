@@ -5,6 +5,7 @@ import shareModule from './shareModule'
 import metaModule from './metaModule'
 import searchModule from './searchModule'
 import snackbarModule from './snackbarModule'
+import wizardModule from './wizardModule'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     share: shareModule,
     meta: metaModule,
     search: searchModule,
-    snackbar: snackbarModule
+    snackbar: snackbarModule,
+    wizard: wizardModule,
   }
 })

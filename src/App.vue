@@ -5,7 +5,9 @@
       <router-view />
     </vue-page-transition>
     <Footer />
+    <Wizard />
     <Snackbar />
+    <FloatingHelp />
   </v-app>
 </template>
 
@@ -14,10 +16,12 @@ import { initAuth } from './utils/auth'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 import Snackbar from './components/Snackbar'
+import Wizard from './components/Wizard'
+import FloatingHelp from './components/FloatingHelp'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar, Snackbar },
+  components: { Footer, ToolBar, Snackbar, Wizard, FloatingHelp },
   metaInfo: {
     title: 'MercadoTrack',
   },
