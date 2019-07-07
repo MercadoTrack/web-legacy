@@ -54,6 +54,10 @@ export default {
       this.srcIndex = i
     },
     selectedClass (i) {
+      // maginc number 4 is the last image that we are going to show (with the +)
+      if (i === 4) {
+        return this.srcIndex >= 4 ? 'selected' : ''
+      }
       return this.srcIndex === i ? 'selected' : ''
     },
     lastPhoto (i) {
