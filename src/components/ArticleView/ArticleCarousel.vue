@@ -83,16 +83,19 @@ figure {
     height: 0.75rem;
     background-color: var(--v-primary-base);
   }
-}
-.more-images {
-  opacity: 0.5
-}
-.after {
-  position: absolute;
-  top: 30%;
-  left: 20%;
-  width: 100%;
-  height: 100%;
-  font-size: x-large;
+  .more-images {
+    opacity: 0.5;
+  }
+  .after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>
