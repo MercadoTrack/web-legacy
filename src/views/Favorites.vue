@@ -121,7 +121,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import ArticleFluctuation from '../components/Article/ArticleFluctuation'
-import { ArticlesHelper } from '../utils'
+import { ArticlesHelper, categories, actions } from '../utils'
 import api from '../api'
 
 export default {
@@ -159,6 +159,9 @@ export default {
       this.selected = []
       this.articles = this.articles.filter(article => !ids.includes(article.id))
       this.$store.commit('snackbar/favoritesDeleted', ids.length)
+      ids.forEach((id) => {
+        this.$ga.event({ eventCategory: categories.FAVORITE, eventAction: actions.REMOVE, eventLabel: id })
+      })
       this.updateFavorites(favorites)
     },
     selectAll () {
