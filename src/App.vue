@@ -2,11 +2,11 @@
   <v-app>
     <ToolBar />
     <BetaBanner />
-    <vue-page-transition name="fade">
       <div :style="{ paddingTop: `${bannerOffset}px` }">
-        <router-view />
+        <vue-page-transition name="fade">
+          <router-view />
+        </vue-page-transition>
       </div>
-    </vue-page-transition>
     <Footer />
     <Snackbar />
   </v-app>
