@@ -1,8 +1,11 @@
 <template>
   <v-app>
     <ToolBar />
+    <BetaBanner />
     <vue-page-transition name="fade">
-      <router-view />
+      <div :style="{ paddingTop: `${bannerOffset}px` }">
+        <router-view />
+      </div>
     </vue-page-transition>
     <Footer />
     <Snackbar />
@@ -14,14 +17,31 @@ import { initAuth } from './utils/auth'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 import Snackbar from './components/Snackbar'
+import BetaBanner from './components/BetaBanner'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar, Snackbar },
+  components: {
+    Footer,
+    ToolBar,
+    Snackbar,
+    BetaBanner,
+  },
+  data: () => ({
+    bannerOffset: 0,
+  }),
   metaInfo: {
     title: 'MercadoTrack',
   },
-  async mounted () {
+  methods: {
+    onResize () {
+      const banner = document.querySelector('.banner')
+      this.bannerOffset = banner && banner.clientHeight
+    }
+  },
+  mounted () {
+    this.onResize()
+    window.addEventListener('resize', this.onResize)
     this.$store.dispatch('meta/getBase')
     initAuth()
   },
