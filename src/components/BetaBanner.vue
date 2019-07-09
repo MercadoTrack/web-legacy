@@ -4,7 +4,7 @@
       <h3 class="body-2 white--text font-weight-light px-4">
         <span>Estás usando la versión beta de MercadoTrack, si tenés comentarios, dudas o sugerencias podés</span>
         <a href="https://twitter.com/MercadoTrack" class="mx-1 send-message" target="_blank">enviarnos un mensaje</a>
-        <v-icon dark class="pointer tw" />
+        <v-icon dark class="ml-1 pointer tw" />
       </h3>
     </v-container>
   </div>
@@ -18,9 +18,15 @@ export default {
 
 <style lang="scss" scoped>
 .banner {
+  position: fixed;
+  z-index: 1;
   width: 100%;
   background-color: var(--v-primary-base);
   box-shadow:0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+  top: 56px;
+  @media only screen and (min-width: 960px) {
+    top: 104px;
+  }
 }
 .send-message {
   color: white;
