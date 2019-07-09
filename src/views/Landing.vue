@@ -1,5 +1,6 @@
 <template>
   <v-content>
+    <BetaBanner />
     <v-container fill-height class="mt-4">
       <v-layout row wrap>
         <v-flex xs6 md12 v-for="category in mainCategories" :key="category._id">
@@ -37,6 +38,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import LandingArticleCard from '../components/LandingArticleCard'
+import BetaBanner from '../components/BetaBanner'
 import { CategoriesHelper } from '../utils'
 
 export default {
@@ -52,6 +54,7 @@ export default {
   }),
   components: {
     LandingArticleCard,
+    BetaBanner,
   },
   computed: {
     ...mapGetters({
