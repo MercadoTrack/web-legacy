@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <ToolBar />
-    <BetaBanner ref="banner" />
+    <BetaBanner />
     <vue-page-transition name="fade">
       <div :style="{ paddingTop: `${bannerOffset}px` }">
         <router-view />
@@ -36,7 +36,7 @@ export default {
   methods: {
     onResize () {
       const banner = document.querySelector('.banner')
-      this.bannerOffset = banner || banner.clientHeight
+      this.bannerOffset = banner && banner.clientHeight
     }
   },
   mounted () {
