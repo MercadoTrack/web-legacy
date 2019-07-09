@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <ToolBar />
-    <BetaBanner />
+    <BetaBanner v-if="showBanner" @close="closeBanner" />
       <div :style="{ paddingTop: `${bannerOffset}px` }">
         <vue-page-transition name="fade">
           <router-view />
@@ -29,11 +29,17 @@ export default {
   },
   data: () => ({
     bannerOffset: 0,
+    showBanner: true,
   }),
   metaInfo: {
     title: 'MercadoTrack',
   },
   methods: {
+    closeBanner () {
+      this.showBanner = false
+      this.bannerOffset = 0
+      window.removeEventListener('resize', this.onResize)
+    },
     onResize () {
       const banner = document.querySelector('.banner')
       this.bannerOffset = banner && banner.clientHeight

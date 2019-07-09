@@ -1,11 +1,21 @@
 <template>
   <div class="banner py-3">
     <v-container class="py-0 px-2" fill-height dark>
-      <h3 class="body-2 white--text font-weight-light px-4">
-        <span>Estás usando la versión beta de MercadoTrack, si tenés comentarios, dudas o sugerencias podés</span>
-        <a href="https://twitter.com/MercadoTrack" class="mx-1 send-message" target="_blank">enviarnos un mensaje</a>
-        <v-icon dark class="ml-1 pointer tw" />
-      </h3>
+      <v-layout class="px-4">
+        <h3 class="body-2 white--text font-weight-light pr-3">
+          <span>Estás usando la versión beta de MercadoTrack, si tenés comentarios, dudas o sugerencias podés enviarnos un mensaje</span>
+          por
+          <a href="https://twitter.com/MercadoTrack" target="_blank">
+            <v-icon dark class="ml-1 pointer tw" />
+          </a>
+          o
+          <a href="mailto:mercadotrack@gmail.com" class="mx-1" target="_blank">
+            <v-icon color="white" size="1.5rem">mail</v-icon>
+          </a>
+        </h3>
+        <v-btn v-if="$vuetify.breakpoint.smAndUp" flat small color="white" class="ml-auto my-auto" @click="close">cerrar</v-btn>
+        <v-icon v-else color="white" class="ml-auto pointer" @click="close">close</v-icon>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -13,6 +23,11 @@
 <script>
 export default {
   name: 'banner',
+  methods: {
+    close () {
+      this.$emit('close')
+    }
+  },
 }
 </script>
 
@@ -28,14 +43,9 @@ export default {
     top: 104px;
   }
 }
-.send-message {
-  color: white;
-  cursor: pointer;
-  text-decoration: underline;
-}
 .tw {
-  height: 1.25rem;
-  width: 1.25rem;
+  height: 1.5rem;
+  width: 1.5rem;
   background-image: url('../assets/twitter_light.svg');
 }
 </style>
