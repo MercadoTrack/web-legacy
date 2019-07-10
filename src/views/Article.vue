@@ -106,6 +106,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      authenticating: 'auth/authenticating',
       isAuthenticated: 'auth/isAuthenticated',
       favorites: 'auth/favorites'
     })
@@ -115,9 +116,8 @@ export default {
       updateFavorites: 'auth/updateFavorites'
     }),
     async fetch () {
-      this.loading = true
       const id = this.$route.params.id
-      const promises = [ api.getArticle(id), api.getMlArticle(id) ]
+      const promises = [ api.getOrFollowArticle(id), api.getMlArticle(id) ]
       try {
         const [ mtRes, mlRes ] = await Promise.all(promises)
         this.article = mtRes.data
@@ -126,7 +126,6 @@ export default {
         this.mlSeller = sellerRes.data
         this.loading = false
       } catch (err) {
-        // TODO: some sort of 404 page instead of redirecting
         console.log(err)
         this.$store.commit('snackbar/articleNotFound')
         this.$router.push('/')
@@ -143,10 +142,19 @@ export default {
       }
     }
   },
+  async mounted () {
+    this.loading = true
+    const interval = setInterval(() => { // sorry but it's late
+      if (!this.authenticating) {
+        clearInterval(interval)
+        this.fetch()
+      }
+    }, 100)
+  },
   watch: {
     '$route.params': {
-      immediate: true, // acts like mounted
       async handler () {
+        this.loading = true
         await this.fetch()
         if (this.article) {
           this.isFavorite = this.favorites.includes(this.article.id)

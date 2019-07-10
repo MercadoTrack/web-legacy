@@ -24,6 +24,23 @@ class Api {
     return this.instance.get(`/articles/${id}`)
   }
 
+  followArticle (id) {
+    // TODO: update when api route changes
+    return this.instance.post('/articles/follow', { id })
+  }
+
+  async getOrFollowArticle (id) {
+    try {
+      const article = await this.getArticle(id)
+      return article
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return this.followArticle(id)
+      }
+      throw err
+    }
+  }
+
   getMlArticle (id) {
     return this.instance.get(`/articles/ml/${id}`)
   }
