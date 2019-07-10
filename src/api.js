@@ -35,7 +35,7 @@ class Api {
       return article
     } catch (err) {
       if (err.response && err.response.status === 404) {
-        return this.followArticle(id)
+        return this.followArticle(id).then(res => ({ ...res, justFollowed: true }))
       }
       throw err
     }

@@ -1,5 +1,7 @@
 <template>
   <v-content>
+    <ContributingModal :show.sync="showContributingModal" />
+
     <v-container>
       <v-fade-transition mode="out-in">
         <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
@@ -77,7 +79,8 @@ import {
   ArticlePriceHistory,
   ArticleInfo,
   ArticleAttributes,
-  ArticleBreadcrumb
+  ArticleBreadcrumb,
+  ContributingModal,
 } from '../components/ArticleView'
 
 export default {
@@ -87,7 +90,8 @@ export default {
     ArticlePriceHistory,
     ArticleInfo,
     ArticleAttributes,
-    ArticleBreadcrumb
+    ArticleBreadcrumb,
+    ContributingModal,
   },
   data: () => ({
     isFavorite: false,
@@ -96,6 +100,7 @@ export default {
     mlSeller: null,
     mlArticle: null,
     expandAttributes: false,
+    showContributingModal: false,
   }),
   metaInfo () {
     if (!this.article) return
@@ -122,13 +127,17 @@ export default {
         const [ mtRes, mlRes ] = await Promise.all(promises)
         this.article = mtRes.data
         this.mlArticle = mlRes.data
+        this.showContributingModal = Boolean(mtRes.justFollowed)
         const sellerRes = await api.getMlSeller(this.article.seller_id)
         this.mlSeller = sellerRes.data
         this.loading = false
       } catch (err) {
-        console.log(err)
-        this.$store.commit('snackbar/articleNotFound')
-        this.$router.push('/')
+        if (err.response && err.response.status === 403) {
+          this.showContributingModal = true // todo check for error
+        } else {
+          this.$store.commit('snackbar/articleNotFound')
+          this.$router.push('/')
+        }
       }
     },
     async toggleFavorite (event) {
@@ -148,6 +157,7 @@ export default {
       if (!this.authenticating) {
         clearInterval(interval)
         this.fetch()
+        this.$watch('isAuthenticated', () => this.fetch())
       }
     }, 100)
   },

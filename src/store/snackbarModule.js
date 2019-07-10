@@ -28,7 +28,7 @@ export default {
     },
     articleNotFound (state) {
       state.show = true
-      state.text = 'Aun no estamos trackeando este articulo'
+      state.text = 'Hubo un problema con este artículo'
       state.timeout = defaultTimeout
       state.right = false
       state.bottom = true
