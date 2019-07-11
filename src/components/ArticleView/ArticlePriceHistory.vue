@@ -64,7 +64,7 @@
               <v-list-tile-sub-title class="font-weight-light">Precio publicado</v-list-tile-sub-title>
               <v-list-tile-title>{{ original_price | priceFilter }}</v-list-tile-title>
             </template>
-            <span>Es el precio publicado en MercadoLibre por el vendedor.</span>
+            <span>Es el precio base publicado en MercadoLibre por el vendedor</span>
         </v-tooltip>
         </v-list-tile-content>
       </v-list-tile>
