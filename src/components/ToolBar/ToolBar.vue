@@ -143,6 +143,10 @@ export default {
   max-width: 40%;
 }
 
+.v-toolbar {
+  z-index: 3;
+}
+
 .v-toolbar__title {
   overflow: visible;
 }
