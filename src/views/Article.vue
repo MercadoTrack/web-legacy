@@ -57,7 +57,7 @@
             <v-flex xs12 md4 pa-4>
               <h2 class="headline history">
                 <span class="mr-1">Historial de precios</span>
-                <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span>
+                <!-- <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span> -->
               </h2>
               <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
             </v-flex>
