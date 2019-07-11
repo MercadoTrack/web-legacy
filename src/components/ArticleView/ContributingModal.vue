@@ -5,9 +5,10 @@
     :persistent="!isAuthenticated"
   >
     <v-card v-if="isAuthenticated">
-      <v-card-title class="headline">¡Nuevo artículo trackeado!</v-card-title>
+      <v-card-title class="headline font-weight-medium">¡Nuevo artículo trackeado!</v-card-title>
       <v-card-text>
-        Gracias a tu seguimiento del artículo, pudimos agregarlo a nuestra base de datos. Al hacer esto, no solo te beneficiás vos, sino a todos los interesados.
+        <p>Hasta el momento no teníamos este artículo en nuestra base de datos, pero ahora gracias a vos comenzamos a trackearlo.</p>
+        <p class="mt-4 mb-1">¡Gracias por ayudar a la comunidad! 🎉</p>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
