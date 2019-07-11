@@ -20,7 +20,8 @@
     <v-card v-else>
       <v-card-title class="headline">Todavía no estamos trackeando este artículo</v-card-title>
       <v-card-text>
-        Para que agreguemos este artículo a nuestra base de datos y empezar a trackearlo te pedimos que inicies sesión.
+        <p class="my-0">¡El artículo no se encuentra en nuestra base de datos! 🙁</p>
+        <p class="mt-2 mb-1">Para que comencemos a trackearlo te pedimos que inicies sesión.</p>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
