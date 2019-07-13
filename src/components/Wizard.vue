@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wizard">
     <v-dialog v-model="dialog" width="500" persistent no-click-animation>
       <v-card>
         <v-toolbar dark color="primary">
@@ -86,4 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wizard {
+  z-index: 3;
+}
 </style>
