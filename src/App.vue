@@ -1,9 +1,12 @@
 <template>
   <v-app>
     <ToolBar />
-    <vue-page-transition name="fade">
-      <router-view />
-    </vue-page-transition>
+    <BetaBanner v-if="showBanner" @close="closeBanner" />
+      <div :style="{ paddingTop: `${bannerOffset}px` }">
+        <vue-page-transition name="fade">
+          <router-view />
+        </vue-page-transition>
+      </div>
     <Footer />
     <Wizard />
     <Snackbar />
@@ -16,16 +19,41 @@ import { initAuth } from './utils/auth'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 import Snackbar from './components/Snackbar'
+import BetaBanner from './components/BetaBanner'
 import Wizard from './components/Wizard'
 import FloatingHelp from './components/FloatingHelp'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar, Snackbar, Wizard, FloatingHelp },
+  components: {
+    Footer,
+    ToolBar,
+    Snackbar,
+    BetaBanner,
+    Wizard,
+    FloatingHelp,
+  },
+  data: () => ({
+    bannerOffset: 0,
+    showBanner: true,
+  }),
   metaInfo: {
     title: 'MercadoTrack',
   },
-  async mounted () {
+  methods: {
+    closeBanner () {
+      this.showBanner = false
+      this.bannerOffset = 0
+      window.removeEventListener('resize', this.onResize)
+    },
+    onResize () {
+      const banner = document.querySelector('.banner')
+      this.bannerOffset = banner && banner.clientHeight
+    }
+  },
+  mounted () {
+    this.onResize()
+    window.addEventListener('resize', this.onResize)
     this.$store.dispatch('meta/getBase')
     initAuth()
   },

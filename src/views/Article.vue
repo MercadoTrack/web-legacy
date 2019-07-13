@@ -1,5 +1,7 @@
 <template>
   <v-content>
+    <ContributingModal :show.sync="showContributingModal" />
+
     <v-container>
       <v-fade-transition mode="out-in">
         <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
@@ -55,7 +57,7 @@
             <v-flex xs12 md4 pa-4>
               <h2 class="headline history">
                 <span class="mr-1">Historial de precios</span>
-                <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span>
+                <!-- <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span> -->
               </h2>
               <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
             </v-flex>
@@ -77,7 +79,8 @@ import {
   ArticlePriceHistory,
   ArticleInfo,
   ArticleAttributes,
-  ArticleBreadcrumb
+  ArticleBreadcrumb,
+  ContributingModal,
 } from '../components/ArticleView'
 
 export default {
@@ -87,7 +90,8 @@ export default {
     ArticlePriceHistory,
     ArticleInfo,
     ArticleAttributes,
-    ArticleBreadcrumb
+    ArticleBreadcrumb,
+    ContributingModal,
   },
   data: () => ({
     isFavorite: false,
@@ -96,6 +100,7 @@ export default {
     mlSeller: null,
     mlArticle: null,
     expandAttributes: false,
+    showContributingModal: false,
   }),
   metaInfo () {
     if (!this.article) return
@@ -106,6 +111,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      authenticating: 'auth/authenticating',
       isAuthenticated: 'auth/isAuthenticated',
       favorites: 'auth/favorites'
     })
@@ -115,21 +121,23 @@ export default {
       updateFavorites: 'auth/updateFavorites'
     }),
     async fetch () {
-      this.loading = true
       const id = this.$route.params.id
-      const promises = [ api.getArticle(id), api.getMlArticle(id) ]
+      const promises = [ api.getOrFollowArticle(id), api.getMlArticle(id) ]
       try {
         const [ mtRes, mlRes ] = await Promise.all(promises)
         this.article = mtRes.data
         this.mlArticle = mlRes.data
+        this.showContributingModal = Boolean(mtRes.justFollowed)
         const sellerRes = await api.getMlSeller(this.article.seller_id)
         this.mlSeller = sellerRes.data
         this.loading = false
       } catch (err) {
-        // TODO: some sort of 404 page instead of redirecting
-        console.log(err)
-        this.$store.commit('snackbar/articleNotFound')
-        this.$router.push('/')
+        if (err.response && err.response.status === 403) {
+          this.showContributingModal = true // todo check for error
+        } else {
+          this.$store.commit('snackbar/articleNotFound')
+          this.$router.push('/')
+        }
       }
     },
     async toggleFavorite (event) {
@@ -143,10 +151,20 @@ export default {
       }
     }
   },
+  async mounted () {
+    this.loading = true
+    const interval = setInterval(() => { // sorry but it's late
+      if (!this.authenticating) {
+        clearInterval(interval)
+        this.fetch()
+        this.$watch('isAuthenticated', () => this.fetch())
+      }
+    }, 100)
+  },
   watch: {
     '$route.params': {
-      immediate: true, // acts like mounted
       async handler () {
+        this.loading = true
         await this.fetch()
         if (this.article) {
           this.isFavorite = this.favorites.includes(this.article.id)

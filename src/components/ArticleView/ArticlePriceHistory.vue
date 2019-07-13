@@ -6,10 +6,21 @@
         <v-list-tile-content>
           <v-tooltip right max-width="25rem">
             <template slot="activator">
-              <v-list-tile-sub-title class="font-weight-light">Precio</v-list-tile-sub-title>
+              <v-list-tile-sub-title class="font-weight-light">Variaciones</v-list-tile-sub-title>
+              <v-list-tile-title>{{ this.article.history.length }}</v-list-tile-title>
+              </template>
+            <span>Es cantidad de veces que el vendedor modificó el precio</span>
+          </v-tooltip>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-tooltip right max-width="25rem">
+            <template slot="activator">
+              <v-list-tile-sub-title class="font-weight-light">Precio actual</v-list-tile-sub-title>
               <v-list-tile-title>{{ price | priceFilter }}</v-list-tile-title>
               </template>
-            <span>Es el precio sobre el cual se aplicó el descuento publicado</span>
+            <span>Es el precio actual del artículo en Mercado Libre</span>
           </v-tooltip>
         </v-list-tile-content>
       </v-list-tile>
@@ -39,7 +50,7 @@
                 <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
               </v-list-tile-title>
             </template>
-            <span>Es el descuento del producto en base a su precio anterior</span>
+            <span>Es el descuento o aumento real del artículo en base a su precio anterior</span>
           </v-tooltip>
         </v-list-tile-content>
       </v-list-tile>
@@ -53,7 +64,7 @@
               <v-list-tile-sub-title class="font-weight-light">Precio publicado</v-list-tile-sub-title>
               <v-list-tile-title>{{ original_price | priceFilter }}</v-list-tile-title>
             </template>
-            <span>Es el precio publicado en MercadoLibre por el vendedor.</span>
+            <span>Es el precio sobre el cual el vendedor aplica el descuento publicado</span>
         </v-tooltip>
         </v-list-tile-content>
       </v-list-tile>
@@ -64,7 +75,7 @@
               <v-list-tile-sub-title class="font-weight-light">Descuento publicado</v-list-tile-sub-title>
               <v-list-tile-title>{{ mlDiscount }}%</v-list-tile-title>
               </template>
-            <span>Es el descuento publicado en Mercado Libre por el vendedor</span>
+            <span>Es el descuento publicado en Mercado Libre</span>
           </v-tooltip>
         </v-list-tile-content>
       </v-list-tile>

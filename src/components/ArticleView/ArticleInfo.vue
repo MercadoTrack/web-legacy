@@ -51,7 +51,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ mlSeller.nickname }}</v-list-tile-title>
-              <v-list-tile-sub-title @click="goToSeller()">Ver perfil del vendedor</v-list-tile-sub-title>
+              <v-list-tile-sub-title @click="goToSellerPage()">Ver perfil del vendedor</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -75,6 +75,9 @@ export default {
     },
     goToSeller () {
       this.$router.push(`/seller/${this.mlSeller.id}`)
+    },
+    goToSellerPage () {
+      window.open(this.mlSeller.permalink)
     }
   },
 }

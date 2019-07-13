@@ -57,7 +57,7 @@
           ref="searchInput"
           height="40"
           append-icon="search"
-          label="Buscar"
+          label="Buscar o pegar link"
           v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"
@@ -141,6 +141,10 @@ export default {
 <style lang="scss" scoped>
 .max-width-40 {
   max-width: 40%;
+}
+
+.v-toolbar {
+  z-index: 3;
 }
 
 .v-toolbar__title {
