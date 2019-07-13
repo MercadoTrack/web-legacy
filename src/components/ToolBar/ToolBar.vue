@@ -57,7 +57,7 @@
           ref="searchInput"
           height="40"
           append-icon="search"
-          label="Buscar"
+          label="Buscar o pegar link"
           v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"
