@@ -1,14 +1,15 @@
-<template>
+<template v-if="price">
   <v-list two-line subheader>
 
-    <template v-if="price">
+    <template>
       <v-list-tile>
         <v-list-tile-content>
           <v-tooltip right max-width="25rem">
             <template slot="activator">
               <v-list-tile-sub-title class="font-weight-light">Variaciones</v-list-tile-sub-title>
-              <v-list-tile-title>{{ this.article.history.length }}</v-list-tile-title>
-              </template>
+              <v-list-tile-title v-if="this.article.history.length - 1 > 0">{{ this.article.history.length - 1}}</v-list-tile-title>
+              <v-list-tile-sub-title v-else>No hay variaciones</v-list-tile-sub-title>
+            </template>
             <span>Es cantidad de veces que el vendedor modificó el precio</span>
           </v-tooltip>
         </v-list-tile-content>
@@ -50,19 +51,28 @@
                 <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
               </v-list-tile-title>
             </template>
+
+            <template v-else slot="activator">
+              <v-list-tile-sub-title class="font-weight-light">Sin variaciones</v-list-tile-sub-title>
+              <v-list-tile-title class="fluctuation-title red--text text--lighten-2">
+                <v-icon>sentiment_satisfied</v-icon>
+              </v-list-tile-title>
+            </template>
+
             <span>Es el descuento o aumento real del artículo en base a su precio anterior</span>
           </v-tooltip>
         </v-list-tile-content>
       </v-list-tile>
     </template>
 
-    <template v-if="original_price">
+    <template>
       <v-list-tile>
         <v-list-tile-content>
           <v-tooltip right max-width="25rem">
             <template slot="activator">
               <v-list-tile-sub-title class="font-weight-light">Precio publicado</v-list-tile-sub-title>
-              <v-list-tile-title>{{ original_price | priceFilter }}</v-list-tile-title>
+              <v-list-tile-title v-if="original_price">{{ original_price | priceFilter }}</v-list-tile-title>
+              <v-list-tile-title v-else>{{ price | priceFilter }}</v-list-tile-title>
             </template>
             <span>Es el precio sobre el cual el vendedor aplica el descuento publicado</span>
         </v-tooltip>
@@ -73,7 +83,8 @@
           <v-tooltip right max-width="25rem">
             <template slot="activator">
               <v-list-tile-sub-title class="font-weight-light">Descuento publicado</v-list-tile-sub-title>
-              <v-list-tile-title>{{ mlDiscount }}%</v-list-tile-title>
+              <v-list-tile-title v-if="original_price">{{ mlDiscount }}%</v-list-tile-title>
+              <v-list-tile-sub-title v-else>Sin descuento publicado</v-list-tile-sub-title>
               </template>
             <span>Es el descuento publicado en Mercado Libre</span>
           </v-tooltip>
