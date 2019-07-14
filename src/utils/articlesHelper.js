@@ -9,14 +9,26 @@ const statuses = {
 export class ArticlesHelper {
   static getTranslatedStatus = (article) => statuses[article.status] || 'sin estado'
 
-  static price = (article) => { return article.history[article.history.length - 1].price }
+  static price = (article) => {
+    const lastPrice = article.history[article.history.length - 1].price
+    return lastPrice || 0
+  }
 
   static previousPrice = (article) => {
     let previousSnapshot = article.history[article.history.length - 2]
     return previousSnapshot && previousSnapshot.price
   }
 
-  static fluctuation = (article) => { return 100 - Math.round(this.previousPrice(article) * 100 / this.price(article)) }
+  static fluctuation = (article) => {
+    const previousPrice = this.previousPrice(article)
+    const price = this.price(article)
 
-  static fluctuationColor = (article) => { return this.fluctuation(article) > 0 ? 'red' : 'green' }
+    return (previousPrice && price) // need to check for price because of snapshots without price
+      ? 100 - Math.round(previousPrice * 100 / price)
+      : 0
+  }
+
+  static fluctuationColor = (article) => {
+    return this.fluctuation(article) > 0 ? 'red' : 'green'
+  }
 }

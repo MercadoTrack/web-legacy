@@ -33,7 +33,7 @@
               <v-divider></v-divider>
             </v-flex>
 
-            <v-flex xs12 class="pa-4">
+            <v-flex xs12 class="pa-4" v-if="mlArticle.attributes">
                 <h2 class="headline pointer d-inline-block" @click="expandAttributes = !expandAttributes">
                   <span>Características</span>
                   <v-icon color="grey darken-4" v-if="expandAttributes">keyboard_arrow_up</v-icon>
@@ -50,7 +50,7 @@
               <v-divider></v-divider>
             </v-flex>
 
-            <v-flex xs12 md8 pa-4 class="border-r">
+            <v-flex xs12 md8 pa-4 class="border-r" v-if="article.history.length > 1">
               <Chart :history="article.history" />
             </v-flex>
 
