@@ -50,14 +50,15 @@
               <v-divider></v-divider>
             </v-flex>
 
-            <v-flex xs12 md8 pa-4 class="border-r" v-if="article.history.length > 1">
+            <v-flex xs12 md8 pa-4 class="border-r" v-if="hasHistory">
               <Chart :history="article.history" />
             </v-flex>
 
-            <v-flex xs12 md4 pa-4>
+            <v-flex xs12 :md4="hasHistory" pa-4>
               <h2 class="headline history">
-                <span class="mr-1">Historial de precios</span>
-                <!-- <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span> -->
+                <span :class="{ 'ma-auto': !hasHistory }">
+                  Historial de precios
+                </span>
               </h2>
               <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
             </v-flex>
@@ -114,7 +115,10 @@ export default {
       authenticating: 'auth/authenticating',
       isAuthenticated: 'auth/isAuthenticated',
       favorites: 'auth/favorites'
-    })
+    }),
+    hasHistory () {
+      return this.article.history.length > 1
+    }
   },
   methods: {
     ...mapMutations({
