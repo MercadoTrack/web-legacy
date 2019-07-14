@@ -18,7 +18,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile v-if="mlArticle.shipping.free_shipping">
+          <v-list-tile v-if="mlArticle.shipping && mlArticle.shipping.free_shipping">
             <v-list-tile-action>
               <v-icon>local_shipping</v-icon>
             </v-list-tile-action>
@@ -61,12 +61,14 @@
 </template>
 
 <script>
+import { ArticlesHelper } from '../../utils'
+
 export default {
   name: 'ArticleInfo',
   props: ['article', 'mlArticle', 'mlSeller'],
   computed: {
     price () {
-      return this.article.history[this.article.history.length - 1].price
+      return ArticlesHelper.price(this.article)
     },
   },
   methods: {
