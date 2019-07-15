@@ -6,7 +6,7 @@
           <span>Estás usando la versión beta de MercadoTrack, si tenés comentarios, dudas o sugerencias podés enviarnos un mensaje</span>
           por
           <a href="https://twitter.com/MercadoTrack" target="_blank">
-            <v-icon dark class="ml-1 pointer tw" />
+            <v-icon dark class="ml-1 pointer light social tw" />
           </a>
           o
           <a href="mailto:mercadotrack@gmail.com" class="mx-1" target="_blank">
@@ -46,6 +46,5 @@ export default {
 .tw {
   height: 1.5rem;
   width: 1.5rem;
-  background-image: url('../assets/twitter_light.svg');
 }
 </style>

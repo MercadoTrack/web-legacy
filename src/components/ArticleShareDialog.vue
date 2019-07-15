@@ -66,17 +66,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .social {
-  height: 32px;
-  width: 32px;
-  &.fb {
-    background-image: url('../assets/facebook.svg');
-  }
-  &.tw {
-    background-image: url('../assets/twitter.svg');
-  }
-  &.ig {
-    background-image: url('../assets/instagram.svg');
-  }
+  height: 2rem;
+  width: 2rem;
 }
 .no-hover::before {
   color: transparent;

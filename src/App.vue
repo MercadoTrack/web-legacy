@@ -152,4 +152,19 @@ figure {
   }
 }
 
+.social {
+  &.fb {
+    background-image: url('./assets/facebook.svg');
+  }
+  &.tw {
+    background-image: url('./assets/twitter.svg');
+    &.light {
+      background-image: url('./assets/twitter_light.svg');
+    }
+  }
+  &.ig {
+    background-image: url('./assets/instagram.svg');
+  }
+}
+
 </style>
