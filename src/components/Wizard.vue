@@ -14,7 +14,7 @@
           <v-stepper-content step="1">
             <p>En nuestra plataforma vas a poder acceder, en tiempo real, a los cambios en los precios de las publicaciones de MercadoLibre.</p>
             <p>La información del sitio es actualizada constantemente para que puedas identificar cual es la mejor oferta para vos.</p>
-            <p class="font-weight-bold">Es importante que sepas que MercadoTrack no esta relacionado de ninguna manera con MercadoLibre. Somos un grupo independiente, la información que vas a encontrar en nuestro sitio es obtenida mediante las API pública de MercadoLibre.</p>
+            <p class="font-weight-bold">Es importante que sepas que MercadoTrack no esta relacionado de ninguna manera con MercadoLibre. Somos un grupo independiente, la información que vas a encontrar en nuestro sitio es obtenida mediante la API pública de MercadoLibre.</p>
             <v-btn color="primary" @click="step = 2">¿Cómo se usa?</v-btn>
             <v-btn color="primary" @click="seeLater">Ver mas tarde</v-btn>
           </v-stepper-content>
@@ -62,7 +62,7 @@
               </a>
             </p>
             <v-img class="mb-3" src=""></v-img>
-            <v-btn color="primary" @click="hide">Estoy listo!</v-btn>
+            <v-btn color="primary" @click="hide">¡Estoy listo!</v-btn>
             <v-btn flat @click="step = 3">Volver</v-btn>
           </v-stepper-content>
         </v-stepper>
