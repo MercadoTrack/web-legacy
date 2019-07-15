@@ -25,11 +25,11 @@
 
           <v-stepper-content step="2">
             <p>Podés navegar y buscar por palabra clave o navegar entre las categorías disponibles.</p>
-            <v-img src="" aspect-ratio="2"></v-img>
+            <v-img class="mb-3" :src="images.categories" aspect-ratio="2"></v-img>
             <p>Si te interesa un artículo de MercadoLibre en particular, también podes copiar y pegar su link en nuestra barra de búsqueda y presionar ´enter´.</p>
-            <v-img src="" aspect-ratio="2"></v-img>
+            <v-img class="mb-3" :src="images.searchByLink" aspect-ratio="2"></v-img>
             <p>Y esto te llevará directamente a la página del artículo en donde vas a encontrar su información y precios históricos.</p>
-            <v-img src="" aspect-ratio="2"></v-img>
+            <v-img class="mb-3" :src="images.articleView" aspect-ratio="2"></v-img>
             <v-btn color="primary" @click="step = 3">Continuar</v-btn>
             <v-btn flat @click="step = 1">Volver</v-btn>
           </v-stepper-content>
@@ -39,16 +39,16 @@
           <v-stepper-content step="3">
             <p>Podés clickear el ícono de corazón junto al título de cada artículo para guardarlo en caso de que quieras consultarlo luego.</p>
             <p>¡Importante! Recordá que para hacerlo tendrás que iniciar sesión.</p>
-            <v-img src="" aspect-ratio="2"></v-img>
+            <v-img class="mb-3" :src="images.favoriteIcon" aspect-ratio="2"></v-img>
             <p>Si ya estás registrado e iniciaste sesión, podrás acceder y editar todos tus favoritos desde <router-link to="/favoritos" target="_blank">Mi Cuenta > Favoritos</router-link></p>
-            <v-img src="" aspect-ratio="2"></v-img>
+            <v-img class="mb-3" :src="images.favoritesView" aspect-ratio="2"></v-img>
             <v-btn color="primary" @click="step = 4">Continuar</v-btn>
             <v-btn flat @click="step = 2">Volver</v-btn>
           </v-stepper-content>
 
           <v-stepper-step step="4">Compartí</v-stepper-step>
           <v-stepper-content step="4">
-            <v-img src="" aspect-ratio="2"></v-img>
+            <v-img class="mb-3" src="" aspect-ratio="2"></v-img>
             <v-btn color="primary" @click="hide">Estoy listo!</v-btn>
             <v-btn flat @click="step = 3">Volver</v-btn>
           </v-stepper-content>
@@ -59,10 +59,12 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import * as images from '../assets/wizard'
 
 export default {
   name: 'wizard',
   data: () => ({
+    images,
     step: null
   }),
   computed: {
