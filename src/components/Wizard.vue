@@ -61,7 +61,6 @@
                 <v-icon color="primary" size="2rem">mail</v-icon>
               </a>
             </p>
-            <v-img class="mb-3" src=""></v-img>
             <v-btn color="primary" @click="hide">¡Estoy listo!</v-btn>
             <v-btn flat @click="step = 3">Volver</v-btn>
           </v-stepper-content>
