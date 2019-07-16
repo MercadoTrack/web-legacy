@@ -11,9 +11,22 @@
               <EmptyArticleCard />
             </v-flex>
           </v-layout>
-          <v-layout v-else key="article-cards" wrap>
+          <!-- showing results -->
+          <v-layout v-else-if="page && page.length" key="article-cards" wrap>
             <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
               <ArticleCard :article="article"/>
+            </v-flex>
+          </v-layout>
+          <!-- no results -->
+          <v-layout v-else-if="page" key="article-cards" wrap>
+            <v-flex xs12 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
+              <h3 class="subheading text-xs-center">
+                No se encontraron artículos activos
+                <span v-if="$route.query.search">para <pre class="d-inline-block">'{{ $route.query.search }}'</pre></span>
+                <span v-if="$route.query.category">en esta categoría.</span>
+                <span v-else>.</span> <!-- final dot just in case -->
+                <span class="d-block">Probá con otra búsqueda.</span>
+              </h3>
             </v-flex>
           </v-layout>
         </v-flex>
