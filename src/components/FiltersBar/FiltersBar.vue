@@ -1,10 +1,11 @@
 <template>
   <v-layout wrap class="px-3">
-    <v-flex xs12 style="display: flex;">
-      <div>
+    <v-flex xs12 style="display: flex;" :class="$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-1'">
+      <div v-show="$vuetify.breakpoint.smAndUp">
         <Chips v-on:remove-chip="removeChip" />
       </div>
-      <v-btn icon dark color="primary" @click="toggleShow()" class="ml-auto">
+      <v-btn flat dark color="primary" @click="toggleShow()" class="ml-auto mr-0">
+        <span class="mr-2">Filtros</span>
         <v-fade-transition leave-absolute>
           <v-icon key="less" v-if="expand">expand_less</v-icon>
           <v-icon key="filter" v-else>filter_list</v-icon>
