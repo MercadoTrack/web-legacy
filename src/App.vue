@@ -46,7 +46,9 @@ export default {
     }
   },
   mounted () {
-    this.onResize()
+    // using setTimeout instead of nextTick because of bad
+    // clientHeight calculations on first render
+    setTimeout(() => this.onResize(), 100)
     window.addEventListener('resize', this.onResize)
     this.$store.dispatch('meta/getBase')
     initAuth()
