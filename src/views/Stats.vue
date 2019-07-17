@@ -7,7 +7,7 @@
             <v-progress-linear color="info darken-2" height="10" :value="percentage"></v-progress-linear>
             <v-layout wrap justify-center>
               <h1 class="subheading">
-                <span class="font-weight-black">{{ processed }}</span> artículos procesados de
+                <span class="font-weight-black">{{ processed }}</span> artículos actualizados de
                 <span class="font-weight-black">{{ total }}</span>
               </h1>
               <v-flex xs12>
@@ -26,15 +26,15 @@
                     </v-list-tile>
                     <v-list-tile>
                       <v-list-tile-content>Tiempo estimado para terminar:</v-list-tile-content>
-                      <v-list-tile-content class="align-end text-xs-right">~{{ etc }}</v-list-tile-content>
+                      <v-list-tile-content class="align-end text-xs-right">aprox. {{ etc | minutesFilter }}</v-list-tile-content>
                     </v-list-tile>
-                    <div class="px-3" :style="{ 'margin-left': errors.length ? '-6px' : '-30px' }">
+                    <!-- <div class="px-3" :style="{ 'margin-left': errors.length ? '-6px' : '-30px' }">
                       <v-treeview :items="errorsTree">
                         <template slot="prepend" slot-scope="{ item }" leaf>
                           <v-icon v-if="!item.children">error</v-icon>
                         </template>
                       </v-treeview>
-                    </div>
+                    </div> -->
                   </v-list>
                 </v-card>
               </v-flex>
@@ -69,7 +69,7 @@ export default {
     getSync () {
       return api.getSyncStatus().then(({ data }) => {
         const [ , processed, total ] = data.progress.progress.match(/(\d+)\/(\d+)/)
-        this.percentage = new Intl.NumberFormat('de-DE').format((+processed * 100 / +total).toFixed(3))
+        this.percentage = new Intl.NumberFormat('de-DE').format((+processed * 100 / +total).toFixed(2))
         this.total = new Intl.NumberFormat('de-DE').format(+total)
         this.processed = new Intl.NumberFormat('de-DE').format(+processed)
         this.etc = data.progress.etc
