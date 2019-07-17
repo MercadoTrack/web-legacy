@@ -1,4 +1,3 @@
-import { Auth0Lock } from 'auth0-lock'
 import qs from 'query-string'
 import { getUser, setToken, unsetToken } from './auth'
 import { CLIENT_ID, ROUTES } from './authConstants'
