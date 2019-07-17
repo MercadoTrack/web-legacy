@@ -27,6 +27,14 @@ class Api {
   followArticle (id) {
     // TODO: update when api route changes
     return this.instance.post('/articles/follow', { id })
+      .then((res) => {
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'Article',
+          eventAction: 'follow',
+        })
+        return res
+      })
   }
 
   async getOrFollowArticle (id) {

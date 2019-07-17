@@ -14,6 +14,7 @@ module.exports = {
   },
   globals: {
     Auth0Lock: 'readonly',
+    ga: 'readonly',
   },
   parserOptions: {
     parser: 'babel-eslint'
