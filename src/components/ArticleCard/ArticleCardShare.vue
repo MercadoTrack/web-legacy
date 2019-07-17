@@ -47,6 +47,9 @@ export default {
         this.isFavorite = !this.isFavorite
         const { data: favorites } = await api.toggleFavorite(this.article.id)
         this.updateFavorites(favorites)
+        if (this.isFavorite) {
+          this.$store.commit('snackbar/favoritesAdded')
+        }
       }
     }
   },

@@ -152,6 +152,9 @@ export default {
         this.isFavorite = !this.isFavorite
         const { data: favorites } = await api.toggleFavorite(this.article.id)
         this.updateFavorites(favorites) // this should be an action probably
+        if (this.isFavorite) {
+          this.$store.commit('snackbar/favoritesAdded')
+        }
       }
     }
   },
