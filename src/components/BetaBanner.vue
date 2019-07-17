@@ -25,6 +25,11 @@ export default {
   name: 'banner',
   methods: {
     close () {
+      this.$ga.event({
+        eventCategory: 'Banner',
+        eventAction: 'dismiss',
+        eventLabel: this.$route.name,
+      })
       this.$emit('close')
     }
   },
