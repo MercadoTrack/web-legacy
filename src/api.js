@@ -81,6 +81,17 @@ class Api {
 
   removeFavorites (articleIds) {
     return this.instance.delete('/user/favorites', { data: { articleIds } })
+      .then(res => {
+        articleIds.forEach(id => {
+          ga('send', {
+            hitType: 'event',
+            eventCategory: 'Favorites',
+            eventAction: 'remove',
+            eventLabel: id,
+          })
+        })
+        return res
+      })
   }
 
   getSyncStatus () {
