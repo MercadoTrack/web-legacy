@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getTokens } from './utils/auth'
+import store from './store'
 
 class Api {
   constructor () {
@@ -25,13 +26,14 @@ class Api {
   }
 
   followArticle (id) {
-    // TODO: update when api route changes
     return this.instance.post('/articles/follow', { id })
       .then((res) => {
+        const { user } = store.state.auth
         ga('send', {
           hitType: 'event',
           eventCategory: 'Article',
           eventAction: 'follow',
+          eventLabel: user.email,
         })
         return res
       })
