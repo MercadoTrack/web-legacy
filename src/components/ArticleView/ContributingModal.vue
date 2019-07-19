@@ -47,11 +47,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isAuthenticated: 'auth/isAuthenticated'
+      showingWizard: 'wizard/show',
+      isAuthenticated: 'auth/isAuthenticated',
     }),
     dialog: {
       get () {
-        return this.show
+        return this.show && !this.showingWizard
       },
       set (val) {
         this.$emit('update:show', val)
