@@ -8,7 +8,9 @@
         </vue-page-transition>
       </div>
     <Footer />
+    <Wizard />
     <Snackbar />
+    <FloatingHelp />
   </v-app>
 </template>
 
@@ -18,6 +20,8 @@ import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
 import Snackbar from './components/Snackbar'
 import BetaBanner from './components/BetaBanner'
+import Wizard from './components/Wizard'
+import FloatingHelp from './components/FloatingHelp'
 
 export default {
   name: 'app',
@@ -26,6 +30,8 @@ export default {
     ToolBar,
     Snackbar,
     BetaBanner,
+    Wizard,
+    FloatingHelp,
   },
   data: () => ({
     bannerOffset: 0,
@@ -145,6 +151,21 @@ figure {
         color: var(--v-secondary-base);
       }
     }
+  }
+}
+
+.social {
+  &.fb {
+    background-image: url('./assets/facebook.svg');
+  }
+  &.tw {
+    background-image: url('./assets/twitter.svg');
+    &.light {
+      background-image: url('./assets/twitter_light.svg');
+    }
+  }
+  &.ig {
+    background-image: url('./assets/instagram.svg');
   }
 }
 
