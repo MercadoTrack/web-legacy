@@ -4,12 +4,31 @@
       <v-layout wrap justify-center>
         <v-fade-transition mode="out-in" tag="div" class="flex xs12">
           <v-flex v-if="etc" xs12>
-            <v-progress-linear color="info darken-2" height="10" :value="percentage"></v-progress-linear>
-            <v-layout wrap justify-center>
-              <h1 class="subheading">
-                <span class="font-weight-black">{{ processed }}</span> artículos actualizados de
-                <span class="font-weight-black">{{ total }}</span>
-              </h1>
+             <v-layout wrap justify-start align-center class="px-5 py-3">
+               <h1 class="subheading px-5 py-3">
+                  Para poder mostrarte siempre los precios actualizados de los productos trackeados nuestro sincronizador esta corriendo las <b>24Hs</b>, chequeando cada variacion de precio que los vendedores hagan en MercadoLibre.
+                </h1>
+                <h1 class="subheading px-5 py-3">
+                  Para ello utilizamos las APIs publicas de MercadoLibre, esta informacion es <b>publica</b> y de esta forma te estamos garantizando que nuestra fuente de informacion es <b>confiable</b>.
+                </h1>
+             </v-layout>
+            <v-layout wrap justify-center align-center>
+              <v-progress-circular
+                :rotate="-90"
+                :size="170"
+                :width="20"
+                color="info darken-2"
+                height="10"
+                :value="percentage"><span class="font-weight-black">{{ percentage }} %</span>
+              </v-progress-circular>
+              <div class="px-4">
+                <h1 class="subheading">
+                  <span class="font-weight-black">{{ processed }}</span> artículos actualizados
+                </h1>
+                <h1 class="subheading">
+                  <span class="font-weight-black">{{ pending }}</span> artículos restantes
+                </h1>
+              </div>
               <v-flex xs12>
                 <v-divider class="my-4"></v-divider>
                 <v-card>
@@ -72,6 +91,7 @@ export default {
         this.percentage = new Intl.NumberFormat('de-DE').format((+processed * 100 / +total).toFixed(2))
         this.total = new Intl.NumberFormat('de-DE').format(+total)
         this.processed = new Intl.NumberFormat('de-DE').format(+processed)
+        this.pending = new Intl.NumberFormat('de-DE').format(+total - +processed);
         this.etc = data.progress.etc
         this.timeRunning = data.progress.timeRunning
         this.errorsCount = data.progress.errorsCount
