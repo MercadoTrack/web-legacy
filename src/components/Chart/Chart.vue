@@ -6,6 +6,7 @@
 import { format } from 'date-fns'
 import Chart from 'chart.js'
 import 'chartjs-plugin-trendline'
+import { ArticlesHelper } from '../../utils/articlesHelper'
 import _inflation from './inflation-mock.json'
 
 export default {
@@ -20,41 +21,16 @@ export default {
   */
   mounted () {
     const ctx = document.getElementById('myChart').getContext('2d')
-    const [ firstSnapshot ] = this.history
     const lastSnapshot = this.history[this.history.length - 1]
     const todaySnapshot = {
       date: format(new Date(), 'DD/MM/YYYY'),
       fluctuation: 0,
       price: lastSnapshot.price
     }
+    const estimatedPricesWithInflation = ArticlesHelper.getEstimatedPricesWithInflation(_inflation, this.history)
     const history = lastSnapshot.date !== todaySnapshot.date
       ? [...this.history, todaySnapshot]
       : this.history
-
-    const index = _inflation.findIndex(({ d }) => {
-      const [ , snapMonth, snapYear ] = firstSnapshot.date.split('/')
-      const [ inflYear, inflMonth ] = d.split('-')
-      return inflYear === snapYear && snapMonth === inflMonth
-    })
-
-    let final = []
-    if (index > -1) {
-      let prevPrice = null
-      // real inflation month by month with correct accumulative price
-      const accInflation = _inflation.slice(index).map(({ v, d }) => {
-        const [ year, month ] = d.split('-')
-        const transformedDate = [ month, year ].join('/')
-        // should use current or previous inflation data?
-        const price = prevPrice ? prevPrice + Math.floor(v * prevPrice / 100) : firstSnapshot.price
-        prevPrice = price
-        return ({ price, date: transformedDate })
-      })
-      // presentational inflation with mapped comparation with article history
-      final = history.map((snap) => {
-        const estimatedInflation = accInflation.find(({ date }) => snap.date.includes(date))
-        return estimatedInflation && estimatedInflation.price
-      }).filter(Boolean)
-    }
 
     this.chart = new Chart(ctx, {
       type: 'line',
@@ -76,7 +52,7 @@ export default {
           },
           {
             label: 'Esperado inflación',
-            data: final,
+            data: estimatedPricesWithInflation,
             borderDash: [4, 4],
             borderColor: 'gray',
             backgroundColor: 'gray',

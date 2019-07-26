@@ -73,7 +73,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import api from '../api'
-import Chart from '../components/Chart'
+import { Chart } from '../components/Chart'
 import { login } from '../utils/auth'
 import {
   ArticleCarousel,
