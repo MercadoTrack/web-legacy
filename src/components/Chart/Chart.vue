@@ -65,6 +65,13 @@ export default {
       },
       options: {
         responsive: true,
+        legend: {
+          labels: {
+            boxWidth: 15,
+            fontSize: 13,
+            // usePointStyle: true,
+          }
+        },
         tooltips: {
           titleFontFamily: 'Roboto',
           titleFontSize: 14,
@@ -91,9 +98,16 @@ export default {
           }
         },
         scales: {
+          xAxes: [{
+            ticks: {
+              fontSize: 12,
+            }
+          }],
           yAxes: [{
             ticks: {
+              fontSize: 12,
               beginAtZero: false,
+              callback: (value) => this.$options.filters.priceFilter(+value)
             }
           }]
         }
