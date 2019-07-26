@@ -20,6 +20,7 @@ export default {
   */
   mounted () {
     const ctx = document.getElementById('myChart').getContext('2d')
+    const [ firstSnapshot ] = this.history
     const lastSnapshot = this.history[this.history.length - 1]
     const todaySnapshot = {
       date: format(new Date(), 'DD/MM/YYYY'),
@@ -30,27 +31,30 @@ export default {
       ? [...this.history, todaySnapshot]
       : this.history
 
-    let lastFoundInflation = null
-    let lastCalculatedInflationPrice = null
-    const inflation = history.map(({ date, price }) => {
-      const [ , histMonth, histYear ] = date.split('/')
-      const inflationInDate = _inflation.find(({ d }) => {
-        const [ inflYear, inflMonth ] = d.split('-')
-        return inflYear === histYear && histMonth === inflMonth
+    const index = _inflation.findIndex(({ d }) => {
+      const [ , snapMonth, snapYear ] = firstSnapshot.date.split('/')
+      const [ inflYear, inflMonth ] = d.split('-')
+      return inflYear === snapYear && snapMonth === inflMonth
+    })
+
+    let final = []
+    if (index > -1) {
+      let prevPrice = null
+      // real inflation month by month with correct accumulative price
+      const accInflation = _inflation.slice(index).map(({ v, d }) => {
+        const [ year, month ] = d.split('-')
+        const transformedDate = [ month, year ].join('/')
+        // should use current or previous inflation data?
+        const price = prevPrice ? prevPrice + Math.floor(v * prevPrice / 100) : firstSnapshot.price
+        prevPrice = price
+        return ({ price, date: transformedDate })
       })
-      if (!inflationInDate) return
-      if (!lastFoundInflation) {
-        lastFoundInflation = inflationInDate
-        lastCalculatedInflationPrice = price
-        return price
-      }
-      if (lastFoundInflation.d === inflationInDate.d) {
-        return lastCalculatedInflationPrice
-      }
-      lastCalculatedInflationPrice = lastCalculatedInflationPrice + Math.floor(inflationInDate.v * lastCalculatedInflationPrice / 100)
-      lastFoundInflation = inflationInDate
-      return lastCalculatedInflationPrice
-    }).filter(Boolean)
+      // presentational inflation with mapped comparation with article history
+      final = history.map((snap) => {
+        const estimatedInflation = accInflation.find(({ date }) => snap.date.includes(date))
+        return estimatedInflation && estimatedInflation.price
+      }).filter(Boolean)
+    }
 
     this.chart = new Chart(ctx, {
       type: 'line',
@@ -71,16 +75,39 @@ export default {
             }
           },
           {
-            label: 'Esperado inflacion',
-            data: inflation,
+            label: 'Esperado inflación',
+            data: final,
+            borderDash: [4, 4],
             borderColor: 'gray',
             backgroundColor: 'gray',
             borderWidth: 1,
-            pointHitRadius: 17,
+            pointHitRadius: 10,
+            pointStyle: 'rectRot',
+            pointRadius: 0
           }
         ]
       },
       options: {
+        responsive: true,
+        tooltips: {
+          titleFontFamily: 'Roboto',
+          titleFontSize: 14,
+          titleMarginBottom: 10,
+          bodyFontFamily: 'Roboto',
+          bodyFontSize: 14,
+          bodySpacing: 8,
+          yPadding: 16,
+          xPadding: 16,
+          mode: 'index',
+          intersect: true,
+          callbacks: {
+            label: (tooltipItem, data) => {
+              const price = this.$options.filters.priceFilter(+tooltipItem.value)
+              const { label } = data.datasets[tooltipItem.datasetIndex]
+              return `${label}: ${price}`
+            }
+          }
+        },
         elements: {
           line: {
             tension: 0.15,
