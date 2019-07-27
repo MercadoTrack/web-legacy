@@ -7,7 +7,6 @@
         clearable
         hide-details
         v-model="priceMin"
-        placeholder="..."
         prefix="$"
       ></v-text-field>
     </v-flex>
@@ -18,7 +17,6 @@
         clearable
         hide-details
         v-model="priceMax"
-        placeholder="..."
         prefix="$"
       ></v-text-field>
     </v-flex>

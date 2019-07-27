@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap>
     <v-flex xs12>
-      <v-select :items="statuses" v-model="_status" label="Estado" clearable></v-select>
+      <v-select :items="statuses" v-model="_status" label="Estado" placeholder=" " clearable></v-select>
     </v-flex>
   </v-layout>
 </template>
