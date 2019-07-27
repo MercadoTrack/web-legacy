@@ -2,23 +2,23 @@
   <v-layout wrap>
     <v-flex xs6 class="pr-2">
       <v-text-field
-        label="Precio minimo"
+        label="Desde"
         type="number"
         clearable
         hide-details
         v-model="priceMin"
-        placeholder="-"
+        placeholder="..."
         prefix="$"
       ></v-text-field>
     </v-flex>
     <v-flex xs6 class="pl-2">
       <v-text-field
-        label="Precio maximo"
+        label="Hasta"
         type="number"
         clearable
         hide-details
         v-model="priceMax"
-        placeholder="-"
+        placeholder="..."
         prefix="$"
       ></v-text-field>
     </v-flex>

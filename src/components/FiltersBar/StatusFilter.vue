@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap>
     <v-flex xs12>
-      <v-select :items="statuses" v-model="_status" label="Estado"></v-select>
+      <v-select :items="statuses" v-model="_status" label="Estado" clearable></v-select>
     </v-flex>
   </v-layout>
 </template>
@@ -10,7 +10,7 @@
 import { statuses } from '../../utils/articlesHelper'
 
 export default {
-  name: 'PriceFilter',
+  name: 'StatusFilter',
   props: ['status'],
   data: () => ({
     statuses: Object.keys(statuses)

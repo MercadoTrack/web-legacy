@@ -37,14 +37,14 @@ export default {
     toggleShow () {
       this.expand = !this.expand
     },
-    applyFilters (filters) {
+    applyFilters (filtersToApply) {
       const query = {}
       for (const param in this.$route.query) {
         if (!filtersKeys.includes(param)) {
           query[param] = this.$route.query[param]
         }
       }
-      Object.assign(query, filters)
+      Object.assign(query, filtersToApply)
       this.$router.push({ name: 'search', query })
       this.expand = false
     },

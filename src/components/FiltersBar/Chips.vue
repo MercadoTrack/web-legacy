@@ -13,6 +13,9 @@
       <span v-else-if="key == 'priceMax'">
         Hasta {{ value | priceFilter }}
       </span>
+      <span v-else-if="key == 'withPublishedDiscount'">
+        Con descuento publicado
+      </span>
       <span v-else class="text-capitalize">{{ value }}</span>
     </v-chip>
   </div>
