@@ -46,6 +46,7 @@ export default {
       }
       Object.assign(query, filters)
       this.$router.push({ name: 'search', query })
+      this.expand = false
     },
     removeChip (key) {
       const query = {}

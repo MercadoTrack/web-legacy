@@ -2,23 +2,23 @@
   <v-layout wrap>
     <v-flex xs6 class="pr-2">
       <v-text-field
+        label="Precio minimo"
         type="number"
         clearable
-        solo
         hide-details
         v-model="priceMin"
-        placeholder="Desde"
+        placeholder="-"
         prefix="$"
       ></v-text-field>
     </v-flex>
     <v-flex xs6 class="pl-2">
       <v-text-field
+        label="Precio maximo"
         type="number"
         clearable
-        solo
         hide-details
         v-model="priceMax"
-        placeholder="Hasta"
+        placeholder="-"
         prefix="$"
       ></v-text-field>
     </v-flex>
@@ -39,7 +39,7 @@ export default {
       },
       set (min) {
         const { max } = this.price
-        if (min > max) {
+        if (min && max && +min > +max) {
           this.$emit('update:error', 'El precio minimo es mayor al precio máximo.')
           return
         }
@@ -53,7 +53,7 @@ export default {
       },
       set (max) {
         const { min } = this.price
-        if (max < min) {
+        if (min && max && +max < +min) {
           this.$emit('update:error', 'El precio máximo es menor al precio mínimo.')
           return
         }
