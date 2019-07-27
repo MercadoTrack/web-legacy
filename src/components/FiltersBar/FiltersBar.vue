@@ -15,7 +15,12 @@
     <v-flex xs12 class="mb-3">
       <v-expand-transition>
         <v-form v-show="expand">
-          <Filters v-on:apply-filters="applyFilters" />
+          <div>
+            <div v-show="$vuetify.breakpoint.xsOnly">
+              <Chips class="mt-3 mb-4" v-on:remove-chip="removeChip" />
+            </div>
+            <Filters v-on:apply-filters="applyFilters" />
+          </div>
         </v-form>
       </v-expand-transition>
     </v-flex>
