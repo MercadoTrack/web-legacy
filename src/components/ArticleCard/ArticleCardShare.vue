@@ -46,7 +46,15 @@ export default {
       } else {
         this.isFavorite = !this.isFavorite
         const { data: favorites } = await api.toggleFavorite(this.article.id)
+        this.$ga.event({
+          eventCategory: 'Favorites',
+          eventAction: this.isFavorite ? 'add' : 'remove',
+          eventLabel: this.article.id,
+        })
         this.updateFavorites(favorites)
+        if (this.isFavorite) {
+          this.$store.commit('snackbar/favoritesAdded')
+        }
       }
     }
   },

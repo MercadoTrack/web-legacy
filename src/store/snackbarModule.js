@@ -17,6 +17,15 @@ export default {
       state.text = ''
       state.timeout = defaultTimeout
     },
+    favoritesAdded (state, article) {
+      state.show = true
+      state.text = `Artículo agregado a favoritos 🎉`
+      state.timeout = defaultTimeout
+      state.right = true
+      state.bottom = true
+      state.left = false
+      state.top = false
+    },
     favoritesDeleted (state, amount) {
       state.show = true
       state.text = amount === 1 ? 'Favorito eliminado' : `${amount} favoritos eliminados`
