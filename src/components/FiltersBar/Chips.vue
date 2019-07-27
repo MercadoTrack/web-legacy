@@ -13,7 +13,7 @@
       <span v-else-if="key == 'priceMax'">
         Hasta {{ value | priceFilter }}
       </span>
-      <span v-else>{{ value }}</span>
+      <span v-else class="text-capitalize">{{ value }}</span>
     </v-chip>
   </div>
 </template>

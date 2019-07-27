@@ -154,6 +154,11 @@ figure {
   }
 }
 
+.v-list__tile__title,
+.v-select__selection {
+  text-transform: capitalize;
+}
+
 input[type="number"] {
   -moz-appearance:textfield;
 }
