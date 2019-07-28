@@ -57,7 +57,7 @@
             </v-list-tile-title>
           </template>
 
-          <span>Es el cambio de valor del artículo en base a su precio anterior</span>
+          <span>Es el cambio de precio del artículo en base a su precio anterior</span>
         </v-tooltip>
       </v-list-tile-content>
     </v-list-tile>
