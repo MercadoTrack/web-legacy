@@ -28,7 +28,7 @@
         <v-tooltip right max-width="25rem">
           <!-- has fluctuation -->
           <template v-if="fluctuation < 0" slot="activator">
-            <v-list-tile-sub-title class="font-weight-light">Descuento</v-list-tile-sub-title>
+            <v-list-tile-sub-title class="font-weight-light">Bajó</v-list-tile-sub-title>
             <v-list-tile-title class="fluctuation-title green--text text--lighten-2">
               <span class="mr-1">{{ Math.abs(fluctuation) }}%</span>
               <v-icon color="green lighten-2">mood</v-icon>
@@ -36,14 +36,14 @@
           </template>
           <!-- no fluctuation -->
           <template v-else-if="!fluctuation && previousPrice" slot="activator">
-            <v-list-tile-sub-title class="font-weight-light">Sin descuento</v-list-tile-sub-title>
+            <v-list-tile-sub-title class="font-weight-light">Sin cambios</v-list-tile-sub-title>
             <v-list-tile-title class="fluctuation-title yellow--text text--darken-2">
               <v-icon>sentiment_satisfied</v-icon>
             </v-list-tile-title>
           </template>
           <!-- price increased -->
           <template v-else-if="fluctuation" slot="activator">
-            <v-list-tile-sub-title class="font-weight-light">Aumento</v-list-tile-sub-title>
+            <v-list-tile-sub-title class="font-weight-light">Subió</v-list-tile-sub-title>
             <v-list-tile-title class="fluctuation-title red--text text--lighten-2">
               <span class="mr-1">{{ Math.abs(fluctuation) }}%</span>
               <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
@@ -57,7 +57,7 @@
             </v-list-tile-title>
           </template>
 
-          <span>Es el descuento o aumento real del artículo en base a su precio anterior</span>
+          <span>Es el cambio de valor del artículo en base a su precio anterior</span>
         </v-tooltip>
       </v-list-tile-content>
     </v-list-tile>
