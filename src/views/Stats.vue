@@ -21,7 +21,7 @@
                 height="10"
                 :value="percentage"><span class="font-weight-black">{{ percentage }} %</span>
               </v-progress-circular>
-              <div class="mx-4 my-3">
+              <div class="mx-4 mt-3">
                 <p class="subheading mb-1">
                   <span class="font-weight-black mr-2">{{ processed }}</span>
                   <span>artículos actualizados</span>
