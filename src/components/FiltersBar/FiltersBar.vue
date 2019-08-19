@@ -12,15 +12,13 @@
         </v-fade-transition>
       </v-btn>
     </v-flex>
-    <v-flex xs12 class="mb-3">
+    <v-flex xs12>
       <v-expand-transition>
         <v-form v-show="expand">
-          <div>
-            <div v-show="$vuetify.breakpoint.xsOnly">
-              <Chips class="mt-3 mb-4" v-on:remove-chip="removeChip" />
-            </div>
-            <Filters v-on:apply-filters="applyFilters" />
+          <div v-show="$vuetify.breakpoint.xsOnly">
+            <Chips class="mb-4" v-on:remove-chip="removeChip" />
           </div>
+          <Filters v-on:apply-filters="applyFilters" />
         </v-form>
       </v-expand-transition>
     </v-flex>

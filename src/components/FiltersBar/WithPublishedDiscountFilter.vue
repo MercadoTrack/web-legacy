@@ -1,7 +1,7 @@
 <template>
-  <v-layout wrap>
+  <v-layout wrap class="discount-filter">
     <v-flex xs12>
-      <v-checkbox v-model="_withPublishedDiscount" label="Con descuento publicado"></v-checkbox>
+      <v-checkbox v-model="_withPublishedDiscount" label="Con descuento publicado" hide-details></v-checkbox>
     </v-flex>
   </v-layout>
 </template>
@@ -22,3 +22,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  .discount-filter .v-input__control {
+    margin-left: auto;
+  }
+</style>

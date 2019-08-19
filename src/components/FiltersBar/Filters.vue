@@ -1,16 +1,14 @@
 <template>
   <v-layout wrap>
     <!-- price filter -->
-    <v-flex xs12 sm5 lg3>
+    <v-flex xs12 sm5 lg4>
       <PriceFilter :price.sync="price" :error.sync="priceError" />
     </v-flex>
-    <v-flex xs12 sm5 offset-sm1 lg3 offset-lg1>
-      <StatusFilter :status.sync="status" />
-    </v-flex>
-    <v-flex xs12 sm5 lg3 offset-lg1>
+    <!-- with published discount filter -->
+    <v-flex xs12 sm5 lg4 offset-sm2 offset-lg4 class="pt-2">
       <WithPublishedDiscountFilter :with-published-discount.sync="withPublishedDiscount" />
     </v-flex>
-    <v-flex xs12 class="mt-3" style="display: flex;">
+    <v-flex xs12 class="my-3" style="display: flex;">
       <v-btn color="primary" class="ml-auto mr-0" @click="applyFilters()" :disabled="error">
         Aplicar
       </v-btn>
