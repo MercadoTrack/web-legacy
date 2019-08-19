@@ -1,5 +1,8 @@
 <template>
   <v-layout wrap>
+    <v-flex xs12 class="my-3">
+      <v-divider></v-divider>
+    </v-flex>
     <!-- price filter -->
     <v-flex xs12 sm5 lg4>
       <PriceFilter :price.sync="price" :error.sync="priceError" />

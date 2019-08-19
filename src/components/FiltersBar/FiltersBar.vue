@@ -1,6 +1,6 @@
 <template>
   <v-layout wrap class="px-3">
-    <v-flex xs12 style="display: flex;" :class="$vuetify.breakpoint.smAndUp ? 'mb-3' : 'mb-1'">
+    <v-flex xs12 style="display: flex;" class="mb-1">
       <div v-show="$vuetify.breakpoint.smAndUp">
         <Chips v-on:remove-chip="removeChip" />
       </div>
@@ -16,7 +16,7 @@
       <v-expand-transition>
         <v-form v-show="expand">
           <div v-show="$vuetify.breakpoint.xsOnly">
-            <Chips class="mb-4" v-on:remove-chip="removeChip" />
+            <Chips class="mb-3" v-on:remove-chip="removeChip" />
           </div>
           <Filters v-on:apply-filters="applyFilters" />
         </v-form>
