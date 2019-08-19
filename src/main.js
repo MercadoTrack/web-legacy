@@ -15,13 +15,6 @@ sync(store, router)
 Vue.use(VuePageTransition)
 Vue.use(VueMeta)
 
-Vue.filter('minutesFilter', (totalTime) => {
-  const hours = Math.round(totalTime / 60)
-  const minutes = totalTime % 60
-
-  return `${hours} horas, ${minutes} minutos`
-})
-
 Vue.filter('priceFilter', (num) => {
   return new Intl.NumberFormat('es-AR', {
     style: 'currency',
