@@ -13,7 +13,7 @@ export default {
   data: () => ({
     chart: null,
   }),
-  props: ['history'],
+  props: ['history', 'showInflation'],
   /* 0:
     date: "09/03/2019"
     original_price: null
@@ -27,7 +27,6 @@ export default {
       fluctuation: 0,
       price: lastSnapshot.price
     }
-    const estimatedPricesWithInflation = ArticlesHelper.getEstimatedPricesWithInflation(_inflation, this.history)
     const history = lastSnapshot.date !== todaySnapshot.date
       ? [...this.history, todaySnapshot]
       : this.history
@@ -49,17 +48,6 @@ export default {
               lineStyle: 'dotted',
               width: 2
             }
-          },
-          {
-            label: 'Esperado inflación',
-            data: estimatedPricesWithInflation,
-            borderDash: [4, 4],
-            borderColor: 'gray',
-            backgroundColor: 'gray',
-            borderWidth: 1,
-            pointHitRadius: 10,
-            pointStyle: 'rectRot',
-            pointRadius: 0
           }
         ]
       },
@@ -113,6 +101,36 @@ export default {
         }
       }
     })
+  },
+  watch: {
+    showInflation: {
+      handler (show) {
+        if (show) this.addInflationData()
+        else this.removeInflationData()
+      }
+    },
+  },
+  methods: {
+    addInflationData () {
+      const estimatedPricesWithInflation = ArticlesHelper.getEstimatedPricesWithInflation(_inflation, this.history)
+      this.chart.data.datasets.push({
+        id: 'inflation',
+        label: 'Esperado inflación',
+        data: estimatedPricesWithInflation,
+        borderDash: [4, 4],
+        borderColor: 'gray',
+        backgroundColor: 'gray',
+        borderWidth: 1,
+        pointHitRadius: 10,
+        pointStyle: 'rectRot',
+        pointRadius: 0
+      })
+      this.chart.update()
+    },
+    removeInflationData () {
+      this.chart.data.datasets = this.chart.data.datasets.filter(dataset => dataset.id !== 'inflation')
+      this.chart.update()
+    }
   }
 }
 </script>

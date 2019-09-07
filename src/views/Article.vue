@@ -51,7 +51,16 @@
             </v-flex>
 
             <v-flex xs12 md8 pa-4 class="border-r" v-if="hasHistory">
-              <Chart :history="article.history" />
+              <Chart :history="article.history" :showInflation="showInflation" />
+              <v-layout row wrap>
+                <v-flex md3 offset-md9 xs4 offset-xs8>
+                  <v-spacer></v-spacer>
+                  <v-checkbox
+                    v-model="showInflation"
+                    label="Inflacion"
+                  ></v-checkbox>
+                </v-flex>
+              </v-layout>
             </v-flex>
 
             <v-flex xs12 :md4="hasHistory" pa-4>
@@ -102,6 +111,7 @@ export default {
     mlArticle: null,
     expandAttributes: false,
     showContributingModal: false,
+    showInflation: false,
   }),
   metaInfo () {
     if (!this.article) return
