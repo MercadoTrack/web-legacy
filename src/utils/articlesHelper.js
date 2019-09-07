@@ -1,4 +1,4 @@
-const statuses = {
+export const statuses = {
   active: 'activo',
   paused: 'pausado',
   closed: 'cerrado',

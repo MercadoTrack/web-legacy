@@ -154,6 +154,18 @@ figure {
   }
 }
 
+.v-list__tile__title,
+.v-select__selection {
+  text-transform: capitalize;
+}
+
+input[type="number"] {
+  -moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 .social {
   &.fb {
     background-image: url('./assets/facebook.svg');
