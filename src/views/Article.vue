@@ -134,6 +134,9 @@ export default {
         this.showContributingModal = Boolean(mtRes.justFollowed)
         const sellerRes = await api.getMlSeller(this.article.seller_id)
         this.mlSeller = sellerRes.data
+        if (this.article && this.favorites) {
+          this.isFavorite = this.favorites.includes(this.article.id)
+        }
         this.loading = false
       } catch (err) {
         if (err.response && err.response.status === 403) {
