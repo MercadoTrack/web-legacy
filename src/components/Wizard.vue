@@ -16,7 +16,7 @@
             <p>La información del sitio es actualizada constantemente para que puedas identificar cual es la mejor oferta para vos.</p>
             <p class="font-weight-bold">Es importante que sepas que MercadoTrack no esta relacionado de ninguna manera con MercadoLibre. Somos un grupo independiente, la información que vas a encontrar en nuestro sitio es obtenida mediante la API pública de MercadoLibre.</p>
             <v-btn color="primary" @click="step = 2">¿Cómo se usa?</v-btn>
-            <v-btn color="primary" @click="seeLater">Ver mas tarde</v-btn>
+            <v-btn color="primary" @click="hide">Ver mas tarde</v-btn>
           </v-stepper-content>
 
           <v-stepper-step class="pointer" :complete="step > 2" step="2" @click="step = 2">Buscar un artículo</v-stepper-step>
@@ -61,7 +61,7 @@
                 <v-icon color="primary" size="2rem">mail</v-icon>
               </a>
             </p>
-            <v-btn color="primary" @click="hide">¡Estoy listo!</v-btn>
+            <v-btn color="primary" @click="finished">¡Estoy listo!</v-btn>
             <v-btn flat @click="step = 3">Volver</v-btn>
           </v-stepper-content>
         </v-stepper>
@@ -94,9 +94,15 @@ export default {
   },
   methods: {
     ...mapMutations({
-      seeLater: 'wizard/seeLater',
       hide: 'wizard/hide'
-    })
+    }),
+    finished () {
+      this.$ga.event({
+        eventCategory: 'Wizard',
+        eventAction: 'finished',
+      })
+      this.hide()
+    }
   }
 }
 </script>

@@ -1,16 +1,11 @@
 <template>
-  <v-icon v-if="seeLater" dark size="50" color="primary" @click="showWizard">help</v-icon>
+  <v-icon dark size="50" color="primary" @click="showWizard">help</v-icon>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
-  computed: {
-    ...mapGetters({
-      seeLater: 'wizard/seeLater'
-    })
-  },
   methods: {
     ...mapMutations({
       showWizard: 'wizard/show'
