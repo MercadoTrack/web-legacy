@@ -31,7 +31,7 @@ export default {
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: history.map(({ date }) => date.slice(0, 5)),
+        labels: history.map(({ date }) => date),
         datasets: [{
           label: 'Precio',
           data: history.map(({ price }) => price),
