@@ -1,10 +1,7 @@
 <template>
   <div>
     <!-- drawer for tablet/mobile -->
-    <v-navigation-drawer
-      v-model="drawer"
-      clipped disable-resize-watcher right app
-    >
+    <v-navigation-drawer v-model="drawer" clipped disable-resize-watcher right app>
       <NavigationDrawerList />
     </v-navigation-drawer>
 
@@ -13,43 +10,70 @@
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-container class="py-0 ma-auto toolbar-container">
           <CategoriesDropdown />
-          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
-            Ofertas
-          </v-btn>
-          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
-            Vendedores destacados
-          </v-btn>
-          <v-btn flat disabled active-class light color="grey darken-3" class="px-1 font-weight-light text-capitalize">
-            Últimos agregados
-          </v-btn>
+          <v-btn
+            flat
+            disabled
+            active-class
+            light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+          >Ofertas</v-btn>
+          <v-btn
+            flat
+            disabled
+            active-class
+            light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+          >Vendedores destacados</v-btn>
+          <v-btn
+            flat
+            disabled
+            active-class
+            light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+          >Últimos agregados</v-btn>
 
           <v-spacer></v-spacer>
 
-          <v-menu v-if="isAuthenticated" offset-y left content-class="dropdown-menu" transition="slide-y-transition">
+          <v-menu
+            v-if="isAuthenticated"
+            offset-y
+            left
+            content-class="dropdown-menu"
+            transition="slide-y-transition"
+          >
             <template v-slot:activator="{ on }">
-              <v-btn flat v-on="on" color="grey darken-3" class="px-3 font-weight-light text-capitalize">
-                Mi cuenta
-              </v-btn>
+              <v-btn
+                flat
+                v-on="on"
+                color="grey darken-3"
+                class="px-3 font-weight-light text-capitalize"
+              >Mi cuenta</v-btn>
             </template>
             <v-card>
               <MyAccountList :user="user" />
             </v-card>
           </v-menu>
-          <v-btn v-else
-            flat active-class light
+          <v-btn
+            v-else
+            flat
+            active-class
+            light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
             :disabled="authenticating"
             @click="login()"
-          >
-            Ingresar
-          </v-btn>
+          >Ingresar</v-btn>
         </v-container>
       </template>
-      <v-container :class="`py-0 ma-auto toolbar-container ${$vuetify.breakpoint.smAndDown ? 'px-0' : ''}`">
+      <v-container
+        :class="`py-0 ma-auto toolbar-container ${$vuetify.breakpoint.smAndDown ? 'px-0' : ''}`"
+      >
         <v-toolbar-title :class="`${$vuetify.breakpoint.smAndUp ? 'ml-3 mr-4' : 'mr-1'}`">
           <router-link to="/" class="d-flex">
-            <img height="50" src="../../assets/mtrack_icon.svg" alt="Icono MercadoTrack">
+            <img height="50" src="../../assets/mtrack_icon.svg" alt="Icono MercadoTrack" />
           </router-link>
         </v-toolbar-title>
         <v-text-field
@@ -61,15 +85,20 @@
           v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"
-          flat solo clearable hide-details light
-        >
-        </v-text-field>
+          flat
+          solo
+          clearable
+          hide-details
+          light
+        ></v-text-field>
         <v-btn
           v-if="$vuetify.breakpoint.mdAndUp"
           to="/stats"
           color="grey darken-3"
           class="d-flex font-weight-light text-none ml-auto"
-          flat light active-class
+          flat
+          light
+          active-class
         >
           <v-icon>visibility</v-icon>
           <span class="ml-2">Sincronizacion en vivo</span>
@@ -107,15 +136,22 @@ export default {
       user: 'auth/user',
       isAuthenticated: 'auth/isAuthenticated',
       authenticating: 'auth/authenticating',
-    })
+    }),
   },
   methods: {
     login,
     search () {
       this.$refs.searchInput.blur()
       if (isLink(this.searchTerm)) {
-        const [ rawId ] = this.searchTerm.match(/(MLA-\d+)/ig) || []
-        if (!rawId) return
+        const [rawId] = this.searchTerm.match(/(MLA-\d+)/gi) || []
+        if (!rawId) {
+          if (this.searchTerm.includes('/p/ML')) {
+            this.$store.commit('snackbar/nonSupportedProduct')
+          } else {
+            this.$store.commit('snackbar/invalidSearch')
+          }
+          return
+        }
         const id = rawId.replace('-', '')
         this.$router.push(`/articulo/${id}`)
         this.searchTerm = ''
@@ -125,7 +161,7 @@ export default {
         this.$router.push({ name: 'search', query })
         this.$vuetify.goTo(0, { easing: 'easeInOutCubic' }) // scrolling to top
       }
-    }
+    },
   },
   watch: {
     '$route.query.search' (searchTerm) {
@@ -134,7 +170,7 @@ export default {
   },
   mounted () {
     this.searchTerm = this.$route.query.search || ''
-  }
+  },
 }
 </script>
 
