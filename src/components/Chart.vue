@@ -112,11 +112,14 @@ export default {
 
     const activate = () => {
       meta.controller.setHoverStyle(meta.data[selectedIndex], 0, selectedIndex)
+      
+      // Activate tooltip 
       chart.tooltip._active = [meta.data[selectedIndex]]
       chart.tooltip.update(true)
       chart.draw()
-      const { date, price } = history[selectedIndex]
 
+      // Add text for the VoiceOver reader to read on chart item focus
+      const { date, price } = history[selectedIndex]
       this.$refs.alertDayAndPriceRef.innerText = `Día ${date}. Precio ${price} pesos.`
 
       chart.render()
