@@ -66,7 +66,6 @@ export default {
       this.activate()
     },
     activate () {
-      this.meta.controller.setHoverStyle(this.meta.data[this.selectedIndex], 0, this.selectedIndex)
       // Activate tooltip
       this.chart.tooltip._active = [this.meta.data[this.selectedIndex]]
       this.chart.tooltip.update(true)
