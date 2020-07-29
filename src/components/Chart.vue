@@ -71,7 +71,7 @@ export default {
       this.chart.tooltip.update(true)
       this.chart.draw()
       // Add text for the VoiceOver reader to read on chart item focus
-      const { date, price } = history[this.selectedIndex]
+      const { date, price } = this.history[this.selectedIndex]
       this.alertDayAndPrice = `Día ${date}. Precio ${price} pesos.`
 
       this.chart.render()
