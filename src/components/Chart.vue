@@ -42,8 +42,10 @@ export default {
     this.$refs.alertDayAndPriceRef.style.position = 'absolute'
 
     // Format currency for y-axes and tooltip
-    const formatCurrency = (price) => '$' + Number(price).toFixed(0).replace(/./g, function (c, i, a) {
-      return i > 0 && c !== ',' && (a.length - i) % 3 === 0 ? '.' + c : c
+    const formatCurrency = (price) => price.toLocaleString('es-ar', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 0
     })
 
     const chart = new Chart(ctx, {
@@ -112,12 +114,10 @@ export default {
 
     const activate = () => {
       meta.controller.setHoverStyle(meta.data[selectedIndex], 0, selectedIndex)
-      
-      // Activate tooltip 
+      // Activate tooltip
       chart.tooltip._active = [meta.data[selectedIndex]]
       chart.tooltip.update(true)
       chart.draw()
-
       // Add text for the VoiceOver reader to read on chart item focus
       const { date, price } = history[selectedIndex]
       this.$refs.alertDayAndPriceRef.innerText = `Día ${date}. Precio ${price} pesos.`
