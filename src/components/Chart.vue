@@ -1,9 +1,9 @@
 
 <template>
   <div>
-    <div ref="dayRef" role="alert">
+    <div ref="alertDayAndPriceRef" role="alert">
     </div>
-    <canvas ref="chartRef" tabIndex="0" id="myChart" aria-label="grafico de precios" aria-describedby="description" width="auto" height="auto">
+    <canvas tabIndex="0" id="myChart" aria-label="grafico de precios" aria-describedby="description" width="auto" height="auto">
         <div id="description">
           Para navegar el gráfico mes a mes, y escuchar el precio que tuvo el producto en cada mes, clickear las flechas izquierda y derecha.
         </div>
@@ -38,8 +38,8 @@ export default {
       ? [...this.history, todaySnapshot]
       : this.history
 
-    this.$refs.dayRef.style.opacity = '0'
-    this.$refs.dayRef.style.position = 'absolute'
+    this.$refs.alertDayAndPriceRef.style.opacity = '0'
+    this.$refs.alertDayAndPriceRef.style.position = 'absolute'
 
     // Format currency for y-axes and tooltip
     const formatCurrency = (price) => '$' + Number(price).toFixed(0).replace(/./g, function (c, i, a) {
@@ -117,7 +117,7 @@ export default {
       chart.draw()
       const { date, price } = history[selectedIndex]
 
-      this.$refs.dayRef.innerText = `Día ${date}. Precio ${price} pesos.`
+      this.$refs.alertDayAndPriceRef.innerText = `Día ${date}. Precio ${price} pesos.`
 
       chart.render()
     }
