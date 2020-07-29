@@ -27,6 +27,9 @@ export default {
   computed: {
     meta () {
       return this.chart.getDatasetMeta(0)
+    },
+    isInDataRange () {
+      return this.selectedIndex > -1 && this.selectedIndex < this.meta.data.length
     }
   },
   methods: {
@@ -66,14 +69,15 @@ export default {
       this.activate()
     },
     activate () {
+      if (!this.isInDataRange) return
       // Activate tooltip
       this.chart.tooltip._active = [this.meta.data[this.selectedIndex]]
       this.chart.tooltip.update(true)
       this.chart.draw()
       // Add text for the VoiceOver reader to read on chart item focus
-      const { date, price } = this.history[this.selectedIndex]
+      const todaySnapshot = { date: format(new Date(), 'DD/MM/YYYY'), price: this.history[this.history.length - 1].price }
+      const { date, price } = this.history[this.selectedIndex] || todaySnapshot
       this.alertDayAndPrice = `Día ${date}. Precio ${price} pesos.`
-
       this.chart.render()
     },
     clearAll () {
