@@ -57,8 +57,8 @@ export default {
           backgroundColor: this.$vuetify.theme.primary,
           borderWidth: 1,
           pointHitRadius: 17,
-          hoverBorderWidth: 2, // for accesibility
-          hoverBorderColor: '#00288a', // for accesibility
+          hoverBorderWidth: 2, // for accessibility
+          hoverBorderColor: '#00288a', // for accessibility
           trendlineLinear: (history.length > 2) && {
             style: '#64aa64',
             lineStyle: 'dotted',
