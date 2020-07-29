@@ -21,7 +21,7 @@
             <v-flex xs12 md4 pa-4 class="border-l">
               <div>
                 <h1 class="display-1 d-inline">{{ article.title }}</h1>
-                <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite">
+                <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite" :aria-checked="isFavorite" v-on:keyup.enter="toggleFavorite" aria-label="Add to favorites" tabIndex="0" role="checkbox">
                   <v-icon v-if="isFavorite" medium color="primary">favorite</v-icon>
                   <v-icon v-else medium color="primary">favorite_border</v-icon>
                 </figure>
