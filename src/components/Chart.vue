@@ -1,9 +1,10 @@
 
 <template>
   <div>
-    <div ref="alertDayAndPriceRef" :style="{ opacity: 0, position: 'absolute' }" role="alert">
+    <div :style="{ opacity: 0, position: 'absolute' }" role="alert">
+      {{ alertDayAndPrice }}
     </div>
-    <canvas tabIndex="0" id="myChart" aria-label="grafico de precios" aria-describedby="description" width="auto" height="auto">
+    <canvas @focus="onFocus" @blur="onBlur" @keydown="onKeyDown" tabIndex="0" ref="canvasRef" aria-label="grafico de precios" aria-describedby="description" width="auto" height="auto">
         <div id="description">
           Para navegar el gráfico mes a mes, y escuchar el precio que tuvo el producto en cada mes, clickear las flechas izquierda y derecha.
         </div>
@@ -19,15 +20,79 @@ import 'chartjs-plugin-trendline'
 export default {
   data: () => ({
     chart: null,
+    alertDayAndPrice: '',
+    selectedIndex: -1
   }),
   props: ['history'],
+  computed: {
+    meta () {
+      return this.chart.getDatasetMeta(0)
+    }
+  },
+  methods: {
+    formatCurrency (price) { // Format currency for y-axes and tooltip
+      return price.toLocaleString('es-ar', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 0
+      })
+    },
+    onKeyDown (e) {
+      if (e.key === 'ArrowRight') {
+        this.activateNext()
+      } else if (e.key === 'ArrowLeft') {
+        this.activatePrev()
+      }
+    },
+    onBlur () {
+      this.clearAll()
+      this.chart.render()
+    },
+    onFocus () {
+      if (this.selectedIndex > -1) {
+        this.activateNext()
+      } else {
+        this.activate()
+      }
+    },
+    activatePrev () {
+      this.clearActive()
+      this.selectedIndex = (this.selectedIndex || this.meta.data.length) - 1
+      this.activate()
+    },
+    activateNext () {
+      this.clearActive()
+      this.selectedIndex = (this.selectedIndex + 1) % this.meta.data.length
+      this.activate()
+    },
+    activate () {
+      // Activate tooltip
+      this.chart.tooltip._active = [this.meta.data[this.selectedIndex]]
+      this.chart.tooltip.update(true)
+      this.chart.draw()
+      // Add text for the VoiceOver reader to read on chart item focus
+      const { date, price } = history[this.selectedIndex]
+      this.alertDayAndPrice = `Día ${date}. Precio ${price} pesos.`
+
+      this.chart.render()
+    },
+    clearAll () {
+      this.meta.data.forEach((item, i) => this.meta.controller.removeHoverStyle(item, 0, i))
+      this.selectedIndex = -1
+    },
+    clearActive () {
+      if (this.selectedIndex > -1) {
+        this.meta.controller.removeHoverStyle(this.meta.data[this.selectedIndex], 0, this.selectedIndex)
+      }
+    }
+  },
   /* 0:
     date: "09/03/2019"
     original_price: null
     price: 212
   */
   mounted () {
-    const ctx = document.getElementById('myChart').getContext('2d')
+    const ctx = this.$refs.canvasRef.getContext('2d')
     const lastSnapshot = this.history[this.history.length - 1]
     const todaySnapshot = {
       date: format(new Date(), 'DD/MM/YYYY'),
@@ -38,14 +103,7 @@ export default {
       ? [...this.history, todaySnapshot]
       : this.history
 
-    // Format currency for y-axes and tooltip
-    const formatCurrency = (price) => price.toLocaleString('es-ar', {
-      style: 'currency',
-      currency: 'ARS',
-      minimumFractionDigits: 0
-    })
-
-    const chart = new Chart(ctx, {
+    this.chart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: history.map(({ date }) => date),
@@ -68,8 +126,8 @@ export default {
       options: {
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
-              return formatCurrency(tooltipItem.yLabel)
+            label: (tooltipItem, data) => {
+              return this.formatCurrency(tooltipItem.yLabel)
             }
           }
         },
@@ -83,78 +141,14 @@ export default {
           yAxes: [{
             ticks: {
               beginAtZero: false,
-              callback: function (label, index, labels) {
-                return formatCurrency(label)
+              callback: (label, index, labels) => {
+                return this.formatCurrency(label)
               }
             }
           }]
         }
       }
     })
-    // Accessible chart start
-    let selectedIndex = -1
-
-    const meta = chart.getDatasetMeta(0)
-
-    var canvas = document.getElementById('myChart')
-
-    function clearActive () {
-      if (selectedIndex > -1) {
-        meta.controller.removeHoverStyle(meta.data[selectedIndex], 0, selectedIndex)
-      }
-    }
-
-    function clearAll () {
-      meta.data.forEach((item, i) => meta.controller.removeHoverStyle(item, 0, i))
-      selectedIndex = -1
-    }
-
-    const activate = () => {
-      meta.controller.setHoverStyle(meta.data[selectedIndex], 0, selectedIndex)
-      // Activate tooltip
-      chart.tooltip._active = [meta.data[selectedIndex]]
-      chart.tooltip.update(true)
-      chart.draw()
-      // Add text for the VoiceOver reader to read on chart item focus
-      const { date, price } = history[selectedIndex]
-      this.$refs.alertDayAndPriceRef.innerText = `Día ${date}. Precio ${price} pesos.`
-
-      chart.render()
-    }
-
-    function activateNext () {
-      clearActive()
-      selectedIndex = (selectedIndex + 1) % meta.data.length
-      activate()
-    }
-
-    function activatePrev () {
-      clearActive()
-      selectedIndex = (selectedIndex || meta.data.length) - 1
-      activate()
-    }
-
-    canvas.addEventListener('focus', function () {
-      if (selectedIndex > -1) {
-        activateNext()
-      } else {
-        activate()
-      }
-    })
-
-    canvas.addEventListener('blur', function () {
-      clearAll()
-      chart.render()
-    })
-
-    canvas.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') {
-        activateNext()
-      } else if (e.key === 'ArrowLeft') {
-        activatePrev()
-      }
-    })
-    // Accessible chart end
   }
 }
 </script>
