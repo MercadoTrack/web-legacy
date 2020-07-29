@@ -32,7 +32,7 @@
               <v-icon>call_made</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title @click="goToMLArticle()">Ver en MercadoLibre</v-list-tile-title>
+              <v-list-tile-title role="link" tabIndex="0" @click="goToMLArticle()" v-on:keyup.enter="goToMLArticle()" >Ver en MercadoLibre</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
 
@@ -51,7 +51,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ mlSeller.nickname }}</v-list-tile-title>
-              <v-list-tile-sub-title @click="goToSellerPage()">Ver perfil del vendedor</v-list-tile-sub-title>
+              <v-list-tile-sub-title tabIndex="0" role="link" @click="goToSellerPage()"  v-on:keyup.enter="goToSellerPage()">Ver perfil del vendedor</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
