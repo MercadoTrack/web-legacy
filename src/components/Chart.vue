@@ -66,12 +66,13 @@ export default {
       this.activate()
     },
     activate () {
+      this.meta.controller.setHoverStyle(this.meta.data[this.selectedIndex], 0, this.selectedIndex)
       // Activate tooltip
       this.chart.tooltip._active = [this.meta.data[this.selectedIndex]]
       this.chart.tooltip.update(true)
       this.chart.draw()
       // Add text for the VoiceOver reader to read on chart item focus
-      const { date, price } = history[this.selectedIndex]
+      const { date, price } = this.history[this.selectedIndex]
       this.alertDayAndPrice = `Día ${date}. Precio ${price} pesos.`
 
       this.chart.render()
