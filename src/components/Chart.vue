@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <div ref="alertDayAndPriceRef" role="alert">
+    <div ref="alertDayAndPriceRef" :style="{ opacity: 0, position: 'absolute' }" role="alert">
     </div>
     <canvas tabIndex="0" id="myChart" aria-label="grafico de precios" aria-describedby="description" width="auto" height="auto">
         <div id="description">
@@ -38,14 +38,11 @@ export default {
       ? [...this.history, todaySnapshot]
       : this.history
 
-    this.$refs.alertDayAndPriceRef.style.opacity = '0'
-    this.$refs.alertDayAndPriceRef.style.position = 'absolute'
-
     // Format currency for y-axes and tooltip
     const formatCurrency = (price) => price.toLocaleString('es-ar', {
-        style: 'currency',
-        currency: 'ARS',
-        minimumFractionDigits: 0
+      style: 'currency',
+      currency: 'ARS',
+      minimumFractionDigits: 0
     })
 
     const chart = new Chart(ctx, {
