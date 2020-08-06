@@ -84,46 +84,6 @@
                           </span>
                         </p>
 
-<<<<<<< HEAD
-              <v-list-tile
-                v-for="article in articles"
-                :key="article.id"
-                avatar
-                class="line border"
-              >
-                <v-list-tile-action>
-                  <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
-                </v-list-tile-action>
-                <v-list-tile-avatar tile="false" size="150">
-                  <img :src="getImage(article)">
-                </v-list-tile-avatar>
-                <v-list-tile-content class="ml-4">
-                  <v-list-tile-title class="title font-weight-light mb-2">{{ article.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="title font-weight-light">{{ article.price | priceFilter }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-tooltip bottom max-width="25rem">
-                  <template slot="activator">
-                    <v-list-tile-action>
-                      <v-btn icon ripple :to="`/articulo/${article.id}`">
-                        <v-icon color="grey lighten-1">show_chart</v-icon>
-                      </v-btn>
-                    </v-list-tile-action>
-                  </template>
-                    <span>Ver artículo</span>
-                </v-tooltip>
-                <v-tooltip bottom max-width="25rem">
-                  <template slot="activator">
-                    <v-list-tile-action>
-                      <v-btn icon ripple @click="remove([ article.id ])">
-                        <v-icon color="grey lighten-1">delete_outline</v-icon>
-                      </v-btn>
-                    </v-list-tile-action>
-                  </template>
-                    <span>Borrar</span>
-                </v-tooltip>
-              </v-list-tile>
-            </v-list>
-=======
                       </div>
                       <div>
                         <v-btn
@@ -151,7 +111,6 @@
                 </div>
               </div>
             </v-card>
->>>>>>> 737d7696c12bf96c6d445c7e7b1962f7ebde1957
           </v-flex>
         </v-layout>
       </v-fade-transition>
