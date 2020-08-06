@@ -107,10 +107,14 @@ export default {
       ? [...this.history, todaySnapshot]
       : this.history
 
+    if (history[3]) history[3] = { ...history[3], event: 'Hotsale' }
+    if (history[5]) history[5] = { ...history[6], event: 'Cybermonday' }
+    if (history[7]) history[7] = { ...history[8], event: 'Black Friday' }
+
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: history.map(({ date }) => date),
+        labels: history.map(({ date, event }) => { return event ? `${event} - ${date}` : date }),
         datasets: [{
           label: 'Precio',
           data: history.map(({ price }) => price),
@@ -130,10 +134,18 @@ export default {
       options: {
         tooltips: {
           callbacks: {
-            label: (tooltipItem, data) => {
+            label: (tooltipItem) => {
               return this.formatCurrency(tooltipItem.yLabel)
             }
-          }
+          },
+          custom: (tooltip) => {
+            if (!tooltip) return
+            // disable displaying the color box;
+            tooltip.displayColors = false
+          },
+        },
+        legend: {
+          display: false
         },
         elements: {
           line: {
