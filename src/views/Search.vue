@@ -5,24 +5,31 @@
         <v-flex xs12>
           <FiltersBar />
         </v-flex>
-        <v-fade-transition mode="out-in">
-          <v-flex xs12 v-show="page">
-            <v-layout wrap>
-              <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
-                <ArticleCard :article="article"/>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-fade-transition>
-        <v-fade-transition mode="out-in">
-          <v-flex xs12 v-show="searching">
-            <v-layout wrap>
-              <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 30" :key="n">
-                <EmptyArticleCard />
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-fade-transition>
+        <v-flex xs12>
+          <v-layout v-if="searching" key="empty-cards" wrap>
+            <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 30" :key="n">
+              <EmptyArticleCard />
+            </v-flex>
+          </v-layout>
+          <!-- showing results -->
+          <v-layout v-else-if="page && page.length" key="article-cards" wrap>
+            <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
+              <ArticleCard :article="article"/>
+            </v-flex>
+          </v-layout>
+          <!-- no results -->
+          <v-layout v-else-if="page" key="article-cards" wrap>
+            <v-flex xs12 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
+              <h3 class="subheading text-xs-center">
+                No se encontraron artículos activos
+                <span v-if="$route.query.search">para <pre class="d-inline-block">'{{ $route.query.search }}'</pre></span>
+                <span v-if="$route.query.category">en esta categoría.</span>
+                <span v-else>.</span> <!-- final dot just in case -->
+                <span class="d-block">Probá con otra búsqueda.</span>
+              </h3>
+            </v-flex>
+          </v-layout>
+        </v-flex>
         <v-flex xs12 mt-2 v-if="truncatedTotalPages > 1">
           <v-layout justify-center>
             <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="changePage"></v-pagination>
@@ -56,7 +63,6 @@ export default {
       truncatedTotalPages: 'search/truncatedTotalPages',
       searching: 'search/loading',
       searchResult: 'search/result',
-      categories: 'meta/categories',
     }),
     page () {
       return this.searchResult && this.searchResult.page

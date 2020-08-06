@@ -1,22 +1,18 @@
 <template>
   <v-layout wrap>
-    <!-- price filter -->
-    <v-flex xs10 sm5 xl3 v-if="price">
-      <div class="d-flex">
-        <span class="mr-3 mt-3 v-label theme--light d-flex align-center">{{ price[0] | priceFilter }}</span>
-        <v-range-slider
-          v-model="price"
-          hide-details
-          thumb-label
-          :step="100"
-          :min="100"
-          :max="10000"
-        />
-        <span class="ml-3 mt-3 v-label theme--light d-flex align-center">{{ price[1] | priceFilter }}</span>
-      </div>
+    <v-flex xs12 class="my-3">
+      <v-divider></v-divider>
     </v-flex>
-    <v-flex xs12 style="display: flex;">
-      <v-btn dark color="primary" class="ml-auto" @click="applyFilters()">
+    <!-- price filter -->
+    <v-flex xs12 sm5 lg4>
+      <PriceFilter :price.sync="price" :error.sync="priceError" />
+    </v-flex>
+    <!-- with published discount filter -->
+    <v-flex xs12 sm5 lg4 offset-sm2 offset-lg4 class="pt-2">
+      <WithPublishedDiscountFilter :with-published-discount.sync="withPublishedDiscount" />
+    </v-flex>
+    <v-flex xs12 class="my-3" style="display: flex;">
+      <v-btn color="primary" class="ml-auto mr-0" @click="applyFilters()" :disabled="error">
         Aplicar
       </v-btn>
     </v-flex>
@@ -24,51 +20,63 @@
 </template>
 
 <script>
+import PriceFilter from './PriceFilter'
+import StatusFilter from './StatusFilter'
+import WithPublishedDiscountFilter from './WithPublishedDiscountFilter'
+
 export default {
   name: 'Filters',
+  components: {
+    PriceFilter,
+    StatusFilter,
+    WithPublishedDiscountFilter,
+  },
   data: () => ({
-    price: null
+    price: {},
+    status: null,
+    withPublishedDiscount: false,
+    priceError: '',
   }),
+  computed: {
+    error () {
+      return !!this.priceError
+    }
+  },
   methods: {
     applyFilters () {
       const filtersToApply = {}
-
-      // this should be in a PriceFilter component
-      const [ priceMin, priceMax ] = this.price
-      if (priceMin !== 100 || priceMax !== 10000) {
-        if (priceMin !== 100) {
-          filtersToApply.priceMin = priceMin
-        }
-        if (priceMax !== 10000) {
-          filtersToApply.priceMax = priceMax
-        }
+      const { min, max } = this.price
+      if (min) {
+        filtersToApply.priceMin = min
       }
-
+      if (max) {
+        filtersToApply.priceMax = max
+      }
+      if (this.status) {
+        filtersToApply.status = this.status
+      }
+      if (this.withPublishedDiscount) {
+        filtersToApply.withPublishedDiscount = true
+      }
       this.$emit('apply-filters', filtersToApply)
+    },
+    onQueryUpdate (query) {
+      this.status = query.status || null
+      this.withPublishedDiscount = Boolean(query.withPublishedDiscount)
+      this.price = {
+        min: Number(query.priceMin) || null,
+        max: Number(query.priceMax) || null
+      }
     }
   },
   watch: {
     '$route.query' (query) {
-      // this should be in a PriceFilter component
-      this.price = [100, 10000]
-      if (query.priceMin) {
-        this.price[0] = Number(query.priceMin)
-      }
-      if (query.priceMax) {
-        this.price[1] = Number(query.priceMax)
-      }
+      this.onQueryUpdate(query)
     }
   },
   mounted () {
     const { query } = this.$route
-    // this should be in a PriceFilter component
-    this.price = [100, 10000]
-    if (query.priceMin) {
-      this.price[0] = Number(query.priceMin)
-    }
-    if (query.priceMax) {
-      this.price[1] = Number(query.priceMax)
-    }
+    this.onQueryUpdate(query)
   }
 }
 </script>

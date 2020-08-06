@@ -1,6 +1,5 @@
 <template>
-  <Intro v-if="showIntro" :dismiss="dismissIntro"/>
-  <v-content v-else>
+  <v-content>
     <v-container fill-height class="mt-4">
       <v-layout row wrap>
         <v-flex xs6 md12 v-for="category in mainCategories" :key="category._id">
@@ -36,8 +35,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
-import Intro from './Intro'
+import { mapGetters } from 'vuex'
 import LandingArticleCard from '../components/LandingArticleCard'
 import { CategoriesHelper } from '../utils'
 
@@ -53,19 +51,14 @@ export default {
     },
   }),
   components: {
-    Intro,
     LandingArticleCard,
   },
   computed: {
     ...mapGetters({
-      showIntro: 'intro/show',
       mainCategories: 'meta/mainCategories',
     }),
   },
   methods: {
-    ...mapMutations({
-      dismissIntro: 'intro/dismiss',
-    }),
     getCategoryIcon (category) {
       const categoryKey = CategoriesHelper.getCategoryKeyName(category.name)
       return this.icons[categoryKey]

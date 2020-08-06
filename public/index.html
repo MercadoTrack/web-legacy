@@ -27,6 +27,17 @@
       <strong>Lo lamentamos pero MercadoTrack no funciona correctamente sin JavaScript habilitado. Por favor habilitalo para continuar.</strong>
     </noscript>
     <div id="app"></div>
+    <!-- https://auth0.com/docs/analytics/integrations/google-analytics -->
+    <script>
+      window.auth0AnalyticsOptions = {
+        'google-analytics': {
+          id: 'UA-139863121-1',
+          preloaded: true
+        }
+      }
+    </script>
+    <script src="https://cdn.auth0.com/js/lock/11.16/lock.min.js"></script>
+    <script src="https://cdn.auth0.com/js/analytics/1.3.1/analytics.min.js"></script>
     <!-- built files will be auto injected -->
   </body>
 </html>
