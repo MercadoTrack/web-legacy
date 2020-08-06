@@ -18,7 +18,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile v-if="mlArticle.shipping.free_shipping">
+          <v-list-tile v-if="mlArticle.shipping && mlArticle.shipping.free_shipping">
             <v-list-tile-action>
               <v-icon>local_shipping</v-icon>
             </v-list-tile-action>
@@ -32,7 +32,7 @@
               <v-icon>call_made</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title @click="goToMLArticle()">Ver en MercadoLibre</v-list-tile-title>
+              <v-list-tile-title role="link" tabIndex="0" @click="goToMLArticle()" v-on:keyup.enter="goToMLArticle()" >Ver en MercadoLibre</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
 
@@ -51,7 +51,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ mlSeller.nickname }}</v-list-tile-title>
-              <v-list-tile-sub-title @click="goToSeller()">Ver perfil del vendedor</v-list-tile-sub-title>
+              <v-list-tile-sub-title tabIndex="0" role="link" @click="goToSellerPage()"  v-on:keyup.enter="goToSellerPage()">Ver perfil del vendedor</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -61,12 +61,14 @@
 </template>
 
 <script>
+import { ArticlesHelper } from '../../utils'
+
 export default {
   name: 'ArticleInfo',
   props: ['article', 'mlArticle', 'mlSeller'],
   computed: {
     price () {
-      return this.article.history[this.article.history.length - 1].price
+      return ArticlesHelper.price(this.article)
     },
   },
   methods: {
@@ -75,6 +77,9 @@ export default {
     },
     goToSeller () {
       this.$router.push(`/seller/${this.mlSeller.id}`)
+    },
+    goToSellerPage () {
+      window.open(this.mlSeller.permalink)
     }
   },
 }

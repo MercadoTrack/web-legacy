@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { ArticlesHelper } from '../utils'
 import { ArticleCardHeadline } from './ArticleCard'
 
 export default {
@@ -49,34 +50,24 @@ export default {
       }
     },
     price () {
-      return this.article.history[this.article.history.length - 1].price
+      return ArticlesHelper.price(this.article)
     },
     previousPrice () {
-      let previousSnapshot = this.article.history[this.article.history.length - 2]
-      return previousSnapshot && previousSnapshot.price
+      return ArticlesHelper.previousPrice(this.article)
     },
     discount () {
-      return 100 - Math.round(this.previousPrice * 100 / this.price)
+      return ArticlesHelper.fluctuation(this.article)
     },
     discountColor () {
-      return this.discount > 0 ? 'red' : 'green'
+      return ArticlesHelper.fluctuationColor(this.article)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .social {
-  height: 32px;
-  width: 32px;
-  &.fb {
-    background-image: url('../assets/facebook.svg');
-  }
-  &.tw {
-    background-image: url('../assets/twitter.svg');
-  }
-  &.ig {
-    background-image: url('../assets/instagram.svg');
-  }
+  height: 2rem;
+  width: 2rem;
 }
 .no-hover::before {
   color: transparent;

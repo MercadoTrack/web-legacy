@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="absolute" style="z-index: 1;">
     <v-layout column align-end>
-      <span v-if="hover" class="headline">
-        <v-btn fab small class="ma-0" @click="share">
+      <span class="headline">
+        <v-btn v-if="hover" fab small class="ma-0" @click="share">
           <v-icon color="primary">share</v-icon>
         </v-btn>
-        <v-btn fab small class="ma-0 ml-2" @click="toggleFavorite">
+        <v-btn v-if="hover || isFavorite" fab small class="ma-0 ml-2" @click="toggleFavorite">
           <v-icon v-if="isFavorite" color="primary">favorite</v-icon>
           <v-icon v-else color="primary">favorite_border</v-icon>
         </v-btn>
@@ -46,7 +46,15 @@ export default {
       } else {
         this.isFavorite = !this.isFavorite
         const { data: favorites } = await api.toggleFavorite(this.article.id)
+        this.$ga.event({
+          eventCategory: 'Favorites',
+          eventAction: this.isFavorite ? 'add' : 'remove',
+          eventLabel: this.article.id,
+        })
         this.updateFavorites(favorites)
+        if (this.isFavorite) {
+          this.$store.commit('snackbar/favoritesAdded')
+        }
       }
     }
   },

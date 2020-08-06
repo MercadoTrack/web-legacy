@@ -1,66 +1,71 @@
 <template>
   <v-content>
+    <ContributingModal :show.sync="showContributingModal" />
+
     <v-container>
-      <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+      <v-fade-transition mode="out-in">
+        <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
 
-      <v-card v-else elevation=0>
-        <v-layout row wrap>
+        <v-card v-else elevation=0>
+          <v-layout row wrap>
 
-          <v-flex xs12>
-            <ArticleBreadcrumb :categoryId="article.category_id" />
-            <v-divider></v-divider>
-          </v-flex>
+            <v-flex xs12>
+              <ArticleBreadcrumb :categoryId="article.category_id" />
+              <v-divider></v-divider>
+            </v-flex>
 
-          <v-flex xs12 md8 style="align-items: center; display: flex;">
-            <ArticleCarousel :images="article.images" />
-          </v-flex>
+            <v-flex xs12 md8 style="align-items: center; display: flex;">
+              <ArticleCarousel :images="article.images" />
+            </v-flex>
 
-          <v-flex xs12 md4 pa-4 class="border-l">
-            <div>
-              <h1 class="display-1 d-inline">{{ article.title }}</h1>
-              <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite">
-                <v-icon v-if="isFavorite" medium color="primary">favorite</v-icon>
-                <v-icon v-else medium color="primary">favorite_border</v-icon>
-              </figure>
-            </div>
-            <ArticleInfo :article="article" :mlArticle="mlArticle" :mlSeller="mlSeller" />
-          </v-flex>
+            <v-flex xs12 md4 pa-4 class="border-l">
+              <div>
+                <h1 class="display-1 d-inline">{{ article.title }}</h1>
+                <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite" :aria-checked="isFavorite" v-on:keyup.enter="toggleFavorite" aria-label="Add to favorites" tabIndex="0" role="checkbox">
+                  <v-icon v-if="isFavorite" medium color="primary">favorite</v-icon>
+                  <v-icon v-else medium color="primary">favorite_border</v-icon>
+                </figure>
+              </div>
+              <ArticleInfo :article="article" :mlArticle="mlArticle" :mlSeller="mlSeller" />
+            </v-flex>
 
-          <v-flex xs12>
-            <v-divider></v-divider>
-          </v-flex>
+            <v-flex xs12>
+              <v-divider></v-divider>
+            </v-flex>
 
-          <v-flex xs12 class="pa-4">
-              <h2 class="headline pointer d-inline-block" @click="expandAttributes = !expandAttributes">
-                <span>Características</span>
-                <v-icon color="grey darken-4" v-if="expandAttributes">keyboard_arrow_up</v-icon>
-                <v-icon color="grey darken-4" v-else>keyboard_arrow_down</v-icon>
+            <v-flex xs12 class="pa-4" v-if="mlArticle.attributes">
+                <h2 class="headline pointer d-inline-block" @click="expandAttributes = !expandAttributes">
+                  <span>Características</span>
+                  <v-icon color="grey darken-4" v-if="expandAttributes">keyboard_arrow_up</v-icon>
+                  <v-icon color="grey darken-4" v-else>keyboard_arrow_down</v-icon>
+                </h2>
+                <v-expand-transition>
+                  <div v-show="expandAttributes">
+                    <ArticleAttributes :attributes="mlArticle.attributes" />
+                  </div>
+                </v-expand-transition>
+            </v-flex>
+
+            <v-flex xs12>
+              <v-divider></v-divider>
+            </v-flex>
+
+            <v-flex xs12 md8 pa-4 class="border-r" v-if="hasHistory">
+              <Chart :history="article.history" />
+            </v-flex>
+
+            <v-flex xs12 :md4="hasHistory" pa-4>
+              <h2 class="headline history">
+                <span :class="{ 'ma-auto': !hasHistory }">
+                  Historial de precios
+                </span>
               </h2>
-              <v-expand-transition>
-                <div v-show="expandAttributes">
-                  <ArticleAttributes :attributes="mlArticle.attributes" />
-                </div>
-              </v-expand-transition>
-          </v-flex>
+              <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
+            </v-flex>
 
-          <v-flex xs12>
-            <v-divider></v-divider>
-          </v-flex>
-
-          <v-flex xs12 md8 pa-4 class="border-r">
-            <Chart :history="article.history" />
-          </v-flex>
-
-          <v-flex xs12 md4 pa-4>
-            <h2 class="headline history">
-              <span class="mr-1">Historial de precios</span>
-              <span class="body-1 font-weight-light grey--text">({{ article.history.length - 1 }})</span>
-            </h2>
-            <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
-          </v-flex>
-
-        </v-layout>
-      </v-card>
+          </v-layout>
+        </v-card>
+      </v-fade-transition>
     </v-container>
   </v-content>
 </template>
@@ -75,7 +80,8 @@ import {
   ArticlePriceHistory,
   ArticleInfo,
   ArticleAttributes,
-  ArticleBreadcrumb
+  ArticleBreadcrumb,
+  ContributingModal,
 } from '../components/ArticleView'
 
 export default {
@@ -85,7 +91,8 @@ export default {
     ArticlePriceHistory,
     ArticleInfo,
     ArticleAttributes,
-    ArticleBreadcrumb
+    ArticleBreadcrumb,
+    ContributingModal,
   },
   data: () => ({
     isFavorite: false,
@@ -94,6 +101,7 @@ export default {
     mlSeller: null,
     mlArticle: null,
     expandAttributes: false,
+    showContributingModal: false,
   }),
   metaInfo () {
     if (!this.article) return
@@ -104,29 +112,39 @@ export default {
   },
   computed: {
     ...mapGetters({
+      authenticating: 'auth/authenticating',
       isAuthenticated: 'auth/isAuthenticated',
       favorites: 'auth/favorites'
-    })
+    }),
+    hasHistory () {
+      return this.article.history.length > 1
+    }
   },
   methods: {
     ...mapMutations({
       updateFavorites: 'auth/updateFavorites'
     }),
     async fetch () {
-      this.loading = true
       const id = this.$route.params.id
-      const promises = [ api.getArticle(id), api.getMlArticle(id) ]
+      const promises = [ api.getOrFollowArticle(id), api.getMlArticle(id) ]
       try {
         const [ mtRes, mlRes ] = await Promise.all(promises)
         this.article = mtRes.data
         this.mlArticle = mlRes.data
+        this.showContributingModal = Boolean(mtRes.justFollowed)
         const sellerRes = await api.getMlSeller(this.article.seller_id)
         this.mlSeller = sellerRes.data
+        if (this.article && this.favorites) {
+          this.isFavorite = this.favorites.includes(this.article.id)
+        }
         this.loading = false
       } catch (err) {
-        console.log(err)
-        this.$store.commit('snackbar/articleNotFound')
-        this.$router.push('/')
+        if (err.response && err.response.status === 403) {
+          this.showContributingModal = true // todo check for error
+        } else {
+          this.$store.commit('snackbar/articleNotFound')
+          this.$router.push('/')
+        }
       }
     },
     async toggleFavorite (event) {
@@ -136,23 +154,43 @@ export default {
       } else {
         this.isFavorite = !this.isFavorite
         const { data: favorites } = await api.toggleFavorite(this.article.id)
+        this.$ga.event({
+          eventCategory: 'Favorites',
+          eventAction: this.isFavorite ? 'add' : 'remove',
+          eventLabel: this.article.id,
+        })
         this.updateFavorites(favorites) // this should be an action probably
+        if (this.isFavorite) {
+          this.$store.commit('snackbar/favoritesAdded')
+        }
       }
     }
   },
+  async mounted () {
+    this.loading = true
+    const interval = setInterval(() => { // sorry but it's late
+      if (!this.authenticating) {
+        clearInterval(interval)
+        this.fetch()
+        this.$watch('isAuthenticated', () => this.fetch())
+      }
+    }, 100)
+  },
   watch: {
     '$route.params': {
-      immediate: true, // acts like mounted
       async handler () {
+        this.loading = true
         await this.fetch()
-        this.isFavorite = this.favorites.includes(this.article.id)
+        if (this.article) {
+          this.isFavorite = this.favorites.includes(this.article.id)
+        }
       }
     },
     favorites (favorites) {
       if (!this.article) return
       this.isFavorite = favorites.includes(this.article.id)
     },
-  }
+  },
 }
 </script>
 

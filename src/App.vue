@@ -1,44 +1,61 @@
 <template>
   <v-app>
     <ToolBar />
-    <LoadingMeta v-if="shouldShowLoading && !shouldShowIntro" />
-    <vue-page-transition v-else name="fade">
-      <router-view />
-    </vue-page-transition>
+    <BetaBanner v-if="showBanner" @close="closeBanner" />
+      <div :style="{ paddingTop: `${bannerOffset}px` }">
+        <vue-page-transition name="fade">
+          <router-view />
+        </vue-page-transition>
+      </div>
     <Footer />
+    <Wizard />
     <Snackbar />
+    <FloatingHelp />
   </v-app>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import { initAuth } from './utils/auth'
 import Footer from './components/Footer'
 import { ToolBar } from './components/ToolBar'
-import LoadingMeta from './views/LoadingMeta'
 import Snackbar from './components/Snackbar'
+import BetaBanner from './components/BetaBanner'
+import Wizard from './components/Wizard'
+import FloatingHelp from './components/FloatingHelp'
 
 export default {
   name: 'app',
-  components: { Footer, ToolBar, LoadingMeta, Snackbar },
+  components: {
+    Footer,
+    ToolBar,
+    Snackbar,
+    BetaBanner,
+    Wizard,
+    FloatingHelp,
+  },
+  data: () => ({
+    bannerOffset: 0,
+    showBanner: true,
+  }),
   metaInfo: {
     title: 'MercadoTrack',
   },
-  computed: {
-    ...mapGetters({
-      isLoadingMeta: 'meta/isLoading',
-      showIntro: 'intro/show',
-    }),
-    shouldShowLoading () {
-      // only showing loading spinner for meta when we're in the landing
-      return this.isLoadingMeta && this.$route.name === 'landing'
+  methods: {
+    closeBanner () {
+      this.showBanner = false
+      this.bannerOffset = 0
+      window.removeEventListener('resize', this.onResize)
     },
-    shouldShowIntro () {
-      const routesToShowIntro = [ 'landing', 'category' ]
-      return this.showIntro && routesToShowIntro.includes(this.$route.name)
+    onResize () {
+      const banner = document.querySelector('.banner')
+      this.bannerOffset = banner && banner.clientHeight
     }
   },
-  async mounted () {
+  mounted () {
+    // using setTimeout instead of nextTick because of bad
+    // clientHeight calculations on first render
+    setTimeout(() => this.onResize(), 100)
+    window.addEventListener('resize', this.onResize)
     this.$store.dispatch('meta/getBase')
     initAuth()
   },
@@ -134,6 +151,33 @@ figure {
         color: var(--v-secondary-base);
       }
     }
+  }
+}
+
+.v-list__tile__title,
+.v-select__selection {
+  text-transform: capitalize;
+}
+
+input[type="number"] {
+  -moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.social {
+  &.fb {
+    background-image: url('./assets/facebook.svg');
+  }
+  &.tw {
+    background-image: url('./assets/twitter.svg');
+    &.light {
+      background-image: url('./assets/twitter_light.svg');
+    }
+  }
+  &.ig {
+    background-image: url('./assets/instagram.svg');
   }
 }
 

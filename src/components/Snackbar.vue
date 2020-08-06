@@ -1,25 +1,20 @@
 <template>
-    <v-snackbar
-      v-model="display"
-      color="primary"
-      :right="true"
-      :bottom="true"
-      :multi-line="$vuetify.breakpoint.smAndDown"
-      :timeout="timeout"
-    >
-      {{ text }}
-      <v-btn
-        dark
-        flat
-        @click="dismiss()"
-      >
-        Cerrar
-      </v-btn>
-    </v-snackbar>
+  <v-snackbar
+    v-model="display"
+    color="primary"
+    :top="top"
+    :left="left"
+    :right="right"
+    :bottom="bottom"
+    :multi-line="multiline || $vuetify.breakpoint.smAndDown"
+    :timeout="timeout"
+  >
+    {{ text }}
+    <v-btn dark flat @click="dismiss()">Cerrar</v-btn>
+  </v-snackbar>
 </template>
 
 <script>
-
 import { mapGetters } from 'vuex'
 
 export default {
@@ -27,7 +22,12 @@ export default {
     ...mapGetters({
       show: 'snackbar/show',
       text: 'snackbar/text',
-      timeout: 'snackbar/timeout'
+      timeout: 'snackbar/timeout',
+      right: 'snackbar/right',
+      bottom: 'snackbar/bottom',
+      top: 'snackbar/top',
+      left: 'snackbar/left',
+      multiline: 'snackbar/multiline',
     }),
     display: {
       get () {
@@ -35,13 +35,13 @@ export default {
       },
       set (val) {
         this.$store.commit('snackbar/dismiss')
-      }
+      },
     },
   },
   methods: {
     dismiss () {
       this.$store.commit('snackbar/dismiss')
-    }
-  }
+    },
+  },
 }
 </script>

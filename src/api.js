@@ -1,14 +1,18 @@
 import axios from 'axios'
 import { getTokens } from './utils/auth'
+import store from './store'
+
+const baseConfig = Object.freeze({
+  baseURL: 'https://api.mercadotrack.com/',
+  timeout: 20000
+})
 
 class Api {
   constructor () {
-    this.instance = axios.create({
-      baseURL: 'https://api.mercadotrack.com/',
-      timeout: 15000
-    })
+    this.base = axios.create(baseConfig)
 
-    this.instance.interceptors.request.use(
+    this.withAuth = axios.create(baseConfig)
+    this.withAuth.interceptors.request.use(
       (config) => {
         const { idToken } = getTokens()
         if (idToken) {
@@ -21,15 +25,41 @@ class Api {
   }
 
   getArticle (id) {
-    return this.instance.get(`/articles/${id}`)
+    return this.base.get(`/articles/${id}`)
+  }
+
+  followArticle (id) {
+    return this.withAuth.post('/articles/follow', { id })
+      .then((res) => {
+        const { user } = store.state.auth
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'Article',
+          eventAction: 'follow',
+          eventLabel: user.email,
+        })
+        return res
+      })
+  }
+
+  async getOrFollowArticle (id) {
+    try {
+      const article = await this.getArticle(id)
+      return article
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return this.followArticle(id).then(res => ({ ...res, justFollowed: true }))
+      }
+      throw err
+    }
   }
 
   getMlArticle (id) {
-    return this.instance.get(`/articles/ml/${id}`)
+    return this.base.get(`/articles/ml/${id}`)
   }
 
   getPaginatedArticles (params) {
-    return this.instance.get('/articles', { params })
+    return this.base.get('/articles', { params })
   }
 
   getMlSeller (id) {
@@ -37,27 +67,38 @@ class Api {
   }
 
   getCategories () {
-    return this.instance.get('/categories')
+    return this.base.get('/categories')
   }
 
   getFavorites (params = {}) {
-    return this.instance.get('/user/favorites', { params })
+    return this.withAuth.get('/user/favorites', { params })
   }
 
   toggleFavorite (articleId) {
-    return this.instance.put('/user/favorites', { articleId })
+    return this.withAuth.put('/user/favorites', { articleId })
   }
 
   addFavorites (articleIds) {
-    return this.instance.post('/user/favorites', { articleIds })
+    return this.withAuth.post('/user/favorites', { articleIds })
   }
 
   removeFavorites (articleIds) {
-    return this.instance.delete('/user/favorites', { data: { articleIds } })
+    return this.withAuth.delete('/user/favorites', { data: { articleIds } })
+      .then(res => {
+        articleIds.forEach(id => {
+          ga('send', {
+            hitType: 'event',
+            eventCategory: 'Favorites',
+            eventAction: 'remove',
+            eventLabel: id,
+          })
+        })
+        return res
+      })
   }
 
   getSyncStatus () {
-    return this.instance.get('/sync')
+    return this.base.get('/sync')
   }
 }
 

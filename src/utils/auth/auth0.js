@@ -1,4 +1,3 @@
-import { Auth0Lock } from 'auth0-lock'
 import qs from 'query-string'
 import { getUser, setToken, unsetToken } from './auth'
 import { CLIENT_ID, ROUTES } from './authConstants'
@@ -43,28 +42,31 @@ export const initAuth = async () => {
   store.commit('auth/started')
   const user = await checkSession(lock)
   if (user) {
-    const { data: favorites } = await api.getFavorites()
-    addUserToStore(user, favorites)
+    try {
+      const { data: favorites } = await api.getFavorites()
+      store.commit('auth/login', user)
+      store.commit('auth/updateFavorites', favorites)
+    } catch (error) {
+      // TODO: loggin you out only if there was an auth error while getting favorites here
+      // error.response.status == 403
+      // this happens because token expired and we're still saving the info locally
+      // temporary fix, logging you out if there was any issue with the favorites request here
+      unsetToken()
+      store.commit('auth/logout')
+    }
   }
   store.commit('auth/finished')
   lock.on('authenticated', async (result) => {
     setToken(result.idToken, result.accessToken)
     const user = getUser()
-    if (articleIdPendingToFav) {
-      const { data: favorites } = await api.toggleFavorite(articleIdPendingToFav)
-      addUserToStore(user, favorites)
-    } else {
-      const { data: favorites } = await api.getFavorites()
-      addUserToStore(user, favorites)
-    }
+    const { data: favorites } = articleIdPendingToFav
+      ? await api.toggleFavorite(articleIdPendingToFav)
+      : await api.getFavorites()
+    store.commit('auth/login', user)
+    store.commit('auth/updateFavorites', favorites)
+    store.commit('snackbar/welcome', user)
     articleIdPendingToFav = null
   })
-}
-
-const addUserToStore = (user, favorites) => {
-  store.commit('auth/login', user)
-  store.commit('auth/updateFavorites', favorites)
-  store.commit('snackbar/welcome', user)
 }
 
 const checkSession = async (lock) => {

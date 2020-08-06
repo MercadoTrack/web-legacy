@@ -39,9 +39,6 @@ export default {
     ArticleCardHeadline,
   },
   props: ['article'],
-  filters: {
-    priceFilter: (str) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(str),
-  },
   methods: {
     getArticleImg (article) {
       const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'

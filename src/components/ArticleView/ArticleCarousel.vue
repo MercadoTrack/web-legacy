@@ -7,7 +7,14 @@
         :class="`pointer my-2 pa-1 w-100 ${selectedClass(i)}`"
         @click="selectImage(i)"
       >
-        <v-img contain :src="src" height="80"></v-img>
+        <v-img
+          contain
+          :src="src"
+          height="80"
+          :class="`${lastPhoto(i)}`"
+        >
+        </v-img>
+        <div v-if="lastPhoto(i)" class="after">+ {{ images.length - 4 }}</div>
       </figure>
     </div>
     <v-layout align-center justify-center>
@@ -47,7 +54,14 @@ export default {
       this.srcIndex = i
     },
     selectedClass (i) {
+      // maginc number 4 is the last image that we are going to show (with the +)
+      if (i === 4) {
+        return this.srcIndex >= 4 ? 'selected' : ''
+      }
       return this.srcIndex === i ? 'selected' : ''
+    },
+    lastPhoto (i) {
+      return i === 4 && this.images.length > 5 ? 'more-images' : ''
     }
   },
 }
@@ -68,6 +82,20 @@ figure {
     width: 0.75rem;
     height: 0.75rem;
     background-color: var(--v-primary-base);
+  }
+  .more-images {
+    opacity: 0.5;
+  }
+  .after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
