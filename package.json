@@ -24,7 +24,7 @@
     "sass-loader": "^9.0.2",
     "vue": "^2.6.10",
     "vue-analytics": "^5.16.4",
-    "vue-meta": "^2.0.3",
+    "vue-meta": "^2.0.4",
     "vue-page-transition": "^0.2.2",
     "vue-router": "^3.0.6",
     "vuetify": "^1.5.16",
