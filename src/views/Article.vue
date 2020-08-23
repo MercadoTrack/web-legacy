@@ -51,7 +51,7 @@
             </v-flex>
 
             <v-flex xs12 md8 pa-4 class="border-r" v-if="hasHistory">
-              <Chart :history="article.history" />
+              <Chart :history="priceHistory" />
             </v-flex>
 
             <v-flex xs12 :md4="hasHistory" pa-4>
@@ -73,6 +73,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import api from '../api'
+import { ArticlesHelper } from '../utils'
 import Chart from '../components/Chart'
 import { login } from '../utils/auth'
 import {
@@ -114,10 +115,22 @@ export default {
     ...mapGetters({
       authenticating: 'auth/authenticating',
       isAuthenticated: 'auth/isAuthenticated',
-      favorites: 'auth/favorites'
+      favorites: 'auth/favorites',
+      saleEvents: 'meta/saleEvents'
     }),
     hasHistory () {
       return this.article.history.length > 1
+    },
+    priceHistory () {
+      const updatedHistory = this.article.history.map(snapshot => {
+        const snapshotSaleEvent = ArticlesHelper.snapshotSaleEvents(snapshot.date, this.saleEvents)
+        if (snapshotSaleEvent.length) {
+          return { ...snapshot, event: snapshotSaleEvent.join(',') }
+        }
+        return snapshot
+      })
+
+      return updatedHistory
     }
   },
   methods: {

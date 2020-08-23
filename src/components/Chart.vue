@@ -107,10 +107,6 @@ export default {
       ? [...this.history, todaySnapshot]
       : this.history
 
-    if (history[3]) history[3] = { ...history[3], event: 'Hotsale' }
-    if (history[5]) history[5] = { ...history[6], event: 'Cybermonday' }
-    if (history[7]) history[7] = { ...history[8], event: 'Black Friday' }
-
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
