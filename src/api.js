@@ -3,7 +3,8 @@ import { getTokens } from './utils/auth'
 import store from './store'
 
 const baseConfig = Object.freeze({
-  baseURL: 'https://api.mercadotrack.com/',
+  // baseURL: 'https://api.mercadotrack.com/',
+  baseURL: 'http://localhost:8088/',
   timeout: 20000
 })
 
@@ -68,6 +69,10 @@ class Api {
 
   getCategories () {
     return this.base.get('/categories')
+  }
+
+  getSaleEvents () {
+    return this.base.get('/sales')
   }
 
   getFavorites (params = {}) {
