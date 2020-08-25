@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const statuses = {
   active: 'activo',
   paused: 'pausado',
@@ -30,5 +32,11 @@ export class ArticlesHelper {
 
   static fluctuationColor = (article) => {
     return this.fluctuation(article) > 0 ? 'red' : 'green'
+  }
+
+  static snapshotSaleEvents = (date, saleEvents) => {
+    var snapshotDate = moment(date, 'DD/MM/YYYY')
+    const matchingEvents = saleEvents.filter(event => { return snapshotDate.isBetween(moment(event.start), moment(event.end), undefined, '[]') })
+    return matchingEvents ? matchingEvents.map(event => event.name) : []
   }
 }

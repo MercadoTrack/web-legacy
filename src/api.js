@@ -70,6 +70,10 @@ class Api {
     return this.base.get('/categories')
   }
 
+  getSaleEvents () {
+    return this.base.get('/sales')
+  }
+
   getFavorites (params = {}) {
     return this.withAuth.get('/user/favorites', { params })
   }

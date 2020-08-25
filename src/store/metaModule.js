@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: {
     isLoading: true,
+    saleEvents: null,
     categories: {
       count: null,
       main: [],
@@ -13,6 +14,9 @@ export default {
   mutations: {
     setCategories: (state, { count, main, child }) => {
       state.categories = { count, main, child }
+    },
+    setSaleEvents: (state, sales) => {
+      state.saleEvents = sales
     },
     loading: (state) => {
       state.isLoading = true
@@ -24,6 +28,7 @@ export default {
   actions: {
     getBase ({ dispatch }) {
       dispatch('getCategories')
+      dispatch('getSaleEvents')
     },
     async getCategories ({ commit }) {
       commit('loading')
@@ -39,6 +44,14 @@ export default {
         console.warn({ categoriesMetaError })
       }
       commit('loaded')
+    },
+    async getSaleEvents ({ commit }) {
+      try {
+        const { data } = await api.getSaleEvents()
+        commit('setSaleEvents', data)
+      } catch (salesMetaError) {
+        console.warn({ salesMetaError })
+      }
     }
   },
   getters: {
@@ -46,5 +59,6 @@ export default {
     mainCategories: (state) => state.categories.main,
     childCategories: (state) => state.categories.child,
     isLoading: (state) => state.isLoading,
+    saleEvents: (state) => state.saleEvents,
   }
 }

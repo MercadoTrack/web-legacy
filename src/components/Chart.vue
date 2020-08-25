@@ -110,7 +110,7 @@ export default {
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: history.map(({ date }) => date),
+        labels: history.map(({ date, event }) => { return event ? `${event} - ${date}` : date }),
         datasets: [{
           label: 'Precio',
           data: history.map(({ price }) => price),
@@ -130,10 +130,18 @@ export default {
       options: {
         tooltips: {
           callbacks: {
-            label: (tooltipItem, data) => {
+            label: (tooltipItem) => {
               return this.formatCurrency(tooltipItem.yLabel)
             }
-          }
+          },
+          custom: (tooltip) => {
+            if (!tooltip) return
+            // disable displaying the color box;
+            tooltip.displayColors = false
+          },
+        },
+        legend: {
+          display: false
         },
         elements: {
           line: {
