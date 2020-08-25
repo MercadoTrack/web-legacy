@@ -3,8 +3,7 @@ import { getTokens } from './utils/auth'
 import store from './store'
 
 const baseConfig = Object.freeze({
-  // baseURL: 'https://api.mercadotrack.com/',
-  baseURL: 'http://localhost:8088/',
+  baseURL: 'https://api.mercadotrack.com/',
   timeout: 20000
 })
 
