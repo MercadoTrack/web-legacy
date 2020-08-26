@@ -36,7 +36,11 @@ export class ArticlesHelper {
 
   static snapshotSaleEvents = (date, saleEvents) => {
     var snapshotDate = moment(date, 'DD/MM/YYYY')
-    const matchingEvents = saleEvents.filter(event => { return snapshotDate.isBetween(moment(event.start), moment(event.end), undefined, '[]') })
+    const matchingEvents = saleEvents.filter(event => {
+      const saleStartDate = moment(event.start).subtract(4, 'days')
+      const saleEndDate = moment(event.end)
+      return snapshotDate.isBetween(saleStartDate, saleEndDate, undefined, '[]')
+    })
     return matchingEvents ? matchingEvents.map(event => event.name) : []
   }
 }
