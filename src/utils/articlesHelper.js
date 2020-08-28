@@ -1,5 +1,7 @@
 import moment from 'moment'
 
+export const DAYS_BEFORE_SALE = 4
+
 export const statuses = {
   active: 'activo',
   paused: 'pausado',
@@ -36,7 +38,11 @@ export class ArticlesHelper {
 
   static snapshotSaleEvents = (date, saleEvents) => {
     var snapshotDate = moment(date, 'DD/MM/YYYY')
-    const matchingEvents = saleEvents.filter(event => { return snapshotDate.isBetween(moment(event.start), moment(event.end), undefined, '[]') })
+    const matchingEvents = saleEvents.filter(event => {
+      const saleStartDate = moment(event.start).subtract(DAYS_BEFORE_SALE, 'days')
+      const saleEndDate = moment(event.end)
+      return snapshotDate.isBetween(saleStartDate, saleEndDate, undefined, '[]')
+    })
     return matchingEvents ? matchingEvents.map(event => event.name) : []
   }
 }
