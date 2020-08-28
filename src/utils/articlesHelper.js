@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export const DAYS_BEFORE_SALE = 4 
+export const DAYS_BEFORE_SALE = 4
 
 export const statuses = {
   active: 'activo',
