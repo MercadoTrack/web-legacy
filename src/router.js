@@ -8,6 +8,7 @@ import Favorites from './views/Favorites'
 import Category from './views/Category'
 import Seller from './views/Seller'
 import LogoutCallback from './views/LogoutCallback'
+import About from './views/About'
 
 Vue.use(Router)
 
@@ -56,6 +57,11 @@ const router = new Router({
       path: '/:category',
       name: 'category',
       component: Category,
+    },
+    {
+      path: '/:about',
+      name: 'about',
+      component: About,
     },
     {
       path: '*',

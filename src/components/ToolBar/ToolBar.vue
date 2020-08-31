@@ -34,7 +34,14 @@
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
           >Últimos agregados</v-btn>
-
+          <v-btn
+            flat
+            active-class
+            light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+            :to="`/about`">
+          ¿Quienes somos?</v-btn>
           <v-spacer></v-spacer>
 
           <v-menu
