@@ -28,9 +28,11 @@ export default {
       computacion: 'computer',
       celulares: 'smartphone',
       camaras: 'camera_alt',
+      belleza: 'spa',
       electrodomesticos: 'kitchen',
       electronica: 'devices_other',
       consolas: 'videogame_asset',
+      salud: 'local_hospital'
     },
   }),
   computed: {

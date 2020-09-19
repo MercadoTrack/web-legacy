@@ -66,6 +66,17 @@
             :disabled="authenticating"
             @click="login()"
           >Ingresar</v-btn>
+          <v-btn
+            flat
+            active-class
+            light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+            :disabled="authenticating"
+            to="/nosotros"
+          >
+          <v-icon>new_releases</v-icon>
+          <span class="ml-2">Quiénes somos</span></v-btn>
         </v-container>
       </template>
       <v-container
