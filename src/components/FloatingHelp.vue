@@ -8,17 +8,17 @@ import { mapMutations } from 'vuex'
 export default {
   methods: {
     ...mapMutations({
-      showWizard: 'wizard/show'
-    })
-  }
+      showWizard: 'wizard/show',
+    }),
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .v-icon {
   position: fixed;
-  bottom: 50px;
-  right: 10px;
+  bottom: 52px;
+  right: 20px;
   cursor: pointer;
 }
 </style>

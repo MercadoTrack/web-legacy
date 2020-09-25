@@ -6,10 +6,7 @@
         <v-icon color="primary">person</v-icon>
       </v-list-tile-action>
       <v-list-tile-content>
-        <v-list-tile-title
-          class="subheading text-capitalize"
-          @click="login()"
-        >
+        <v-list-tile-title class="subheading text-capitalize" @click="login()">
           Ingresar
         </v-list-tile-title>
       </v-list-tile-content>
@@ -24,7 +21,9 @@
           <v-icon color="gray">whatshot</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title class="subheading text-capitalize">Ofertas</v-list-tile-title>
+          <v-list-tile-title class="subheading text-capitalize"
+            >Ofertas</v-list-tile-title
+          >
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile disabled active-class="selected">
@@ -33,15 +32,19 @@
           <v-icon color="gray">verified_user</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title class="subheading text-capitalize">Vendedores destacados</v-list-tile-title>
+          <v-list-tile-title class="subheading text-capitalize"
+            >Vendedores destacados</v-list-tile-title
+          >
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile to="/stats" active-class="selected">
         <v-list-tile-action>
-          <v-icon color="green darken-2">sync</v-icon>
+          <v-icon color="primary">sync</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title class="subheading text-capitalize">Sincronizacion en vivo</v-list-tile-title>
+          <v-list-tile-title class="subheading text-capitalize"
+            >Sincronizacion en vivo</v-list-tile-title
+          >
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -58,12 +61,12 @@ export default {
   computed: {
     ...mapGetters({
       user: 'auth/user',
-      isAuthenticated: 'auth/isAuthenticated'
-    })
+      isAuthenticated: 'auth/isAuthenticated',
+    }),
   },
   methods: {
     login,
-  }
+  },
 }
 </script>
 

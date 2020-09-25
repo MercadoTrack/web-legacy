@@ -2,7 +2,7 @@
   <v-hover>
     <v-card hover slot-scope="{ hover }" :height="size" :width="size">
       <router-link :to="`/articulo/${article.id}`">
-        <v-img :src="getArticleImg(article)" contain :height="size" :width="size">
+        <v-img :src="getArticleImg(article)" contain aspect-ratio="1">
           <v-expand-transition>
             <div
               v-if="hover"
@@ -40,15 +40,11 @@ export default {
   },
   props: ['article'],
   methods: {
-    getArticleImg (article) {
-      const fallback = 'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
+    getArticleImg(article) {
+      const fallback =
+        'https://http2.mlstatic.com/resources/frontend/statics/img-not-available/1.0.0/V.jpg'
       return article.image || fallback
     },
-  },
-  computed: {
-    size () {
-      return this.$vuetify.breakpoint.lgAndUp ? 275 : 200
-    }
   },
 }
 </script>
@@ -58,7 +54,7 @@ export default {
   align-items: center;
   bottom: 0;
   justify-content: center;
-  opacity: .75;
+  opacity: 0.75;
   position: absolute;
   width: 100%;
   height: 100%;
