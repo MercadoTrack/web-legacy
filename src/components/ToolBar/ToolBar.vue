@@ -1,12 +1,25 @@
 <template>
   <div>
     <!-- drawer for tablet/mobile -->
-    <v-navigation-drawer v-model="drawer" clipped disable-resize-watcher right app>
+    <v-navigation-drawer
+      v-model="drawer"
+      clipped
+      disable-resize-watcher
+      right
+      app
+    >
       <NavigationDrawerList />
     </v-navigation-drawer>
 
     <!-- toolbar -->
-    <v-toolbar color="secondary" dark fixed app height="56" extension-height="48">
+    <v-toolbar
+      color="secondary"
+      dark
+      fixed
+      app
+      height="56"
+      extension-height="48"
+    >
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-container class="py-0 ma-auto toolbar-container">
           <CategoriesDropdown />
@@ -17,7 +30,8 @@
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-          >Ofertas</v-btn>
+            >Ofertas</v-btn
+          >
           <v-btn
             flat
             disabled
@@ -25,7 +39,8 @@
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-          >Vendedores destacados</v-btn>
+            >Vendedores destacados</v-btn
+          >
           <v-btn
             flat
             disabled
@@ -33,7 +48,8 @@
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-          >Últimos agregados</v-btn>
+            >Últimos agregados</v-btn
+          >
 
           <v-spacer></v-spacer>
 
@@ -50,7 +66,8 @@
                 v-on="on"
                 color="grey darken-3"
                 class="px-3 font-weight-light text-capitalize"
-              >Mi cuenta</v-btn>
+                >Mi cuenta</v-btn
+              >
             </template>
             <v-card>
               <MyAccountList :user="user" />
@@ -65,15 +82,38 @@
             class="px-1 font-weight-light text-capitalize"
             :disabled="authenticating"
             @click="login()"
-          >Ingresar</v-btn>
+            >Ingresar</v-btn
+          >
+          <v-btn
+            flat
+            active-class
+            light
+            color="grey darken-3"
+            class="px-1 font-weight-light text-capitalize"
+            :disabled="authenticating"
+            to="/nosotros"
+          >
+            <v-icon color="primary">new_releases</v-icon>
+            <span class="ml-2">Quiénes somos</span></v-btn
+          >
         </v-container>
       </template>
       <v-container
-        :class="`py-0 ma-auto toolbar-container ${$vuetify.breakpoint.smAndDown ? 'px-0' : ''}`"
+        :class="
+          `py-0 ma-auto toolbar-container ${
+            $vuetify.breakpoint.smAndDown ? 'px-0' : ''
+          }`
+        "
       >
-        <v-toolbar-title :class="`${$vuetify.breakpoint.smAndUp ? 'ml-3 mr-4' : 'mr-1'}`">
+        <v-toolbar-title
+          :class="`${$vuetify.breakpoint.smAndUp ? 'ml-3 mr-4' : 'mr-1'}`"
+        >
           <router-link to="/" class="d-flex">
-            <img height="50" src="../../assets/mtrack_icon.svg" alt="Icono MercadoTrack" />
+            <img
+              height="50"
+              src="../../assets/mtrack_icon.svg"
+              alt="Icono MercadoTrack"
+            />
           </router-link>
         </v-toolbar-title>
         <v-text-field
@@ -100,12 +140,14 @@
           light
           active-class
         >
-          <v-icon>visibility</v-icon>
+          <v-icon color="primary">visibility</v-icon>
           <span class="ml-2">Sincronizacion en vivo</span>
         </v-btn>
         <template v-else>
           <aside class="ml-auto" @click.stop="drawer = !drawer">
-            <v-toolbar-side-icon class="grey--text text--darken-3"></v-toolbar-side-icon>
+            <v-toolbar-side-icon
+              class="grey--text text--darken-3"
+            ></v-toolbar-side-icon>
           </aside>
         </template>
       </v-container>
@@ -140,7 +182,7 @@ export default {
   },
   methods: {
     login,
-    search () {
+    search() {
       this.$refs.searchInput.blur()
       if (isLink(this.searchTerm)) {
         const [rawId] = this.searchTerm.match(/(MLA-\d+)/gi) || []
@@ -164,11 +206,11 @@ export default {
     },
   },
   watch: {
-    '$route.query.search' (searchTerm) {
+    '$route.query.search'(searchTerm) {
       this.searchTerm = searchTerm
     },
   },
-  mounted () {
+  mounted() {
     this.searchTerm = this.$route.query.search || ''
   },
 }
