@@ -8,6 +8,7 @@ import Favorites from './views/Favorites'
 import Category from './views/Category'
 import Seller from './views/Seller'
 import LogoutCallback from './views/LogoutCallback'
+import AboutUs from './views/AboutUs'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ const router = new Router({
       path: '/stats',
       name: 'stats',
       component: Stats
+    },
+    {
+      path: '/nosotros',
+      name: 'nosotros',
+      component: AboutUs
     },
     {
       path: '/articulo/:id',

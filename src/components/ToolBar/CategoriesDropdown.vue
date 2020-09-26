@@ -1,14 +1,27 @@
 <template>
-  <v-menu offset-y content-class="dropdown-menu" transition="slide-y-transition">
+  <v-menu
+    offset-y
+    content-class="dropdown-menu"
+    transition="slide-y-transition"
+  >
     <template v-slot:activator="{ on }">
-      <v-btn flat v-on="on" color="grey darken-3" class="px-1 font-weight-light text-capitalize">
+      <v-btn
+        flat
+        v-on="on"
+        color="grey darken-3"
+        class="px-1 font-weight-light text-capitalize"
+      >
         Categorias
       </v-btn>
     </template>
     <v-list>
-      <v-list-tile v-for="category in mainCategories" :key="category._id" :to="getCategoryLink(category)">
+      <v-list-tile
+        v-for="category in mainCategories"
+        :key="category._id"
+        :to="getCategoryLink(category)"
+      >
         <v-list-tile-avatar>
-          <v-icon>{{ getCategoryIcon(category) }}</v-icon>
+          <v-icon color="primary">{{ getCategoryIcon(category) }}</v-icon>
         </v-list-tile-avatar>
         <v-list-tile-content class="body-1 font-weight-light">
           <v-list-tile-title>{{ category.name }}</v-list-tile-title>
@@ -28,9 +41,11 @@ export default {
       computacion: 'computer',
       celulares: 'smartphone',
       camaras: 'camera_alt',
+      belleza: 'spa',
       electrodomesticos: 'kitchen',
       electronica: 'devices_other',
       consolas: 'videogame_asset',
+      salud: 'local_hospital',
     },
   }),
   computed: {
@@ -39,11 +54,11 @@ export default {
     }),
   },
   methods: {
-    getCategoryIcon (category) {
+    getCategoryIcon(category) {
       const categoryKey = CategoriesHelper.getCategoryKeyName(category.name)
       return this.icons[categoryKey]
     },
-    getCategoryLink (category) {
+    getCategoryLink(category) {
       const categoryKey = CategoriesHelper.getCategoryKeyName(category.name)
       return `/${categoryKey}`
     },
