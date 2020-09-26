@@ -1,5 +1,5 @@
 <template>
-  <v-icon dark size="50" color="primary" @click="showWizard">help</v-icon>
+  <v-icon dark size="45" color="primary" @click="showWizard">help</v-icon>
 </template>
 
 <script>

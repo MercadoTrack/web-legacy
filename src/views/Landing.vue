@@ -1,9 +1,10 @@
 <template>
   <v-content>
-    <v-container class="mt-0 mb-5">
+    <v-container class="mt-1 mb-1">
       <v-card :class="$vuetify.breakpoint.smAndUp ? 'pa-4' : 'py-4 px-0'">
         <v-layout row wrap>
           <v-flex
+            class="pa-4"
             xs6
             md12
             v-for="category in mainCategories"

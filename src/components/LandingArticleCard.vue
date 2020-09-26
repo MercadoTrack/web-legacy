@@ -1,6 +1,6 @@
 <template>
   <v-hover>
-    <v-card hover slot-scope="{ hover }" :height="size" :width="size">
+    <v-card hover slot-scope="{ hover }">
       <router-link :to="`/articulo/${article.id}`">
         <v-img :src="getArticleImg(article)" contain aspect-ratio="1">
           <v-expand-transition>
