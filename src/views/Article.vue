@@ -76,6 +76,7 @@ import api from '../api'
 import { ArticlesHelper } from '../utils'
 import Chart from '../components/Chart'
 import { login } from '../utils/auth'
+import moment from 'moment'
 import {
   ArticleCarousel,
   ArticlePriceHistory,
@@ -122,12 +123,36 @@ export default {
       return this.article.history.length > 1
     },
     priceHistory () {
+      const firstSnapshot = this.article.history[0]
+      const lastSnapshot = this.article.history[this.article.history.length - 1]
+
       const updatedHistory = this.article.history.map(snapshot => {
-        const snapshotSaleEvent = ArticlesHelper.snapshotSaleEvents(snapshot.date, this.saleEvents)
-        if (snapshotSaleEvent.length) {
-          return { ...snapshot, event: snapshotSaleEvent.join(',') }
+        const snapshotSaleEvents = ArticlesHelper.snapshotSaleEvents(snapshot.date, this.saleEvents)
+        const saleEvents = snapshotSaleEvents.map(event => event.name).join(',') || ''
+        return { ...snapshot, event: saleEvents }
+      })
+
+      const involvedSaleEvents = ArticlesHelper.timePeriodSaleEvents(firstSnapshot.date, lastSnapshot.date, this.saleEvents)
+      console.log('Involved events: ', involvedSaleEvents)
+
+      involvedSaleEvents.forEach(saleEvent => {
+        const saleEventEndingDate = moment(saleEvent.end).format('DD/MM/YYYY')
+        const existingEndingSnapshot = updatedHistory.find(snapshot => { return snapshot.date === saleEventEndingDate })
+        if (!existingEndingSnapshot) {
+          const previousSnapshots = updatedHistory.filter(snapshot => {
+            return moment(snapshot.date, 'DD/MM/YYYY').isBefore(saleEvent.end)
+          })
+
+          const lastPrice = previousSnapshots[previousSnapshots.length - 1].price
+          const newSnapshot = {
+            date: saleEventEndingDate,
+            event: saleEvent.name,
+            original_price: null,
+            price: lastPrice
+          }
+
+          updatedHistory.splice(previousSnapshots.length, 0, newSnapshot)
         }
-        return snapshot
       })
 
       return updatedHistory

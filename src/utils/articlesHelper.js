@@ -37,12 +37,22 @@ export class ArticlesHelper {
   }
 
   static snapshotSaleEvents = (date, saleEvents) => {
-    var snapshotDate = moment(date, 'DD/MM/YYYY')
+    const snapshotDate = moment(date, 'DD/MM/YYYY')
     const matchingEvents = saleEvents.filter(event => {
       const saleStartDate = moment(event.start).subtract(DAYS_BEFORE_SALE, 'days')
       const saleEndDate = moment(event.end)
       return snapshotDate.isBetween(saleStartDate, saleEndDate, undefined, '[]')
     })
-    return matchingEvents ? matchingEvents.map(event => event.name) : []
+    return matchingEvents || []
+  }
+
+  static timePeriodSaleEvents = (dateFrom, dateTo, saleEvents) => {
+    const from = moment(dateFrom, 'DD/MM/YYYY')
+    const to = moment(dateTo, 'DD/MM/YYYY')
+
+    const matchingEvents = saleEvents.filter(event => {
+      return from.isSameOrBefore(moment(event.end)) && to.isAfter(moment(event.start))
+    })
+    return matchingEvents || []
   }
 }
