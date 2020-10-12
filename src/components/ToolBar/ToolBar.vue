@@ -25,32 +25,27 @@
           <CategoriesDropdown />
           <v-btn
             flat
-            disabled
             active-class
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-            >Ofertas</v-btn
+            :disabled="authenticating"
+            to="/nosotros"
+          >
+            <span class="ml-2">Quiénes somos</span></v-btn
           >
           <v-btn
             flat
-            disabled
             active-class
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-            >Vendedores destacados</v-btn
+            :disabled="authenticating"
+            target="_blank"
+            href="https://cafecito.app/mercadotrack"
           >
-          <v-btn
-            flat
-            disabled
-            active-class
-            light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            >Últimos agregados</v-btn
+            <span class="ml-2">Cómo ayudarnos</span></v-btn
           >
-
           <v-spacer></v-spacer>
 
           <v-menu
@@ -82,20 +77,7 @@
             class="px-1 font-weight-light text-capitalize"
             :disabled="authenticating"
             @click="login()"
-            >Ingresar</v-btn
-          >
-          <v-btn
-            flat
-            active-class
-            light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            :disabled="authenticating"
-            to="/nosotros"
-          >
-            <v-icon color="primary">new_releases</v-icon>
-            <span class="ml-2">Quiénes somos</span></v-btn
-          >
+            >Ingresar</v-btn>
         </v-container>
       </template>
       <v-container
