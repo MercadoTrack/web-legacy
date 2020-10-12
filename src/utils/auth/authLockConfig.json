@@ -8,8 +8,10 @@
     "responseType": "token id_token"
   },
   "languageDictionary": {
-    "title": "MercadoTrack"
+    "title": "MercadoTrack",
+    "signUpTerms": "He leído y acepto los <a href='/terms' target='_new'>términos y condiciones</a> de uso."
   },
+  "mustAcceptTerms": true,
   "theme": {
     "logo": "https://mercadotrack.com/img/mtrack_icon.f52cac11.svg",
     "primaryColor": "#3483FA",
