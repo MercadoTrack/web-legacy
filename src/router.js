@@ -9,6 +9,7 @@ import Category from './views/Category'
 import Seller from './views/Seller'
 import LogoutCallback from './views/LogoutCallback'
 import AboutUs from './views/AboutUs'
+import Terms from './views/Terms'
 
 Vue.use(Router)
 
@@ -57,6 +58,11 @@ const router = new Router({
       path: '/seller/:id',
       name: 'seller',
       component: Seller,
+    },
+    {
+      path: '/terms',
+      name: 'terminos-y-condiciones',
+      component: Terms,
     },
     {
       path: '/:category',

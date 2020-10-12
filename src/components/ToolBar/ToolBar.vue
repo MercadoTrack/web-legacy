@@ -29,7 +29,6 @@
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-            :disabled="authenticating"
             to="/nosotros"
           >
             <span class="ml-2">Quiénes somos</span></v-btn
@@ -40,7 +39,6 @@
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-            :disabled="authenticating"
             target="_blank"
             href="https://cafecito.app/mercadotrack"
           >
