@@ -23,33 +23,6 @@
       <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:extension>
         <v-container class="py-0 ma-auto toolbar-container">
           <CategoriesDropdown />
-          <v-btn
-            flat
-            disabled
-            active-class
-            light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            >Ofertas</v-btn
-          >
-          <v-btn
-            flat
-            disabled
-            active-class
-            light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            >Vendedores destacados</v-btn
-          >
-          <v-btn
-            flat
-            disabled
-            active-class
-            light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            >Últimos agregados</v-btn
-          >
 
           <v-spacer></v-spacer>
 

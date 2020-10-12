@@ -35,7 +35,7 @@ export default {
   },
   data: () => ({
     bannerOffset: 0,
-    showBanner: true,
+    showBanner: false,
   }),
   metaInfo: {
     title: 'MercadoTrack',
