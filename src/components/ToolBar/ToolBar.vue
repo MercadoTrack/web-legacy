@@ -90,7 +90,7 @@
         >
           <router-link to="/" class="d-flex">
             <img
-              height="30"
+              height="16"
               src="../../assets/mtrack_icon.png"
               alt="Icono MarketTrack"
             />
