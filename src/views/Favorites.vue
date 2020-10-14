@@ -31,6 +31,7 @@
                       <v-layout row align-center justify-start fill-height>
                         <div>
                           <v-checkbox
+                            color="primary"
                             :value="selected.length === favorites.length"
                             @click.native="selectAll()"
                           ></v-checkbox>
@@ -73,6 +74,7 @@
                       >
                         <div>
                           <v-checkbox
+                            color="primary"
                             v-model="selected"
                             :value="article.id"
                           ></v-checkbox>
@@ -170,7 +172,7 @@ export default {
     ArticleFluctuation,
   },
   metaInfo: {
-    title: 'Favoritos en MercadoTrack',
+    title: 'Favoritos en MarketTrack',
   },
   computed: {
     ...mapGetters({

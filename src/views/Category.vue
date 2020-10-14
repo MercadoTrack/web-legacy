@@ -31,7 +31,7 @@ export default {
   metaInfo () {
     if (!this.category) return
     return {
-      title: `${this.category.name} en MercadoTrack`
+      title: `${this.category.name} en MarketTrack`
     }
   },
   computed: {

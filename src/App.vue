@@ -38,7 +38,7 @@ export default {
     showBanner: false,
   }),
   metaInfo: {
-    title: 'MercadoTrack',
+    title: 'MarketTrack',
   },
   methods: {
     closeBanner () {

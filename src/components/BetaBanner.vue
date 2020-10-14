@@ -3,7 +3,7 @@
     <v-container class="py-0 px-2" fill-height dark>
       <v-layout class="px-4">
         <h3 class="body-2 white--text font-weight-light pr-3">
-          <span>Estás usando la versión beta de MercadoTrack, si tenés comentarios, dudas o sugerencias podés enviarnos un mensaje</span>
+          <span>Estás usando la versión beta de MarketTrack, si tenés comentarios, dudas o sugerencias podés enviarnos un mensaje</span>
           por
           <a href="https://twitter.com/MercadoTrack" target="_blank">
             <v-icon dark class="ml-1 pointer light social tw" />

@@ -108,7 +108,7 @@ export default {
     if (!this.article) return
     const title = `${this.article.title} - ${this.$options.filters.priceFilter(this.article.price)}`
     return {
-      title: `${title} en MercadoTrack`,
+      title: `${title} en MarketTrack`,
     }
   },
   computed: {

@@ -14,7 +14,7 @@
           <v-stepper-content step="1">
             <p>En nuestra plataforma vas a poder acceder, en tiempo real, a los cambios en los precios de las publicaciones de MercadoLibre.</p>
             <p>La información del sitio es actualizada constantemente para que puedas identificar cual es la mejor oferta para vos.</p>
-            <p class="font-weight-bold">Es importante que sepas que MercadoTrack no esta relacionado de ninguna manera con MercadoLibre. Somos un grupo independiente, la información que vas a encontrar en nuestro sitio es obtenida mediante la API pública de MercadoLibre.</p>
+            <p class="font-weight-bold">Es importante que sepas que MarketTrack no esta relacionado de ninguna manera con MercadoLibre. Somos un grupo independiente, la información que vas a encontrar en nuestro sitio es obtenida mediante la API pública de MercadoLibre.</p>
             <v-btn color="primary" @click="step = 2">¿Cómo se usa?</v-btn>
             <v-btn color="primary" @click="hide">Ver mas tarde</v-btn>
           </v-stepper-content>
@@ -51,17 +51,9 @@
 
           <v-stepper-step class="pointer" step="4" @click="step = 4">¡Danos tu opinión!</v-stepper-step>
           <v-stepper-content step="4">
-            <p>MercadoTrack esta mejorando constantemente, por eso necesitamos tu feedback!</p>
-            <p>Si tenes alguna duda o sugerencia, comunicate con nosotros:</p>
-            <p>
-              <a href="https://twitter.com/MercadoTrack" target="_blank">
-                <v-icon dark class="ml-1 pointer social tw" />
-              </a>
-              <a href="mailto:mercadotrack@gmail.com" class="mx-3" target="_blank">
-                <v-icon color="primary" size="2rem">mail</v-icon>
-              </a>
-            </p>
-            <v-btn color="primary" @click="finished">¡Estoy listo!</v-btn>
+            <p>En MarketTrack trabajamos para mejorar constantemente, y por eso necesitamos tu feedback.</p>
+            <p>Si tenes alguna duda o sugerencia, comunicate con nosotros.</p>
+            <v-btn color="primary" @click="finished">¡Listo!</v-btn>
             <v-btn flat @click="step = 3">Volver</v-btn>
           </v-stepper-content>
         </v-stepper>

@@ -55,7 +55,7 @@ export default {
   }),
   metaInfo () {
     return {
-      title: `${this.$route.query.search || 'Busqueda'} en MercadoTrack`
+      title: `${this.$route.query.search || 'Busqueda'} en MarketTrack`
     }
   },
   computed: {

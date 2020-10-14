@@ -122,7 +122,7 @@ export default {
         name: 'Alan Kovacs',
         title: 'Legales',
         href:
-          'mailto:amkovacs23@gmail.com?subject=Hola, vi tu perfil en MercadoTrack',
+          'mailto:amkovacs23@gmail.com?subject=Hola, vi tu perfil en MarketTrack',
         contact: 'amkovacs23@gmail.com',
         img: require('../assets/us/alan.jpg'),
       },
@@ -130,7 +130,7 @@ export default {
         name: 'Alfredo Vazquez',
         title: 'Branding',
         href:
-          'mailto:alfie.vazquez@gmail.com?subject=Hola, vi tu perfil en MercadoTrack',
+          'mailto:alfie.vazquez@gmail.com?subject=Hola, vi tu perfil en MarketTrack',
         contact: 'alfie.vazquez@gmail.com',
         img: require('../assets/us/alfie.jpg'),
       },
@@ -138,7 +138,7 @@ export default {
         name: 'Matías Álvarez',
         title: 'Testing',
         href:
-          'mailto:mati.alv@gmail.com?subject=Hola, vi tu perfil en MercadoTrack',
+          'mailto:mati.alv@gmail.com?subject=Hola, vi tu perfil en MarketTrack',
         contact: 'mati.alv@gmail.com',
         linked_in: 'https://www.linkedin.com/in/alvarez-matias/',
         img: require('../assets/us/mati.jpg'),

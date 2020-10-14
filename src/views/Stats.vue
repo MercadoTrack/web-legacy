@@ -105,7 +105,7 @@ export default {
     interval: null,
   }),
   metaInfo: {
-    title: 'Sincronizacion en MercadoTrack',
+    title: 'Sincronizacion en MarketTrack',
   },
   methods: {
     getSync() {

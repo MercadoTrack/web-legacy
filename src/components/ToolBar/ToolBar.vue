@@ -90,9 +90,9 @@
         >
           <router-link to="/" class="d-flex">
             <img
-              height="50"
-              src="../../assets/mtrack_icon.svg"
-              alt="Icono MercadoTrack"
+              height="30"
+              src="../../assets/mtrack_icon.png"
+              alt="Icono MarketTrack"
             />
           </router-link>
         </v-toolbar-title>
@@ -105,7 +105,6 @@
           v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"
-          flat
           solo
           clearable
           hide-details
