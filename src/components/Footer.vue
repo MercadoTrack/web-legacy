@@ -11,8 +11,8 @@
     </a>
     <v-spacer></v-spacer>
     <router-link to="/terms" target="_blank">
-      <span class="mx-4" >Términos y condiciones de uso</span>
+      <span class="mx-4">Términos y condiciones de uso</span>
     </router-link>
-    <span>MarketTrack &copy; {{ new Date().getFullYear() }}</span>
+    <span>MercadoTrack &copy; {{ new Date().getFullYear() }}</span>
   </v-footer>
 </template>

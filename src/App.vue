@@ -2,11 +2,11 @@
   <v-app>
     <ToolBar />
     <BetaBanner v-if="showBanner" @close="closeBanner" />
-      <div :style="{ paddingTop: `${bannerOffset}px` }">
-        <vue-page-transition name="fade">
-          <router-view />
-        </vue-page-transition>
-      </div>
+    <div :style="{ paddingTop: `${bannerOffset}px` }">
+      <vue-page-transition name="fade">
+        <router-view />
+      </vue-page-transition>
+    </div>
     <Footer />
     <Wizard />
     <Snackbar />
@@ -38,20 +38,20 @@ export default {
     showBanner: false,
   }),
   metaInfo: {
-    title: 'MarketTrack',
+    title: 'MercadoTrack',
   },
   methods: {
-    closeBanner () {
+    closeBanner() {
       this.showBanner = false
       this.bannerOffset = 0
       window.removeEventListener('resize', this.onResize)
     },
-    onResize () {
+    onResize() {
       const banner = document.querySelector('.banner')
       this.bannerOffset = banner && banner.clientHeight
-    }
+    },
   },
-  mounted () {
+  mounted() {
     // using setTimeout instead of nextTick because of bad
     // clientHeight calculations on first render
     setTimeout(() => this.onResize(), 100)
@@ -138,7 +138,7 @@ figure {
 .v-carousel {
   &.primary-controls {
     .v-carousel__prev,
-    .v-carousel__next{
+    .v-carousel__next {
       .v-btn {
         color: var(--v-primary-base);
       }
@@ -146,7 +146,7 @@ figure {
   }
   &.secondary-controls {
     .v-carousel__prev,
-    .v-carousel__next{
+    .v-carousel__next {
       .v-btn {
         color: var(--v-secondary-base);
       }
@@ -159,8 +159,8 @@ figure {
   text-transform: capitalize;
 }
 
-input[type="number"] {
-  -moz-appearance:textfield;
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

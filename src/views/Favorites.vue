@@ -80,7 +80,10 @@
                           ></v-checkbox>
                         </div>
                         <figure v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
-                          <img style="height: 150px; width: 150px; object-fit: contain;" :src="getImage(article)" />
+                          <img
+                            style="height: 150px; width: 150px; object-fit: contain;"
+                            :src="getImage(article)"
+                          />
                         </figure>
                         <div class="pl-4" style="flex: 1; min-width: 0;">
                           <router-link
@@ -125,7 +128,9 @@
                             </span>
                           </p>
                         </div>
-                        <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                        <div
+                          style="display: flex; align-items: center; flex-wrap: wrap;"
+                        >
                           <v-btn
                             v-if="$vuetify.breakpoint.smAndUp"
                             color="primary"
@@ -172,7 +177,7 @@ export default {
     ArticleFluctuation,
   },
   metaInfo: {
-    title: 'Favoritos en MarketTrack',
+    title: 'Favoritos en MercadoTrack',
   },
   computed: {
     ...mapGetters({

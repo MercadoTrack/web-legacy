@@ -75,7 +75,8 @@
             class="px-1 font-weight-light text-capitalize"
             :disabled="authenticating"
             @click="login()"
-            >Ingresar</v-btn>
+            >Ingresar</v-btn
+          >
         </v-container>
       </template>
       <v-container
@@ -92,7 +93,7 @@
             <img
               height="16"
               src="../../assets/mtrack_icon.png"
-              alt="Icono MarketTrack"
+              alt="Icono MercadoTrack"
             />
           </router-link>
         </v-toolbar-title>
