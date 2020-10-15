@@ -13,10 +13,10 @@
   },
   "mustAcceptTerms": true,
   "theme": {
-    "logo": "https://mercadotrack.com/img/mtrack_icon.f52cac11.svg",
-    "primaryColor": "#3483FA",
+    "logo": "/mtrack_logo.png",
+    "primaryColor": "#129496",
     "authButtons": {
-      "primaryColor": "#3483FA",
+      "primaryColor": "#129496",
       "displayName": "MercadoTrack"
     }
   }
