@@ -75,7 +75,8 @@
             class="px-1 font-weight-light text-capitalize"
             :disabled="authenticating"
             @click="login()"
-            >Ingresar</v-btn>
+            >Ingresar</v-btn
+          >
         </v-container>
       </template>
       <v-container
@@ -90,8 +91,8 @@
         >
           <router-link to="/" class="d-flex">
             <img
-              height="50"
-              src="../../assets/mtrack_icon.svg"
+              height="16"
+              src="../../assets/mtrack_icon.png"
               alt="Icono MercadoTrack"
             />
           </router-link>
@@ -105,7 +106,6 @@
           v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"
-          flat
           solo
           clearable
           hide-details
