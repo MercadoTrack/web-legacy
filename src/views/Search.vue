@@ -7,14 +7,28 @@
         </v-flex>
         <v-flex xs12>
           <v-layout v-if="searching" key="empty-cards" wrap>
-            <v-flex xs6 md4 xl3 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'" v-for="n in 30" :key="n">
+            <v-flex
+              xs6
+              md4
+              xl3
+              :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'"
+              v-for="n in 30"
+              :key="n"
+            >
               <EmptyArticleCard />
             </v-flex>
           </v-layout>
           <!-- showing results -->
           <v-layout v-else-if="page && page.length" key="article-cards" wrap>
-            <v-flex xs6 md4 xl3 v-for="article in page" :key="article.id" :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
-              <ArticleCard :article="article"/>
+            <v-flex
+              xs6
+              md4
+              xl3
+              v-for="article in page"
+              :key="article.id"
+              :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'"
+            >
+              <ArticleCard :article="article" />
             </v-flex>
           </v-layout>
           <!-- no results -->
@@ -22,9 +36,15 @@
             <v-flex xs12 :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'">
               <h3 class="subheading text-xs-center">
                 No se encontraron artículos activos
-                <span v-if="$route.query.search">para <pre class="d-inline-block">'{{ $route.query.search }}'</pre></span>
+                <span v-if="$route.query.search"
+                  >para
+                  <pre class="d-inline-block">
+'{{ $route.query.search }}'</pre
+                  ></span
+                >
                 <span v-if="$route.query.category">en esta categoría.</span>
-                <span v-else>.</span> <!-- final dot just in case -->
+                <span v-else>.</span>
+                <!-- final dot just in case -->
                 <span class="d-block">Probá con otra búsqueda.</span>
               </h3>
             </v-flex>
@@ -32,7 +52,13 @@
         </v-flex>
         <v-flex xs12 mt-2 v-if="truncatedTotalPages > 1">
           <v-layout justify-center>
-            <v-pagination :length="truncatedTotalPages" :total-visible="paginationTotalVisible" v-model="pageNumber" :disabled="searching" @input="changePage"></v-pagination>
+            <v-pagination
+              :length="truncatedTotalPages"
+              :total-visible="paginationTotalVisible"
+              v-model="pageNumber"
+              :disabled="searching"
+              @input="changePage"
+            ></v-pagination>
           </v-layout>
         </v-flex>
       </v-layout>
@@ -53,9 +79,9 @@ export default {
   data: () => ({
     pageNumber: 1,
   }),
-  metaInfo () {
+  metaInfo() {
     return {
-      title: `${this.$route.query.search || 'Busqueda'} en MercadoTrack`
+      title: `${this.$route.query.search || 'Busqueda'} en MercadoTrack`,
     }
   },
   computed: {
@@ -64,10 +90,10 @@ export default {
       searching: 'search/loading',
       searchResult: 'search/result',
     }),
-    page () {
+    page() {
       return this.searchResult && this.searchResult.page
     },
-    paginationTotalVisible () {
+    paginationTotalVisible() {
       return this.$vuetify.breakpoint.xs ? 4 : 7
     },
   },
@@ -78,26 +104,26 @@ export default {
     ...mapActions({
       paginate: 'search/paginate',
     }),
-    changePage (page) {
+    changePage(page) {
       this.$vuetify.goTo(0, { easing: 'easeInOutCubic' }) // scrolling to top
       const query = { ...this.$route.query, page }
       this.$router.push({ name: 'search', query })
-    }
+    },
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     this.pageNumber = to.query.page || 1
     this.paginate(to.query)
     next()
   },
-  mounted () {
+  mounted() {
     if (this.$route.query.page) {
       this.pageNumber = Number(this.$route.query.page)
     }
     this.paginate(this.$route.query)
   },
-  destroyed () {
+  destroyed() {
     this.reset()
-  }
+  },
 }
 </script>
 

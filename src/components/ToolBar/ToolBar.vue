@@ -25,32 +25,25 @@
           <CategoriesDropdown />
           <v-btn
             flat
-            disabled
             active-class
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-            >Ofertas</v-btn
+            to="/nosotros"
+          >
+            <span class="ml-2">Quiénes somos</span></v-btn
           >
           <v-btn
             flat
-            disabled
             active-class
             light
             color="grey darken-3"
             class="px-1 font-weight-light text-capitalize"
-            >Vendedores destacados</v-btn
+            target="_blank"
+            href="https://cafecito.app/mercadotrack"
           >
-          <v-btn
-            flat
-            disabled
-            active-class
-            light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            >Últimos agregados</v-btn
+            <span class="ml-2">Cómo ayudarnos</span></v-btn
           >
-
           <v-spacer></v-spacer>
 
           <v-menu
@@ -84,18 +77,6 @@
             @click="login()"
             >Ingresar</v-btn
           >
-          <v-btn
-            flat
-            active-class
-            light
-            color="grey darken-3"
-            class="px-1 font-weight-light text-capitalize"
-            :disabled="authenticating"
-            to="/nosotros"
-          >
-            <v-icon color="primary">new_releases</v-icon>
-            <span class="ml-2">Quiénes somos</span></v-btn
-          >
         </v-container>
       </template>
       <v-container
@@ -110,8 +91,8 @@
         >
           <router-link to="/" class="d-flex">
             <img
-              height="50"
-              src="../../assets/mtrack_icon.svg"
+              height="16"
+              src="../../assets/mtrack_icon.png"
               alt="Icono MercadoTrack"
             />
           </router-link>
@@ -125,7 +106,6 @@
           v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"
-          flat
           solo
           clearable
           hide-details

@@ -15,6 +15,10 @@ app.get('/mtrack_promo_small.png', (req, res) => {
   res.sendFile('mtrack_promo_small.png', { root: './dist' })
 })
 
+app.get('/mtrack_logo.png', (req, res) => {
+  res.sendFile('mtrack_logo.png', { root: './dist' })
+})
+
 app.get('*', (req, res) => {
   res.sendFile('index.html', { root: './dist' })
 })
