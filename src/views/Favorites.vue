@@ -2,7 +2,10 @@
   <v-content>
     <v-container>
       <v-fade-transition mode="out-in">
-        <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+        <v-progress-linear
+          v-if="loading"
+          :indeterminate="true"
+        ></v-progress-linear>
 
         <v-layout v-else wrap>
           <v-flex xs12 class="my-4">
@@ -15,7 +18,7 @@
                   v-if="!articles.length"
                   class="caption"
                   :value="true"
-                  color="info"
+                  color="primary"
                   icon="info"
                   outline
                 >
@@ -23,12 +26,15 @@
                 </v-alert>
                 <div v-else class="py-0 px-4">
                   <v-layout row wrap>
-
                     <!-- delete all row -->
                     <v-flex xs12>
                       <v-layout row align-center justify-start fill-height>
                         <div>
-                          <v-checkbox :value="selected.length === favorites.length" @click.native="selectAll()"></v-checkbox>
+                          <v-checkbox
+                            color="primary"
+                            :value="selected.length === favorites.length"
+                            @click.native="selectAll()"
+                          ></v-checkbox>
                         </div>
                         <div>
                           <v-btn
@@ -38,8 +44,16 @@
                             class="ml-3 font-weight-light text-none"
                           >
                             <span>Eliminar</span>
-                            <span v-if="selected.length === favorites.length" class="ml-1">todos</span>
-                            <span v-else-if="selected.length" class="caption ml-1">({{ selected.length }})</span>
+                            <span
+                              v-if="selected.length === favorites.length"
+                              class="ml-1"
+                              >todos</span
+                            >
+                            <span
+                              v-else-if="selected.length"
+                              class="caption ml-1"
+                              >({{ selected.length }})</span
+                            >
                           </v-btn>
                         </div>
                         <h2 class="ml-auto body-1 font-weight-light grey--text">
@@ -49,64 +63,93 @@
                       <v-divider></v-divider>
                     </v-flex>
 
-                  <!-- favorites list -->
-                  <v-flex xs12 v-for="article in articles" :key="article.id">
-                    <v-layout row align-center justify-start fill-height class="py-4">
-                      <div>
-                        <v-checkbox v-model="selected" :value="article.id"></v-checkbox>
-                      </div>
-                      <v-avatar tile="false" size="150px" v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
-                        <img :src="getImage(article)">
-                      </v-avatar>
-                      <div class="pl-4" style="flex: 1; min-width: 0;">
-                        <router-link
-                          tag="h4"
-                          :to="`/articulo/${article.id}`"
-                          class="title mr-4 mb-3 font-weight-light text-truncate"
-                          :title="article.title"
-                        >
-                          <a style="color: inherit;">{{ article.title }}</a>
-                        </router-link>
+                    <!-- favorites list -->
+                    <v-flex xs12 v-for="article in articles" :key="article.id">
+                      <v-layout
+                        row
+                        align-center
+                        justify-start
+                        fill-height
+                        class="py-4"
+                      >
+                        <div>
+                          <v-checkbox
+                            color="primary"
+                            v-model="selected"
+                            :value="article.id"
+                          ></v-checkbox>
+                        </div>
+                        <figure v-if="$vuetify.breakpoint.smAndUp" class="ml-3">
+                          <img
+                            style="height: 150px; width: 150px; object-fit: contain;"
+                            :src="getImage(article)"
+                          />
+                        </figure>
+                        <div class="pl-4" style="flex: 1; min-width: 0;">
+                          <router-link
+                            tag="h4"
+                            :to="`/articulo/${article.id}`"
+                            class="title mr-4 mb-3 font-weight-light text-truncate"
+                            :title="article.title"
+                          >
+                            <a style="color: inherit;">{{ article.title }}</a>
+                          </router-link>
 
-                        <!-- TODO: make component -->
-                        <p class="price-info w-100 pr-4">
-                          <span class="title font-weight-regular mr-2">{{ price(article) | priceFilter }}</span>
-                          <span class="previous-price subheading grey--text strike-through ml-1" v-if="fluctuation(article)">
+                          <!-- TODO: make component -->
+                          <p class="price-info w-100 pr-4">
+                            <span class="title font-weight-regular mr-2">{{
+                              price(article) | priceFilter
+                            }}</span>
+                            <span
+                              class="previous-price subheading grey--text strike-through ml-1"
+                              v-if="fluctuation(article)"
+                            >
                               {{ previousPrice(article) | priceFilter }}
-                          </span>
-                          <span v-if="fluctuation(article) < 0" class="fluctuation green--text text--lighten-2 ml-3">
-                            <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
-                            <v-icon color="green lighten-2">mood</v-icon>
-                          </span>
-                          <span v-else-if="fluctuation(article) > 0" class="fluctuation red--text text--darken-3 ml-3">
-                            <span class="mr-1">{{ Math.abs(fluctuation(article)) }}%</span>
-                            <v-icon color="red lighten-2">sentiment_very_dissatisfied</v-icon>
-                          </span>
-                        </p>
-
-                      </div>
-                      <div>
-                        <v-btn
-                          v-if="$vuetify.breakpoint.smAndUp"
-                          color="primary"
-                          class="body-1 font-weight-light text-none"
-                          :to="`/articulo/${article.id}`"
+                            </span>
+                            <span
+                              v-if="fluctuation(article) < 0"
+                              class="fluctuation green--text text--lighten-2 ml-3"
+                            >
+                              <span class="mr-1"
+                                >{{ Math.abs(fluctuation(article)) }}%</span
+                              >
+                              <v-icon color="green lighten-2">mood</v-icon>
+                            </span>
+                            <span
+                              v-else-if="fluctuation(article) > 0"
+                              class="fluctuation red--text text--darken-3 ml-3"
+                            >
+                              <span class="mr-1"
+                                >{{ Math.abs(fluctuation(article)) }}%</span
+                              >
+                              <v-icon color="red lighten-2"
+                                >sentiment_very_dissatisfied</v-icon
+                              >
+                            </span>
+                          </p>
+                        </div>
+                        <div
+                          style="display: flex; align-items: center; flex-wrap: wrap;"
                         >
-                          Ver articulo
-                        </v-btn>
-                        <v-btn
-                          v-if="$vuetify.breakpoint.smAndUp"
-                          color="red darken-1"
-                          class="body-1 font-weight-light text-none white--text"
-                          @click="remove([article.id])"
-                        >
-                          Borrar
-                        </v-btn>
-                      </div>
-                    </v-layout>
-                    <v-divider></v-divider>
-                  </v-flex>
+                          <v-btn
+                            v-if="$vuetify.breakpoint.smAndUp"
+                            color="primary"
+                            class="body-1 font-weight-light text-none"
+                            :to="`/articulo/${article.id}`"
+                          >
+                            Ver articulo
+                          </v-btn>
 
+                          <v-icon
+                            medium
+                            v-if="$vuetify.breakpoint.smAndUp"
+                            @click="remove([article.id])"
+                            >delete</v-icon
+                          >
+                        </div>
+                      </v-layout>
+                      <v-divider></v-divider>
+                    </v-flex>
                   </v-layout>
                 </div>
               </div>
@@ -134,7 +177,7 @@ export default {
     ArticleFluctuation,
   },
   metaInfo: {
-    title: 'Favoritos en MercadoTrack'
+    title: 'Favoritos en MercadoTrack',
   },
   computed: {
     ...mapGetters({
@@ -145,31 +188,40 @@ export default {
   },
   methods: {
     ...mapMutations({
-      updateFavorites: 'auth/updateFavorites'
+      updateFavorites: 'auth/updateFavorites',
     }),
-    price (article) { return ArticlesHelper.price(article) },
-    previousPrice (article) { return ArticlesHelper.previousPrice(article) },
-    fluctuation (article) { return ArticlesHelper.fluctuation(article) },
-    getImage (article) {
+    price(article) {
+      return ArticlesHelper.price(article)
+    },
+    previousPrice(article) {
+      return ArticlesHelper.previousPrice(article)
+    },
+    fluctuation(article) {
+      return ArticlesHelper.fluctuation(article)
+    },
+    getImage(article) {
       const [image] = article.images
       return image
     },
-    async remove (ids = this.selected) {
+    async remove(ids = this.selected) {
       const { data: favorites } = await api.removeFavorites(ids)
       this.selected = []
       this.articles = this.articles.filter(article => !ids.includes(article.id))
       this.$store.commit('snackbar/favoritesDeleted', ids.length)
       this.updateFavorites(favorites)
     },
-    selectAll () {
-      if (!this.selected.length || this.selected.length < this.favorites.length) {
+    selectAll() {
+      if (
+        !this.selected.length ||
+        this.selected.length < this.favorites.length
+      ) {
         this.selected = this.articles.map(article => article.id)
       } else {
         this.selected = []
       }
     },
   },
-  mounted () {
+  mounted() {
     const interval = setInterval(async () => {
       if (!this.authenticating) {
         clearInterval(interval)
@@ -182,24 +234,24 @@ export default {
         this.loading = false
       }
     }, 100)
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .price-info,
-  .fluctuation {
-    display: inline-flex;
-    align-items: center;
-  }
+.price-info,
+.fluctuation {
+  display: inline-flex;
+  align-items: center;
+}
 
-  .article-image {
-    border: 1px solid var(--v-background-darken1);
-  }
+.article-image {
+  border: 1px solid var(--v-background-darken1);
+}
 
-  @media screen and (max-width: 375px) {
-    .previous-price {
-      display: none;
-    }
+@media screen and (max-width: 375px) {
+  .previous-price {
+    display: none;
   }
+}
 </style>

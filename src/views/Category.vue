@@ -9,11 +9,14 @@
         <v-flex xs12 v-if="childCategories">
           <v-card class="pa-4 children-card">
             <div v-for="child in childCategories" :key="child._id" class="my-1">
-              <router-link
-                :to="`/busqueda?category=${child._id}`"
-              >
-                <span class="grey--text text--darken-3 child-link font-weight-light">{{ child.name }} </span>
-                <span class="grey--text font-weight-light caption"> ({{ child.articleCount }}) </span>
+              <router-link :to="`/busqueda?category=${child._id}`">
+                <span
+                  class="grey--text text--darken-3 child-link font-weight-light"
+                  >{{ child.name }}
+                </span>
+                <span class="grey--text font-weight-light caption">
+                  ({{ child.articleCount }})
+                </span>
               </router-link>
             </div>
           </v-card>
@@ -28,10 +31,10 @@ import { mapGetters } from 'vuex'
 import { CategoriesHelper } from '../utils'
 
 export default {
-  metaInfo () {
+  metaInfo() {
     if (!this.category) return
     return {
-      title: `${this.category.name} en MercadoTrack`
+      title: `${this.category.name} en MercadoTrack`,
     }
   },
   computed: {
@@ -39,18 +42,21 @@ export default {
       mainCategories: 'meta/mainCategories',
       allChildCategories: 'meta/childCategories',
     }),
-    category () {
-      return this.mainCategories.find((category) => {
-        const categoryKeyName = CategoriesHelper.getCategoryKeyName(category.name)
+    category() {
+      return this.mainCategories.find(category => {
+        const categoryKeyName = CategoriesHelper.getCategoryKeyName(
+          category.name
+        )
         return this.$route.params.category === categoryKeyName
       })
     },
-    childCategories () {
-      return this.allChildCategories.filter((category) => category.parent === this.category._id)
+    childCategories() {
+      return this.allChildCategories.filter(
+        category => category.parent === this.category._id
+      )
     },
   },
 }
-
 </script>
 
 <style lang="scss" scoped>

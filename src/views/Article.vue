@@ -4,11 +4,13 @@
 
     <v-container>
       <v-fade-transition mode="out-in">
-        <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+        <v-progress-linear
+          v-if="loading"
+          :indeterminate="true"
+        ></v-progress-linear>
 
-        <v-card v-else elevation=0>
+        <v-card v-else elevation="0">
           <v-layout row wrap>
-
             <v-flex xs12>
               <ArticleBreadcrumb :categoryId="article.category_id" />
               <v-divider></v-divider>
@@ -21,12 +23,26 @@
             <v-flex xs12 md4 pa-4 class="border-l">
               <div>
                 <h1 class="display-1 d-inline">{{ article.title }}</h1>
-                <figure class="d-inline-flex ml-2 pointer" @click="toggleFavorite" :aria-checked="isFavorite" v-on:keyup.enter="toggleFavorite" aria-label="Add to favorites" tabIndex="0" role="checkbox">
-                  <v-icon v-if="isFavorite" medium color="primary">favorite</v-icon>
+                <figure
+                  class="d-inline-flex ml-2 pointer"
+                  @click="toggleFavorite"
+                  :aria-checked="isFavorite"
+                  v-on:keyup.enter="toggleFavorite"
+                  aria-label="Add to favorites"
+                  tabIndex="0"
+                  role="checkbox"
+                >
+                  <v-icon v-if="isFavorite" medium color="primary"
+                    >favorite</v-icon
+                  >
                   <v-icon v-else medium color="primary">favorite_border</v-icon>
                 </figure>
               </div>
-              <ArticleInfo :article="article" :mlArticle="mlArticle" :mlSeller="mlSeller" />
+              <ArticleInfo
+                :article="article"
+                :mlArticle="mlArticle"
+                :mlSeller="mlSeller"
+              />
             </v-flex>
 
             <v-flex xs12>
@@ -34,16 +50,23 @@
             </v-flex>
 
             <v-flex xs12 class="pa-4" v-if="mlArticle.attributes">
-                <h2 class="headline pointer d-inline-block" @click="expandAttributes = !expandAttributes">
-                  <span>Características</span>
-                  <v-icon color="grey darken-4" v-if="expandAttributes">keyboard_arrow_up</v-icon>
-                  <v-icon color="grey darken-4" v-else>keyboard_arrow_down</v-icon>
-                </h2>
-                <v-expand-transition>
-                  <div v-show="expandAttributes">
-                    <ArticleAttributes :attributes="mlArticle.attributes" />
-                  </div>
-                </v-expand-transition>
+              <h2
+                class="headline pointer d-inline-block"
+                @click="expandAttributes = !expandAttributes"
+              >
+                <span>Características</span>
+                <v-icon color="grey darken-4" v-if="expandAttributes"
+                  >keyboard_arrow_up</v-icon
+                >
+                <v-icon color="grey darken-4" v-else
+                  >keyboard_arrow_down</v-icon
+                >
+              </h2>
+              <v-expand-transition>
+                <div v-show="expandAttributes">
+                  <ArticleAttributes :attributes="mlArticle.attributes" />
+                </div>
+              </v-expand-transition>
             </v-flex>
 
             <v-flex xs12>
@@ -62,7 +85,6 @@
               </h2>
               <ArticlePriceHistory :article="article" :mlArticle="mlArticle" />
             </v-flex>
-
           </v-layout>
         </v-card>
       </v-fade-transition>
@@ -105,9 +127,11 @@ export default {
     expandAttributes: false,
     showContributingModal: false,
   }),
-  metaInfo () {
+  metaInfo() {
     if (!this.article) return
-    const title = `${this.article.title} - ${this.$options.filters.priceFilter(this.article.price)}`
+    const title = `${this.article.title} - ${this.$options.filters.priceFilter(
+      this.article.price
+    )}`
     return {
       title: `${title} en MercadoTrack`,
     }
@@ -117,9 +141,9 @@ export default {
       authenticating: 'auth/authenticating',
       isAuthenticated: 'auth/isAuthenticated',
       favorites: 'auth/favorites',
-      saleEvents: 'meta/saleEvents'
+      saleEvents: 'meta/saleEvents',
     }),
-    hasHistory () {
+    hasHistory() {
       return this.article.history.length > 1
     },
     priceHistory () {
@@ -156,17 +180,17 @@ export default {
       })
 
       return updatedHistory
-    }
+    },
   },
   methods: {
     ...mapMutations({
-      updateFavorites: 'auth/updateFavorites'
+      updateFavorites: 'auth/updateFavorites',
     }),
-    async fetch () {
+    async fetch() {
       const id = this.$route.params.id
-      const promises = [ api.getOrFollowArticle(id), api.getMlArticle(id) ]
+      const promises = [api.getOrFollowArticle(id), api.getMlArticle(id)]
       try {
-        const [ mtRes, mlRes ] = await Promise.all(promises)
+        const [mtRes, mlRes] = await Promise.all(promises)
         this.article = mtRes.data
         this.mlArticle = mlRes.data
         this.showContributingModal = Boolean(mtRes.justFollowed)
@@ -185,7 +209,7 @@ export default {
         }
       }
     },
-    async toggleFavorite (event) {
+    async toggleFavorite(event) {
       event.stopPropagation()
       if (!this.isAuthenticated) {
         login(this.article.id)
@@ -202,11 +226,12 @@ export default {
           this.$store.commit('snackbar/favoritesAdded')
         }
       }
-    }
+    },
   },
-  async mounted () {
+  async mounted() {
     this.loading = true
-    const interval = setInterval(() => { // sorry but it's late
+    const interval = setInterval(() => {
+      // sorry but it's late
       if (!this.authenticating) {
         clearInterval(interval)
         this.fetch()
@@ -216,15 +241,15 @@ export default {
   },
   watch: {
     '$route.params': {
-      async handler () {
+      async handler() {
         this.loading = true
         await this.fetch()
         if (this.article) {
           this.isFavorite = this.favorites.includes(this.article.id)
         }
-      }
+      },
     },
-    favorites (favorites) {
+    favorites(favorites) {
       if (!this.article) return
       this.isFavorite = favorites.includes(this.article.id)
     },
@@ -234,16 +259,15 @@ export default {
 
 <style scoped>
 .border-r {
-  border-right: 1px solid rgba(0,0,0,.12);
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .border-l {
-  border-left: 1px solid rgba(0,0,0,.12);
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .history {
   display: flex;
   align-items: center;
 }
-
 </style>
