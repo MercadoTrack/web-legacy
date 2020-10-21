@@ -39,7 +39,7 @@ export class ArticlesHelper {
   static snapshotSaleEvents = (date, saleEvents) => {
     const snapshotDate = moment(date, 'DD/MM/YYYY')
     const matchingEvents = saleEvents.filter(event => {
-      const saleStartDate = moment(event.start).subtract(DAYS_BEFORE_SALE, 'days')
+      const saleStartDate = moment(event.start)
       const saleEndDate = moment(event.end)
       return snapshotDate.isBetween(saleStartDate, saleEndDate, undefined, '[]')
     })
@@ -54,5 +54,40 @@ export class ArticlesHelper {
       return from.isSameOrBefore(moment(event.end)) && to.isAfter(moment(event.start))
     })
     return matchingEvents || []
+  }
+
+  static insertSaleEventSnapshots = (saleEvent, priceHistory) => {
+    const saleEventStartDate = moment(saleEvent.start)
+    const saleEventEndDate = moment(saleEvent.end)
+    const saleDaysAmount = saleEventEndDate.diff(saleEventStartDate, 'days')
+
+    this.insertSaleEventSnapshotIfmissing(saleEvent.start, saleEvent.name, saleEvent.color, priceHistory)
+
+    for (let index = 0; index <= saleDaysAmount - 1; index++) {
+      saleEventStartDate.add(1, 'days')
+      this.insertSaleEventSnapshotIfmissing(saleEventStartDate, saleEvent.name, saleEvent.color, priceHistory)
+    }
+  }
+
+  static insertSaleEventSnapshotIfmissing = (date, event, color, priceHistory) => {
+    const saleEventDate = moment(date).format('DD/MM/YYYY')
+    const existingSnapshot = priceHistory.find(snapshot => { return snapshot.date === saleEventDate })
+    if (!existingSnapshot) {
+      const previousSnapshots = priceHistory.filter(snapshot => {
+        return moment(snapshot.date, 'DD/MM/YYYY').isBefore(date)
+      })
+
+      const lastPrice = previousSnapshots[previousSnapshots.length - 1].price
+      const newSnapshot = {
+        date: saleEventDate,
+        event,
+        color,
+        original_price: null,
+        price: lastPrice,
+        hideTooltip: true
+      }
+
+      priceHistory.splice(previousSnapshots.length, 0, newSnapshot)
+    }
   }
 }

@@ -107,31 +107,41 @@ export default {
       ? [...this.history, todaySnapshot]
       : this.history
 
+    const maxPrice = Math.max(...history.map(({ price }) => price))
+    const myColors = history.map(({ color }) => { return color })
     this.chart = new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: {
         labels: history.map(({ date, event }) => { return event ? `${event} - ${date}` : date }),
-        datasets: [{
-          label: 'Precio',
-          data: history.map(({ price }) => price),
-          borderColor: this.$vuetify.theme.primary,
-          backgroundColor: this.$vuetify.theme.primary,
-          borderWidth: 1,
-          pointHitRadius: 17,
-          hoverBorderWidth: 2, // for accessibility
-          hoverBorderColor: '#00288a', // for accessibility
-          trendlineLinear: (history.length > 2) && {
-            style: '#64aa64',
-            lineStyle: 'dotted',
-            width: 2
-          }
-        }]
+        datasets: [
+          {
+            data: history.map(({ price }) => price),
+            type: 'line',
+            borderColor: this.$vuetify.theme.primary,
+            backgroundColor: this.$vuetify.theme.primary,
+            borderWidth: 1,
+            pointHitRadius: 17,
+            steppedLine: 'middle',
+            hoverBorderWidth: 2, // for accessibility
+            hoverBorderColor: '#00288a', // for accessibility
+            trendlineLinear: (history.length > 2) && {
+              style: '#64aa64',
+              lineStyle: 'dotted',
+              width: 2
+            }
+          },
+          {
+            data: history.map(({ date, event }) => { return event ? maxPrice : 0 }),
+            backgroundColor: myColors,
+          }]
       },
       options: {
         tooltips: {
           callbacks: {
-            label: (tooltipItem) => {
-              return this.formatCurrency(tooltipItem.yLabel)
+
+            label: (t, d) => {
+              const price = d.datasets[0].data[t.index]
+              return this.formatCurrency(price)
             }
           },
           custom: (tooltip) => {
@@ -153,10 +163,15 @@ export default {
           yAxes: [{
             ticks: {
               beginAtZero: false,
+              precision: 0,
               callback: (label, index, labels) => {
                 return this.formatCurrency(label)
               }
             }
+          }],
+          xAxes: [{
+            categoryPercentage: 1,
+            barPercentage: 1
           }]
         }
       }
