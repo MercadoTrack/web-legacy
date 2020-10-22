@@ -91,8 +91,15 @@
         >
           <router-link to="/" class="d-flex">
             <img
+              v-if="$vuetify.breakpoint.smAndUp"
               height="16"
               src="../../assets/mtrack_icon.png"
+              alt="Icono MercadoTrack"
+            />
+            <img
+              v-else
+              width="48"
+              src="../../assets/mtrack_logo.png"
               alt="Icono MercadoTrack"
             />
           </router-link>
