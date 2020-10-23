@@ -109,7 +109,7 @@
           ref="searchInput"
           height="40"
           append-icon="search"
-          label="Buscar o pegar link"
+          label="Buscar o pegar link de ML Argentina"
           v-model="searchTerm"
           @keyup.enter="search()"
           @click:append="search()"

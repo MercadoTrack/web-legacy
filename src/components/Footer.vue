@@ -24,7 +24,7 @@
         >Términos y condiciones de uso</span
       >
     </router-link>
-    <span>MercadoTrack &copy; {{ new Date().getFullYear() }}</span>
+    <span>MercadoTrack &copy; {{ new Date().getFullYear() }} Argentina</span>
   </v-footer>
 </template>
 
