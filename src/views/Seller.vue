@@ -54,7 +54,7 @@
                     <v-list-tile-content>
                       <v-list-tile-title class="subtitle">{{ seller.seller_reputation.level_id}}</v-list-tile-title>
                       <v-list-tile-sub-title class="font-weight-light">
-                        MercadoLibre <span class="text-capitalize">{{ sellerStatus }}</span>
+                        MercadoLibre Argentina<span class="text-capitalize">{{ sellerStatus }}</span>
                       </v-list-tile-sub-title>
                     </v-list-tile-content>
                   </v-list-tile>

@@ -32,7 +32,7 @@
               <v-icon>call_made</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title role="link" tabIndex="0" @click="goToMLArticle()" v-on:keyup.enter="goToMLArticle()" >Ver en MercadoLibre</v-list-tile-title>
+              <v-list-tile-title role="link" tabIndex="0" @click="goToMLArticle()" v-on:keyup.enter="goToMLArticle()" >Ver en MercadoLibre Argentina</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
 
