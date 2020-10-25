@@ -20,7 +20,7 @@
           <v-stepper-content step="1">
             <p>
               En nuestra plataforma vas a poder acceder, en tiempo real, a los
-              cambios en los precios de las publicaciones de MercadoLibre.
+              cambios en los precios de las publicaciones de MercadoLibre Argentina.
             </p>
             <p>
               La información del sitio es actualizada constantemente para que
@@ -28,9 +28,9 @@
             </p>
             <p class="font-weight-bold">
               Es importante que sepas que MercadoTrack no esta relacionado de
-              ninguna manera con MercadoLibre. Somos un grupo independiente, la
+              ninguna manera con MercadoLibre Argentina. Somos un grupo independiente, la
               información que vas a encontrar en nuestro sitio es obtenida
-              mediante la API pública de MercadoLibre.
+              mediante la API pública de MercadoLibre Argentina.
             </p>
             <v-btn color="primary" @click="step = 2">¿Cómo se usa?</v-btn>
             <v-btn color="primary" @click="hide">Ver mas tarde</v-btn>
@@ -52,7 +52,7 @@
             <v-img class="mb-2" :src="images.categories"></v-img>
             <v-divider class="mb-3" />
             <p>
-              Si te interesa un artículo de MercadoLibre en particular, también
+              Si te interesa un artículo de MercadoLibre Argentina en particular, también
               podes copiar y pegar su link en nuestra barra de búsqueda y
               presionar ´enter´.
             </p>

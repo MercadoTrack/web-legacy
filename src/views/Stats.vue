@@ -10,10 +10,10 @@
                 productos trackeados, nuestro proceso de sincronización se está
                 ejecutando las <b>24Hs</b> del día de manera constante,
                 chequeando cada variación de precio que los vendedores hagan en
-                MercadoLibre.
+                MercadoLibre Argentina.
               </p>
               <p class="subheading mb-0">
-                Para ello utilizamos las APIs <b>públicas</b> de MercadoLibre.
+                Para ello utilizamos las APIs <b>públicas</b> de MercadoLibre Argentina.
                 De esta forma te garantizamos que nuestra fuente de información
                 es <b>confiable</b> y <b>transparente</b>.
               </p>
