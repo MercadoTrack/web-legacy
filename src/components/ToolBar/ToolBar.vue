@@ -111,6 +111,12 @@
           hide-details
           light
         ></v-text-field>
+        <!-- <v-select
+          class="ml-auto"
+          :items="countryList"
+          label="Pais"
+          solo
+        ></v-select> -->
         <v-btn
           v-if="$vuetify.breakpoint.mdAndUp"
           to="/stats"
@@ -152,6 +158,7 @@ export default {
   data: () => ({
     drawer: false,
     searchTerm: '',
+    countryList: ['Argentina', 'Brasil', 'Peru']
   }),
   computed: {
     ...mapGetters({
