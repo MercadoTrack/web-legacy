@@ -8,7 +8,7 @@ module.exports = {
     'comma-dangle': 'off',
     'space-before-function-paren': 'off',
     'no-trailing-spaces': 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
   globals: {
