@@ -87,7 +87,7 @@
         "
       >
         <v-toolbar-title
-          :class="`${$vuetify.breakpoint.smAndUp ? 'ml-3 mr-3' : 'mr-1'}`"
+          :class="`${$vuetify.breakpoint.smAndUp ? 'ml-3 mr-4' : 'mr-1'}`"
         >
           <router-link to="/" class="d-flex">
             <img
@@ -104,18 +104,6 @@
             />
           </router-link>
         </v-toolbar-title>
-        <v-tooltip v-if="!$vuetify.breakpoint.smAndDown" bottom>
-          <template v-slot:activator="{ on }">
-              <v-img
-                v-on="on"
-                max-height="30"
-                max-width="30"
-                :class="`${$vuetify.breakpoint.smAndUp ? ' mr-3' : 'mr-1'}`"
-                :src="countries.argentina"
-              ></v-img>
-            </template>
-            <span>Proximamente tambien en otros paises!</span>
-        </v-tooltip>
         <v-text-field
           :class="$vuetify.breakpoint.smAndUp ? 'max-width-40' : 'ml-1'"
           ref="searchInput"
@@ -130,7 +118,6 @@
           hide-details
           light
         ></v-text-field>
-
         <v-btn
           v-if="$vuetify.breakpoint.mdAndUp"
           to="/stats"
@@ -162,7 +149,6 @@ import MyAccountList from './MyAccountList'
 import NavigationDrawerList from './NavigationDrawerList'
 import { isLink } from '../../utils'
 import { login } from '../../utils/auth'
-import * as countries from '../../assets/countries'
 
 export default {
   components: {
@@ -171,7 +157,6 @@ export default {
     MyAccountList,
   },
   data: () => ({
-    countries,
     drawer: false,
     searchTerm: '',
   }),
