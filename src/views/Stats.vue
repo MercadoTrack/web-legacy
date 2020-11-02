@@ -3,7 +3,15 @@
     <v-container>
       <v-layout wrap justify-center>
         <v-fade-transition mode="out-in" tag="div" class="flex xs12">
-          <v-flex v-if="etc" xs12>
+          <div
+            v-if="!total"
+            class="subheading mt-4"
+            style="text-align: center;"
+          >
+            Hubo un problema al cargar las estadisticas, por favor volve a
+            intentar mas tarde.
+          </div>
+          <v-flex v-else-if="etc" xs12>
             <div class="px-2 mt-3 mb-5">
               <p class="subheading mb-3">
                 Para poder mostrarte siempre los precios actualizados de los
@@ -13,9 +21,9 @@
                 MercadoLibre Argentina.
               </p>
               <p class="subheading mb-0">
-                Para ello utilizamos las APIs <b>públicas</b> de MercadoLibre Argentina.
-                De esta forma te garantizamos que nuestra fuente de información
-                es <b>confiable</b> y <b>transparente</b>.
+                Para ello utilizamos las APIs <b>públicas</b> de MercadoLibre
+                Argentina. De esta forma te garantizamos que nuestra fuente de
+                información es <b>confiable</b> y <b>transparente</b>.
               </p>
             </div>
             <v-layout wrap justify-center align-center>
@@ -110,6 +118,7 @@ export default {
   methods: {
     getSync() {
       return api.getSyncStatus().then(({ data }) => {
+        if (!data) return
         const [, processed, total] = data.progress.progress.match(
           /(\d+)\/(\d+)/
         )
