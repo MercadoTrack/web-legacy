@@ -98,6 +98,7 @@
             />
             <img
               v-else
+              height="48"
               width="48"
               src="../../assets/mtrack_logo.png"
               alt="Icono MercadoTrack"
@@ -106,15 +107,15 @@
         </v-toolbar-title>
         <v-tooltip v-if="!$vuetify.breakpoint.smAndDown" bottom>
           <template v-slot:activator="{ on }">
-              <v-img
-                v-on="on"
-                max-height="30"
-                max-width="30"
-                :class="`${$vuetify.breakpoint.smAndUp ? ' mr-3' : 'mr-1'}`"
-                :src="countries.argentina"
-              ></v-img>
-            </template>
-            <span>Proximamente tambien en otros paises!</span>
+            <v-img
+              v-on="on"
+              max-height="30"
+              max-width="30"
+              :class="`${$vuetify.breakpoint.smAndUp ? ' mr-3' : 'mr-1'}`"
+              :src="countries.argentina"
+            ></v-img>
+          </template>
+          <span>Proximamente tambien en otros paises!</span>
         </v-tooltip>
         <v-text-field
           :class="$vuetify.breakpoint.smAndUp ? 'max-width-40' : 'ml-1'"
