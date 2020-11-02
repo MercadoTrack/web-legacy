@@ -27,9 +27,12 @@
                 </v-layout>
               </router-link>
             </template>
-            <div v-else class="mb-5">
+            <div v-else class="mb-2">
               <h2 class="headline font-weight-light ml-2">
-                {{ category.name }}
+                <v-icon style="font-size: 2rem" color="primary">{{
+                  getCategoryIcon(category)
+                }}</v-icon>
+                <span class="ml-3">{{ category.name }} </span>
                 <router-link
                   :to="getCategoryLink(category)"
                   class="ml-2 subheading primary--text"
