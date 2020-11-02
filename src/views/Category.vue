@@ -14,7 +14,10 @@
                   class="grey--text text--darken-3 child-link font-weight-light"
                   >{{ child.name }}
                 </span>
-                <span class="grey--text font-weight-light caption">
+                <span
+                  class="grey--text font-weight-light caption"
+                  v-if="child.articleCount"
+                >
                   ({{ child.articleCount }})
                 </span>
               </router-link>
