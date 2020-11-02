@@ -1,7 +1,7 @@
 import api from '../api'
 
-const limit = 30
-const generateParams = (query) => ({
+const limit = 9
+const generateParams = query => ({
   ...query,
   limit,
   page: query.page || 1,
@@ -17,7 +17,7 @@ export default {
     error: null,
   },
   mutations: {
-    loading: (state) => {
+    loading: state => {
       state.error = null
       state.loading = true
       state.result = null
@@ -32,14 +32,14 @@ export default {
       state.result = null
       state.error = error
     },
-    reset: (state) => {
+    reset: state => {
       state.loading = false
       state.result = null
       state.error = null
     },
   },
   actions: {
-    async paginate ({ commit, state }, query) {
+    async paginate({ commit, state }, query) {
       if (state.loading) return
       commit('loading')
       const params = generateParams(query)
@@ -49,18 +49,18 @@ export default {
       } catch (error) {
         commit('fail', error)
       }
-    }
+    },
   },
   getters: {
-    totalPages: (state) => state.result && ~~(state.result.total / limit),
+    totalPages: state => state.result && ~~(state.result.total / limit),
     truncatedTotalPages: (state, getters) => {
       if (!state.result) return
       const currentPage = ~~(state.result.skip / limit)
       const truncatedTotalPages = currentPage + 9
       return Math.min(truncatedTotalPages, getters.totalPages)
     },
-    loading: (state) => state.loading,
-    result: (state) => state.result,
-    error: (state) => state.error,
-  }
+    loading: state => state.loading,
+    result: state => state.result,
+    error: state => state.error,
+  },
 }

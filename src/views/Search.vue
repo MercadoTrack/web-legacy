@@ -12,7 +12,7 @@
               md4
               xl3
               :class="$vuetify.breakpoint.xs ? 'pa-1' : 'pa-3'"
-              v-for="n in 30"
+              v-for="n in 9"
               :key="n"
             >
               <EmptyArticleCard />
