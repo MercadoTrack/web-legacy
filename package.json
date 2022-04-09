@@ -25,7 +25,7 @@
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "material-design-icons-iconfont": "^5.0.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "node-sass": "^4.14.1",
     "query-string": "^6.13.6",
     "sass-loader": "^9.0.3",
